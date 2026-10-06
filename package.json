@@ -57,10 +57,10 @@
     "@types/node": "^22.18.0",
     "esbuild": "^0.28.2",
     "typescript": "^5.9.3",
-    "@50heads/login": "0.0.0",
     "@50heads/shared": "0.0.0",
-    "@50heads/tsconfig": "0.0.0",
-    "@50heads/brand": "0.0.0"
+    "@50heads/login": "0.0.0",
+    "@50heads/brand": "0.0.0",
+    "@50heads/tsconfig": "0.0.0"
   },
   "scripts": {
     "generate": "node scripts/generate.ts",
