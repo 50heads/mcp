@@ -1,0 +1,73 @@
+{
+  "name": "@50heads/mcp",
+  "version": "2026.1006.1",
+  "mcpName": "com.50heads/mcp",
+  "description": "50heads MCP: ask fifty verified real people from Claude, ChatGPT, Cursor or your own agent.",
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "50heads",
+    "human feedback",
+    "agent skill"
+  ],
+  "homepage": "https://50heads.com/docs/mcp",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/50heads/mcp.git"
+  },
+  "bugs": "https://github.com/50heads/mcp/issues",
+  "license": "MIT",
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "bin": {
+    "50heads-mcp": "dist/cli.js"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/types/public.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./skills/*": "./skills/*",
+    "./server.json": "./server.json",
+    "./package.json": "./package.json",
+    "./snippets": {
+      "types": "./dist/types/snippets.d.ts",
+      "default": "./dist/snippets.js"
+    }
+  },
+  "files": [
+    "dist",
+    "skills",
+    "server.json",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/server": "2.0.0",
+    "zod": "^4.6.5"
+  },
+  "devDependencies": {
+    "@modelcontextprotocol/client": "2.2.0",
+    "@types/node": "^22.18.0",
+    "esbuild": "^0.28.2",
+    "typescript": "^5.9.3",
+    "@50heads/login": "0.0.0",
+    "@50heads/shared": "0.0.0",
+    "@50heads/tsconfig": "0.0.0",
+    "@50heads/brand": "0.0.0"
+  },
+  "scripts": {
+    "generate": "node scripts/generate.ts",
+    "build": "node scripts/build.ts",
+    "typecheck": "tsc -p tsconfig.json",
+    "test": "node --test \"src/**/*.test.ts\" \"scripts/**/*.test.ts\"",
+    "release": "node scripts/release.ts"
+  },
+  "types": "./dist/types/public.d.ts"
+}

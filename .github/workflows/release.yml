@@ -1,0 +1,144 @@
+# Publishes the packed package in this public repository to npm with provenance.
+# The 50heads monorepo builds and packs the tarball, then pushes this tree. This
+# workflow is the only npm publish. Trusted publishing is the credential:
+# on the package's npm settings, the GitHub Actions publisher is this
+# repository, workflow filename release.yml (this file's name), environment
+# left blank, and "npm publish" allowed. Publishers created after 3 September
+# 2026 allow only staged publishes until that box is ticked.
+#
+# npm signs provenance only for a public repository whose URL matches
+# package.json "repository". There is no token and no retry without provenance.
+# Requires the npm CLI 11.5.1 or later (installed below) and a GitHub-hosted runner.
+
+name: Release
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      dry-run:
+        description: "Pack only. Do not publish, tag or cut a GitHub Release"
+        required: false
+        default: false
+        type: boolean
+
+concurrency:
+  group: release
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  publish:
+    name: Publish to npm with provenance
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      id-token: write # OIDC for npm trusted publishing and provenance
+      contents: write # tag and GitHub Release
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          registry-url: "https://registry.npmjs.org"
+
+      - name: Install npm 11 (trusted publishing needs 11.5.1 or later)
+        run: npm install -g npm@11
+
+      - name: Read the package
+        id: pkg
+        run: |
+          set -euo pipefail
+          name="$(jq -r .name package.json)"
+          version="$(jq -r .version package.json)"
+          tag="$(jq -r '.tag // "latest"' .github/npm-publish.json)"
+          {
+            echo "name=${name}"
+            echo "version=${version}"
+            echo "tag=${tag}"
+          } >> "$GITHUB_OUTPUT"
+          echo "### \`${name}@${version}\` (dist-tag \`${tag}\`)" >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Skip when npm already has this version
+        id: skip
+        run: |
+          set -euo pipefail
+          got="$(npm view "${{ steps.pkg.outputs.name }}@${{ steps.pkg.outputs.version }}" version 2>/dev/null || true)"
+          if [ "$got" = "${{ steps.pkg.outputs.version }}" ]; then
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+            echo "npm already has ${{ steps.pkg.outputs.version }}. Not publishing again." >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "skip=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Dry run pack
+        if: github.event_name == 'workflow_dispatch' && inputs.dry-run == true
+        run: |
+          npm publish --access public --provenance --tag "${{ steps.pkg.outputs.tag }}" --dry-run
+          echo "> Dry run: nothing was published." >> "$GITHUB_STEP_SUMMARY"
+
+      # setup-node writes an _authToken line that points at NODE_AUTH_TOKEN.
+      # An empty token makes npm skip OIDC. Trusted publishing needs the line gone.
+      - name: Publish to npm
+        if: steps.skip.outputs.skip != 'true' && (github.event_name != 'workflow_dispatch' || inputs.dry-run != true)
+        env:
+          DIST_TAG: ${{ steps.pkg.outputs.tag }}
+        run: |
+          set -euo pipefail
+          if [ -f .npmrc ]; then
+            grep -v '_authToken' .npmrc > .npmrc.oidc || true
+            mv .npmrc.oidc .npmrc
+          fi
+          if ! npm publish --access public --provenance --tag "$DIST_TAG"; then
+            echo "::error::npm publish failed. On the package's Trusted Publisher, set GitHub Actions, repository ${GITHUB_REPOSITORY}, workflow filename release.yml, environment blank, and allow npm publish."
+            exit 1
+          fi
+          echo "Published with provenance from \`${GITHUB_REPOSITORY}\`." >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Tag and GitHub Release
+        if: github.event_name != 'workflow_dispatch' || inputs.dry-run != true
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NAME: ${{ steps.pkg.outputs.name }}
+          VERSION: ${{ steps.pkg.outputs.version }}
+          DIST: ${{ steps.pkg.outputs.tag }}
+        run: |
+          set -euo pipefail
+          TAG="v${VERSION}"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          if git ls-remote --exit-code --tags origin "refs/tags/${TAG}" >/dev/null 2>&1; then
+            echo "Tag \`${TAG}\` already exists." >> "$GITHUB_STEP_SUMMARY"
+          else
+            git tag -a "$TAG" -m "${NAME} ${VERSION}"
+            git push origin "$TAG"
+            echo "Pushed tag \`${TAG}\`." >> "$GITHUB_STEP_SUMMARY"
+          fi
+          if gh release view "$TAG" >/dev/null 2>&1; then
+            echo "GitHub Release \`${TAG}\` already exists." >> "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
+          mkdir -p release
+          npm pack --pack-destination release >/dev/null
+          assets=(release/*.tgz)
+          if [ -f server.json ]; then
+            cp server.json release/server.json
+            assets+=(release/server.json)
+          fi
+          if [ -f skills/50heads.zip ]; then
+            cp skills/50heads.zip "release/50heads-skill-${VERSION}.zip"
+            assets+=("release/50heads-skill-${VERSION}.zip")
+          fi
+          flags=()
+          if [ "$DIST" != "latest" ]; then flags+=(--prerelease); fi
+          notes=".github/release-notes.md"
+          if [ -f "$notes" ]; then
+            gh release create "$TAG" --title "${NAME} ${VERSION}" --notes-file "$notes" "${flags[@]}" "${assets[@]}"
+          else
+            gh release create "$TAG" --title "${NAME} ${VERSION}" --generate-notes "${flags[@]}" "${assets[@]}"
+          fi
+          echo "Created GitHub Release \`${TAG}\`." >> "$GITHUB_STEP_SUMMARY"
