@@ -66,6 +66,7 @@ export declare function clientName(ctx: ServerContext): string | undefined;
 export declare function createServer(opts: ServerOptions): McpServer;
 /**
  * A first draft from a goal and assets: two image URLs make an A or B question; listed
- * options make a single choice; otherwise a yes, mostly or no check. The model refines it.
+ * options make a single choice; otherwise a yes or no check. The model refines it. Mostly is
+ * yes_mostly_no, and only when the asker asks for that middle answer.
  */
 export declare function draftFromGoal(goal: string, assets?: string): Record<string, unknown>;

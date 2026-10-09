@@ -4,7 +4,7 @@
  */
 export declare const REGISTRY_NAME = "com.50heads/mcp";
 export declare const NPM_PACKAGE = "@50heads/mcp";
-export declare const DESCRIPTION = "Ask fifty verified real people a five-second question and get the split back.";
+export declare const DESCRIPTION = "Ask fifty verified people a five-second question and get the split back.";
 export type ManifestOptions = {
     /** The hosted endpoint, https://mcp.50heads.com/mcp. */
     endpoint?: string;

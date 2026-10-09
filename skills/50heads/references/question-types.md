@@ -4,7 +4,7 @@ Every question has `type`, `text` (8 to 600 characters), `language` (such as `en
 
 The format multiplier is part of the price: per answer = tier base × length × format, plus 5 credits an image.
 
-Five-second test: add `exposure_ms` (usually 5000) to an image stimulus on single_choice, multi_choice, yes_mostly_no, scale_1_5, reaction or free_text. The app shows the image for that long, hides it, then asks, so the answer is a first impression or what people remember. × 1.3.
+Five-second test: add `exposure_ms` (usually 5000) to an image stimulus on single_choice, multi_choice, yes_no, yes_mostly_no, scale_1_5, reaction or free_text. The app shows the image for that long, hides it, then asks, so the answer is a first impression or what people remember. × 1.3.
 Every type except `free_text` can ask for a short written reason with each answer: `reason: "optional"` (format + 0.3) or `"required"` (format + 0.6), 10 to 140 characters. Reasons come back on each answer, translated into your language when heads wrote in another, and `get_results` summarises them (themes with counts and quotes, a sentiment split and a takeaway). Use it instead of a follow-up when you want the which and the why from the same heads.
 
 ## Single choice (`single_choice`)
@@ -161,9 +161,26 @@ Every type except `free_text` can ask for a short written reason with each answe
 }
 ```
 
+## Yes or no (`yes_no`)
+
+- Use: A binary check. Heads answer Yes or No. This is the yes/no type. For a middle answer, use yes_mostly_no.
+- Options: Fixed: Yes, No. Do not send options.
+- Answer: Yes or No.
+- Tier: any. Format × 1.0.
+
+```json
+{
+  "type": "yes_no",
+  "text": "Does this button label tell you what will happen?",
+  "context": "Button: Save and continue",
+  "language": "en",
+  "n": 50
+}
+```
+
 ## Yes, mostly or no (`yes_mostly_no`)
 
-- Use: A quick check with room for a middle answer: does this make sense, would you trust it.
+- Use: Yes, Mostly or No. Set this type when you want the middle answer. A plain yes/no question is yes_no.
 - Options: Fixed: Yes, Mostly, No. Do not send options.
 - Answer: One of the three.
 - Tier: any. Format × 1.0.

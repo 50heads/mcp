@@ -8,7 +8,8 @@ The core loop is `estimate`, `ask`, then the task (or `wait_for_results`) and `g
 - `list_audiences`: interest audiences, panels of heads who proved they fit (UK commuter cyclists, for example). Put an id in `question.audience` to ask one instead of targeting; the price is the audience's at the minimum grade.
 - `list_targeting`: countries with the languages their heads read and pool size bands, and the tag ids you can target at Tier 2 and 3. Each condition shrinks the pool; `estimate` shows `pool_size`.
 - `build_ask_link`: when a person should press Ask themselves, give them this link. It opens the portal composer with the question filled in and asks nothing. It also opens a template (`template_id`), a follow-up (`follow_up_of`) or a re-ask of the unanswered part (`reask`).
-- `templates` and `list_questions`: a fixed-price template may fit, and a recent answer may already cover the question.
+- `templates` and `list_questions`: a fixed-price template may fit, and a recent answer may already cover the question. `list_questions` takes `set_id` to list one set's questions in order.
+- `ask_set`: two to ten questions for the person's own audience behind one link, answered in order, about five seconds each. Same question shapes as `ask` without tier, rush, targeting, reasons or free text; `max_answers`, `open_for_days`, `shown_as` and `public_results` are set once for the set. Returns the link, the `question_ids` in order and the reserve (questions × max answers × 5 credits). Results are per question.
 
 ## After the answers
 

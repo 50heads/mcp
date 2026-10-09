@@ -60,6 +60,13 @@ export declare const QuestionInput: z.ZodDiscriminatedUnion<[z.ZodObject<{
         political: "political";
         none: "none";
     }>>;
+    answered_by: z.ZodOptional<z.ZodEnum<{
+        heads: "heads";
+        private: "private";
+    }>>;
+    open_for_days: z.ZodOptional<z.ZodUnion<readonly [z.ZodLiteral<1>, z.ZodLiteral<7>, z.ZodLiteral<14>, z.ZodLiteral<30>]>>;
+    shown_as: z.ZodOptional<z.ZodString>;
+    public_results: z.ZodOptional<z.ZodBoolean>;
     context: z.ZodOptional<z.ZodString>;
     language: z.ZodOptional<z.ZodString>;
     stimulus: z.ZodOptional<z.ZodObject<{
@@ -112,6 +119,13 @@ export declare const QuestionInput: z.ZodDiscriminatedUnion<[z.ZodObject<{
         political: "political";
         none: "none";
     }>>;
+    answered_by: z.ZodOptional<z.ZodEnum<{
+        heads: "heads";
+        private: "private";
+    }>>;
+    open_for_days: z.ZodOptional<z.ZodUnion<readonly [z.ZodLiteral<1>, z.ZodLiteral<7>, z.ZodLiteral<14>, z.ZodLiteral<30>]>>;
+    shown_as: z.ZodOptional<z.ZodString>;
+    public_results: z.ZodOptional<z.ZodBoolean>;
     context: z.ZodOptional<z.ZodString>;
     language: z.ZodOptional<z.ZodString>;
     stimulus: z.ZodOptional<z.ZodObject<{
@@ -165,6 +179,13 @@ export declare const QuestionInput: z.ZodDiscriminatedUnion<[z.ZodObject<{
         political: "political";
         none: "none";
     }>>;
+    answered_by: z.ZodOptional<z.ZodEnum<{
+        heads: "heads";
+        private: "private";
+    }>>;
+    open_for_days: z.ZodOptional<z.ZodUnion<readonly [z.ZodLiteral<1>, z.ZodLiteral<7>, z.ZodLiteral<14>, z.ZodLiteral<30>]>>;
+    shown_as: z.ZodOptional<z.ZodString>;
+    public_results: z.ZodOptional<z.ZodBoolean>;
     context: z.ZodOptional<z.ZodString>;
     language: z.ZodOptional<z.ZodString>;
     stimulus: z.ZodOptional<z.ZodObject<{
@@ -218,6 +239,13 @@ export declare const QuestionInput: z.ZodDiscriminatedUnion<[z.ZodObject<{
         political: "political";
         none: "none";
     }>>;
+    answered_by: z.ZodOptional<z.ZodEnum<{
+        heads: "heads";
+        private: "private";
+    }>>;
+    open_for_days: z.ZodOptional<z.ZodUnion<readonly [z.ZodLiteral<1>, z.ZodLiteral<7>, z.ZodLiteral<14>, z.ZodLiteral<30>]>>;
+    shown_as: z.ZodOptional<z.ZodString>;
+    public_results: z.ZodOptional<z.ZodBoolean>;
     context: z.ZodOptional<z.ZodString>;
     language: z.ZodOptional<z.ZodString>;
     stimulus: z.ZodOptional<z.ZodObject<{
@@ -266,6 +294,13 @@ export declare const QuestionInput: z.ZodDiscriminatedUnion<[z.ZodObject<{
         political: "political";
         none: "none";
     }>>;
+    answered_by: z.ZodOptional<z.ZodEnum<{
+        heads: "heads";
+        private: "private";
+    }>>;
+    open_for_days: z.ZodOptional<z.ZodUnion<readonly [z.ZodLiteral<1>, z.ZodLiteral<7>, z.ZodLiteral<14>, z.ZodLiteral<30>]>>;
+    shown_as: z.ZodOptional<z.ZodString>;
+    public_results: z.ZodOptional<z.ZodBoolean>;
     context: z.ZodOptional<z.ZodString>;
     language: z.ZodOptional<z.ZodString>;
     stimulus: z.ZodOptional<z.ZodObject<{
@@ -318,6 +353,13 @@ export declare const QuestionInput: z.ZodDiscriminatedUnion<[z.ZodObject<{
         political: "political";
         none: "none";
     }>>;
+    answered_by: z.ZodOptional<z.ZodEnum<{
+        heads: "heads";
+        private: "private";
+    }>>;
+    open_for_days: z.ZodOptional<z.ZodUnion<readonly [z.ZodLiteral<1>, z.ZodLiteral<7>, z.ZodLiteral<14>, z.ZodLiteral<30>]>>;
+    shown_as: z.ZodOptional<z.ZodString>;
+    public_results: z.ZodOptional<z.ZodBoolean>;
     context: z.ZodOptional<z.ZodString>;
     language: z.ZodOptional<z.ZodString>;
     stimulus: z.ZodOptional<z.ZodObject<{
@@ -366,6 +408,68 @@ export declare const QuestionInput: z.ZodDiscriminatedUnion<[z.ZodObject<{
         political: "political";
         none: "none";
     }>>;
+    answered_by: z.ZodOptional<z.ZodEnum<{
+        heads: "heads";
+        private: "private";
+    }>>;
+    open_for_days: z.ZodOptional<z.ZodUnion<readonly [z.ZodLiteral<1>, z.ZodLiteral<7>, z.ZodLiteral<14>, z.ZodLiteral<30>]>>;
+    shown_as: z.ZodOptional<z.ZodString>;
+    public_results: z.ZodOptional<z.ZodBoolean>;
+    context: z.ZodOptional<z.ZodString>;
+    language: z.ZodOptional<z.ZodString>;
+    stimulus: z.ZodOptional<z.ZodObject<{
+        image_url: z.ZodOptional<z.ZodURL>;
+        text: z.ZodOptional<z.ZodString>;
+        exposure_ms: z.ZodOptional<z.ZodNumber>;
+    }, z.core.$strip>>;
+    n: z.ZodOptional<z.ZodNumber>;
+    tier: z.ZodOptional<z.ZodNumber>;
+    rush: z.ZodOptional<z.ZodBoolean>;
+    targeting: z.ZodOptional<z.ZodObject<{
+        country: z.ZodOptional<z.ZodArray<z.ZodString>>;
+        tags: z.ZodOptional<z.ZodArray<z.ZodString>>;
+        age_bands: z.ZodOptional<z.ZodArray<z.ZodEnum<{
+            "18-24": "18-24";
+            "25-34": "25-34";
+            "35-44": "35-44";
+            "45-54": "45-54";
+            "55-64": "55-64";
+            "65+": "65+";
+        }>>>;
+        genders: z.ZodOptional<z.ZodArray<z.ZodEnum<{
+            woman: "woman";
+            man: "man";
+            non_binary: "non_binary";
+        }>>>;
+        verified_age: z.ZodOptional<z.ZodBoolean>;
+    }, z.core.$strip>>;
+    audience: z.ZodOptional<z.ZodObject<{
+        id: z.ZodString;
+        min_grade: z.ZodOptional<z.ZodNumber>;
+    }, z.core.$strip>>;
+    type: z.ZodLiteral<"yes_no">;
+}, z.core.$strip>, z.ZodObject<{
+    reason: z.ZodOptional<z.ZodEnum<{
+        off: "off";
+        optional: "optional";
+        required: "required";
+    }>>;
+    text: z.ZodString;
+    content_flag: z.ZodOptional<z.ZodEnum<{
+        medical: "medical";
+        violence: "violence";
+        distressing: "distressing";
+        alcohol_gambling: "alcohol_gambling";
+        political: "political";
+        none: "none";
+    }>>;
+    answered_by: z.ZodOptional<z.ZodEnum<{
+        heads: "heads";
+        private: "private";
+    }>>;
+    open_for_days: z.ZodOptional<z.ZodUnion<readonly [z.ZodLiteral<1>, z.ZodLiteral<7>, z.ZodLiteral<14>, z.ZodLiteral<30>]>>;
+    shown_as: z.ZodOptional<z.ZodString>;
+    public_results: z.ZodOptional<z.ZodBoolean>;
     context: z.ZodOptional<z.ZodString>;
     language: z.ZodOptional<z.ZodString>;
     stimulus: z.ZodOptional<z.ZodObject<{
@@ -410,6 +514,13 @@ export declare const QuestionInput: z.ZodDiscriminatedUnion<[z.ZodObject<{
         political: "political";
         none: "none";
     }>>;
+    answered_by: z.ZodOptional<z.ZodEnum<{
+        heads: "heads";
+        private: "private";
+    }>>;
+    open_for_days: z.ZodOptional<z.ZodUnion<readonly [z.ZodLiteral<1>, z.ZodLiteral<7>, z.ZodLiteral<14>, z.ZodLiteral<30>]>>;
+    shown_as: z.ZodOptional<z.ZodString>;
+    public_results: z.ZodOptional<z.ZodBoolean>;
     context: z.ZodOptional<z.ZodString>;
     language: z.ZodOptional<z.ZodString>;
     stimulus: z.ZodOptional<z.ZodObject<{
@@ -457,6 +568,13 @@ export declare const QuestionInput: z.ZodDiscriminatedUnion<[z.ZodObject<{
         political: "political";
         none: "none";
     }>>;
+    answered_by: z.ZodOptional<z.ZodEnum<{
+        heads: "heads";
+        private: "private";
+    }>>;
+    open_for_days: z.ZodOptional<z.ZodUnion<readonly [z.ZodLiteral<1>, z.ZodLiteral<7>, z.ZodLiteral<14>, z.ZodLiteral<30>]>>;
+    shown_as: z.ZodOptional<z.ZodString>;
+    public_results: z.ZodOptional<z.ZodBoolean>;
     context: z.ZodOptional<z.ZodString>;
     language: z.ZodOptional<z.ZodString>;
     n: z.ZodOptional<z.ZodNumber>;
@@ -495,6 +613,13 @@ export declare const QuestionInput: z.ZodDiscriminatedUnion<[z.ZodObject<{
         political: "political";
         none: "none";
     }>>;
+    answered_by: z.ZodOptional<z.ZodEnum<{
+        heads: "heads";
+        private: "private";
+    }>>;
+    open_for_days: z.ZodOptional<z.ZodUnion<readonly [z.ZodLiteral<1>, z.ZodLiteral<7>, z.ZodLiteral<14>, z.ZodLiteral<30>]>>;
+    shown_as: z.ZodOptional<z.ZodString>;
+    public_results: z.ZodOptional<z.ZodBoolean>;
     context: z.ZodOptional<z.ZodString>;
     language: z.ZodOptional<z.ZodString>;
     stimulus: z.ZodOptional<z.ZodObject<{
@@ -538,6 +663,7 @@ export declare const FollowUpInput: z.ZodObject<{
         pairwise: "pairwise";
         scale_1_5: "scale_1_5";
         ranking: "ranking";
+        yes_no: "yes_no";
         yes_mostly_no: "yes_mostly_no";
         click_test: "click_test";
         reaction: "reaction";
@@ -591,6 +717,13 @@ export declare const EstimateInput: z.ZodObject<{
             political: "political";
             none: "none";
         }>>;
+        answered_by: z.ZodOptional<z.ZodEnum<{
+            heads: "heads";
+            private: "private";
+        }>>;
+        open_for_days: z.ZodOptional<z.ZodUnion<readonly [z.ZodLiteral<1>, z.ZodLiteral<7>, z.ZodLiteral<14>, z.ZodLiteral<30>]>>;
+        shown_as: z.ZodOptional<z.ZodString>;
+        public_results: z.ZodOptional<z.ZodBoolean>;
         context: z.ZodOptional<z.ZodString>;
         language: z.ZodOptional<z.ZodString>;
         stimulus: z.ZodOptional<z.ZodObject<{
@@ -643,6 +776,13 @@ export declare const EstimateInput: z.ZodObject<{
             political: "political";
             none: "none";
         }>>;
+        answered_by: z.ZodOptional<z.ZodEnum<{
+            heads: "heads";
+            private: "private";
+        }>>;
+        open_for_days: z.ZodOptional<z.ZodUnion<readonly [z.ZodLiteral<1>, z.ZodLiteral<7>, z.ZodLiteral<14>, z.ZodLiteral<30>]>>;
+        shown_as: z.ZodOptional<z.ZodString>;
+        public_results: z.ZodOptional<z.ZodBoolean>;
         context: z.ZodOptional<z.ZodString>;
         language: z.ZodOptional<z.ZodString>;
         stimulus: z.ZodOptional<z.ZodObject<{
@@ -696,6 +836,13 @@ export declare const EstimateInput: z.ZodObject<{
             political: "political";
             none: "none";
         }>>;
+        answered_by: z.ZodOptional<z.ZodEnum<{
+            heads: "heads";
+            private: "private";
+        }>>;
+        open_for_days: z.ZodOptional<z.ZodUnion<readonly [z.ZodLiteral<1>, z.ZodLiteral<7>, z.ZodLiteral<14>, z.ZodLiteral<30>]>>;
+        shown_as: z.ZodOptional<z.ZodString>;
+        public_results: z.ZodOptional<z.ZodBoolean>;
         context: z.ZodOptional<z.ZodString>;
         language: z.ZodOptional<z.ZodString>;
         stimulus: z.ZodOptional<z.ZodObject<{
@@ -749,6 +896,13 @@ export declare const EstimateInput: z.ZodObject<{
             political: "political";
             none: "none";
         }>>;
+        answered_by: z.ZodOptional<z.ZodEnum<{
+            heads: "heads";
+            private: "private";
+        }>>;
+        open_for_days: z.ZodOptional<z.ZodUnion<readonly [z.ZodLiteral<1>, z.ZodLiteral<7>, z.ZodLiteral<14>, z.ZodLiteral<30>]>>;
+        shown_as: z.ZodOptional<z.ZodString>;
+        public_results: z.ZodOptional<z.ZodBoolean>;
         context: z.ZodOptional<z.ZodString>;
         language: z.ZodOptional<z.ZodString>;
         stimulus: z.ZodOptional<z.ZodObject<{
@@ -797,6 +951,13 @@ export declare const EstimateInput: z.ZodObject<{
             political: "political";
             none: "none";
         }>>;
+        answered_by: z.ZodOptional<z.ZodEnum<{
+            heads: "heads";
+            private: "private";
+        }>>;
+        open_for_days: z.ZodOptional<z.ZodUnion<readonly [z.ZodLiteral<1>, z.ZodLiteral<7>, z.ZodLiteral<14>, z.ZodLiteral<30>]>>;
+        shown_as: z.ZodOptional<z.ZodString>;
+        public_results: z.ZodOptional<z.ZodBoolean>;
         context: z.ZodOptional<z.ZodString>;
         language: z.ZodOptional<z.ZodString>;
         stimulus: z.ZodOptional<z.ZodObject<{
@@ -849,6 +1010,13 @@ export declare const EstimateInput: z.ZodObject<{
             political: "political";
             none: "none";
         }>>;
+        answered_by: z.ZodOptional<z.ZodEnum<{
+            heads: "heads";
+            private: "private";
+        }>>;
+        open_for_days: z.ZodOptional<z.ZodUnion<readonly [z.ZodLiteral<1>, z.ZodLiteral<7>, z.ZodLiteral<14>, z.ZodLiteral<30>]>>;
+        shown_as: z.ZodOptional<z.ZodString>;
+        public_results: z.ZodOptional<z.ZodBoolean>;
         context: z.ZodOptional<z.ZodString>;
         language: z.ZodOptional<z.ZodString>;
         stimulus: z.ZodOptional<z.ZodObject<{
@@ -897,6 +1065,68 @@ export declare const EstimateInput: z.ZodObject<{
             political: "political";
             none: "none";
         }>>;
+        answered_by: z.ZodOptional<z.ZodEnum<{
+            heads: "heads";
+            private: "private";
+        }>>;
+        open_for_days: z.ZodOptional<z.ZodUnion<readonly [z.ZodLiteral<1>, z.ZodLiteral<7>, z.ZodLiteral<14>, z.ZodLiteral<30>]>>;
+        shown_as: z.ZodOptional<z.ZodString>;
+        public_results: z.ZodOptional<z.ZodBoolean>;
+        context: z.ZodOptional<z.ZodString>;
+        language: z.ZodOptional<z.ZodString>;
+        stimulus: z.ZodOptional<z.ZodObject<{
+            image_url: z.ZodOptional<z.ZodURL>;
+            text: z.ZodOptional<z.ZodString>;
+            exposure_ms: z.ZodOptional<z.ZodNumber>;
+        }, z.core.$strip>>;
+        n: z.ZodOptional<z.ZodNumber>;
+        tier: z.ZodOptional<z.ZodNumber>;
+        rush: z.ZodOptional<z.ZodBoolean>;
+        targeting: z.ZodOptional<z.ZodObject<{
+            country: z.ZodOptional<z.ZodArray<z.ZodString>>;
+            tags: z.ZodOptional<z.ZodArray<z.ZodString>>;
+            age_bands: z.ZodOptional<z.ZodArray<z.ZodEnum<{
+                "18-24": "18-24";
+                "25-34": "25-34";
+                "35-44": "35-44";
+                "45-54": "45-54";
+                "55-64": "55-64";
+                "65+": "65+";
+            }>>>;
+            genders: z.ZodOptional<z.ZodArray<z.ZodEnum<{
+                woman: "woman";
+                man: "man";
+                non_binary: "non_binary";
+            }>>>;
+            verified_age: z.ZodOptional<z.ZodBoolean>;
+        }, z.core.$strip>>;
+        audience: z.ZodOptional<z.ZodObject<{
+            id: z.ZodString;
+            min_grade: z.ZodOptional<z.ZodNumber>;
+        }, z.core.$strip>>;
+        type: z.ZodLiteral<"yes_no">;
+    }, z.core.$strip>, z.ZodObject<{
+        reason: z.ZodOptional<z.ZodEnum<{
+            off: "off";
+            optional: "optional";
+            required: "required";
+        }>>;
+        text: z.ZodString;
+        content_flag: z.ZodOptional<z.ZodEnum<{
+            medical: "medical";
+            violence: "violence";
+            distressing: "distressing";
+            alcohol_gambling: "alcohol_gambling";
+            political: "political";
+            none: "none";
+        }>>;
+        answered_by: z.ZodOptional<z.ZodEnum<{
+            heads: "heads";
+            private: "private";
+        }>>;
+        open_for_days: z.ZodOptional<z.ZodUnion<readonly [z.ZodLiteral<1>, z.ZodLiteral<7>, z.ZodLiteral<14>, z.ZodLiteral<30>]>>;
+        shown_as: z.ZodOptional<z.ZodString>;
+        public_results: z.ZodOptional<z.ZodBoolean>;
         context: z.ZodOptional<z.ZodString>;
         language: z.ZodOptional<z.ZodString>;
         stimulus: z.ZodOptional<z.ZodObject<{
@@ -941,6 +1171,13 @@ export declare const EstimateInput: z.ZodObject<{
             political: "political";
             none: "none";
         }>>;
+        answered_by: z.ZodOptional<z.ZodEnum<{
+            heads: "heads";
+            private: "private";
+        }>>;
+        open_for_days: z.ZodOptional<z.ZodUnion<readonly [z.ZodLiteral<1>, z.ZodLiteral<7>, z.ZodLiteral<14>, z.ZodLiteral<30>]>>;
+        shown_as: z.ZodOptional<z.ZodString>;
+        public_results: z.ZodOptional<z.ZodBoolean>;
         context: z.ZodOptional<z.ZodString>;
         language: z.ZodOptional<z.ZodString>;
         stimulus: z.ZodOptional<z.ZodObject<{
@@ -988,6 +1225,13 @@ export declare const EstimateInput: z.ZodObject<{
             political: "political";
             none: "none";
         }>>;
+        answered_by: z.ZodOptional<z.ZodEnum<{
+            heads: "heads";
+            private: "private";
+        }>>;
+        open_for_days: z.ZodOptional<z.ZodUnion<readonly [z.ZodLiteral<1>, z.ZodLiteral<7>, z.ZodLiteral<14>, z.ZodLiteral<30>]>>;
+        shown_as: z.ZodOptional<z.ZodString>;
+        public_results: z.ZodOptional<z.ZodBoolean>;
         context: z.ZodOptional<z.ZodString>;
         language: z.ZodOptional<z.ZodString>;
         n: z.ZodOptional<z.ZodNumber>;
@@ -1026,6 +1270,13 @@ export declare const EstimateInput: z.ZodObject<{
             political: "political";
             none: "none";
         }>>;
+        answered_by: z.ZodOptional<z.ZodEnum<{
+            heads: "heads";
+            private: "private";
+        }>>;
+        open_for_days: z.ZodOptional<z.ZodUnion<readonly [z.ZodLiteral<1>, z.ZodLiteral<7>, z.ZodLiteral<14>, z.ZodLiteral<30>]>>;
+        shown_as: z.ZodOptional<z.ZodString>;
+        public_results: z.ZodOptional<z.ZodBoolean>;
         context: z.ZodOptional<z.ZodString>;
         language: z.ZodOptional<z.ZodString>;
         stimulus: z.ZodOptional<z.ZodObject<{
@@ -1088,6 +1339,13 @@ export declare const AskInput: z.ZodObject<{
             political: "political";
             none: "none";
         }>>;
+        answered_by: z.ZodOptional<z.ZodEnum<{
+            heads: "heads";
+            private: "private";
+        }>>;
+        open_for_days: z.ZodOptional<z.ZodUnion<readonly [z.ZodLiteral<1>, z.ZodLiteral<7>, z.ZodLiteral<14>, z.ZodLiteral<30>]>>;
+        shown_as: z.ZodOptional<z.ZodString>;
+        public_results: z.ZodOptional<z.ZodBoolean>;
         context: z.ZodOptional<z.ZodString>;
         language: z.ZodOptional<z.ZodString>;
         stimulus: z.ZodOptional<z.ZodObject<{
@@ -1140,6 +1398,13 @@ export declare const AskInput: z.ZodObject<{
             political: "political";
             none: "none";
         }>>;
+        answered_by: z.ZodOptional<z.ZodEnum<{
+            heads: "heads";
+            private: "private";
+        }>>;
+        open_for_days: z.ZodOptional<z.ZodUnion<readonly [z.ZodLiteral<1>, z.ZodLiteral<7>, z.ZodLiteral<14>, z.ZodLiteral<30>]>>;
+        shown_as: z.ZodOptional<z.ZodString>;
+        public_results: z.ZodOptional<z.ZodBoolean>;
         context: z.ZodOptional<z.ZodString>;
         language: z.ZodOptional<z.ZodString>;
         stimulus: z.ZodOptional<z.ZodObject<{
@@ -1193,6 +1458,13 @@ export declare const AskInput: z.ZodObject<{
             political: "political";
             none: "none";
         }>>;
+        answered_by: z.ZodOptional<z.ZodEnum<{
+            heads: "heads";
+            private: "private";
+        }>>;
+        open_for_days: z.ZodOptional<z.ZodUnion<readonly [z.ZodLiteral<1>, z.ZodLiteral<7>, z.ZodLiteral<14>, z.ZodLiteral<30>]>>;
+        shown_as: z.ZodOptional<z.ZodString>;
+        public_results: z.ZodOptional<z.ZodBoolean>;
         context: z.ZodOptional<z.ZodString>;
         language: z.ZodOptional<z.ZodString>;
         stimulus: z.ZodOptional<z.ZodObject<{
@@ -1246,6 +1518,13 @@ export declare const AskInput: z.ZodObject<{
             political: "political";
             none: "none";
         }>>;
+        answered_by: z.ZodOptional<z.ZodEnum<{
+            heads: "heads";
+            private: "private";
+        }>>;
+        open_for_days: z.ZodOptional<z.ZodUnion<readonly [z.ZodLiteral<1>, z.ZodLiteral<7>, z.ZodLiteral<14>, z.ZodLiteral<30>]>>;
+        shown_as: z.ZodOptional<z.ZodString>;
+        public_results: z.ZodOptional<z.ZodBoolean>;
         context: z.ZodOptional<z.ZodString>;
         language: z.ZodOptional<z.ZodString>;
         stimulus: z.ZodOptional<z.ZodObject<{
@@ -1294,6 +1573,13 @@ export declare const AskInput: z.ZodObject<{
             political: "political";
             none: "none";
         }>>;
+        answered_by: z.ZodOptional<z.ZodEnum<{
+            heads: "heads";
+            private: "private";
+        }>>;
+        open_for_days: z.ZodOptional<z.ZodUnion<readonly [z.ZodLiteral<1>, z.ZodLiteral<7>, z.ZodLiteral<14>, z.ZodLiteral<30>]>>;
+        shown_as: z.ZodOptional<z.ZodString>;
+        public_results: z.ZodOptional<z.ZodBoolean>;
         context: z.ZodOptional<z.ZodString>;
         language: z.ZodOptional<z.ZodString>;
         stimulus: z.ZodOptional<z.ZodObject<{
@@ -1346,6 +1632,13 @@ export declare const AskInput: z.ZodObject<{
             political: "political";
             none: "none";
         }>>;
+        answered_by: z.ZodOptional<z.ZodEnum<{
+            heads: "heads";
+            private: "private";
+        }>>;
+        open_for_days: z.ZodOptional<z.ZodUnion<readonly [z.ZodLiteral<1>, z.ZodLiteral<7>, z.ZodLiteral<14>, z.ZodLiteral<30>]>>;
+        shown_as: z.ZodOptional<z.ZodString>;
+        public_results: z.ZodOptional<z.ZodBoolean>;
         context: z.ZodOptional<z.ZodString>;
         language: z.ZodOptional<z.ZodString>;
         stimulus: z.ZodOptional<z.ZodObject<{
@@ -1394,6 +1687,68 @@ export declare const AskInput: z.ZodObject<{
             political: "political";
             none: "none";
         }>>;
+        answered_by: z.ZodOptional<z.ZodEnum<{
+            heads: "heads";
+            private: "private";
+        }>>;
+        open_for_days: z.ZodOptional<z.ZodUnion<readonly [z.ZodLiteral<1>, z.ZodLiteral<7>, z.ZodLiteral<14>, z.ZodLiteral<30>]>>;
+        shown_as: z.ZodOptional<z.ZodString>;
+        public_results: z.ZodOptional<z.ZodBoolean>;
+        context: z.ZodOptional<z.ZodString>;
+        language: z.ZodOptional<z.ZodString>;
+        stimulus: z.ZodOptional<z.ZodObject<{
+            image_url: z.ZodOptional<z.ZodURL>;
+            text: z.ZodOptional<z.ZodString>;
+            exposure_ms: z.ZodOptional<z.ZodNumber>;
+        }, z.core.$strip>>;
+        n: z.ZodOptional<z.ZodNumber>;
+        tier: z.ZodOptional<z.ZodNumber>;
+        rush: z.ZodOptional<z.ZodBoolean>;
+        targeting: z.ZodOptional<z.ZodObject<{
+            country: z.ZodOptional<z.ZodArray<z.ZodString>>;
+            tags: z.ZodOptional<z.ZodArray<z.ZodString>>;
+            age_bands: z.ZodOptional<z.ZodArray<z.ZodEnum<{
+                "18-24": "18-24";
+                "25-34": "25-34";
+                "35-44": "35-44";
+                "45-54": "45-54";
+                "55-64": "55-64";
+                "65+": "65+";
+            }>>>;
+            genders: z.ZodOptional<z.ZodArray<z.ZodEnum<{
+                woman: "woman";
+                man: "man";
+                non_binary: "non_binary";
+            }>>>;
+            verified_age: z.ZodOptional<z.ZodBoolean>;
+        }, z.core.$strip>>;
+        audience: z.ZodOptional<z.ZodObject<{
+            id: z.ZodString;
+            min_grade: z.ZodOptional<z.ZodNumber>;
+        }, z.core.$strip>>;
+        type: z.ZodLiteral<"yes_no">;
+    }, z.core.$strip>, z.ZodObject<{
+        reason: z.ZodOptional<z.ZodEnum<{
+            off: "off";
+            optional: "optional";
+            required: "required";
+        }>>;
+        text: z.ZodString;
+        content_flag: z.ZodOptional<z.ZodEnum<{
+            medical: "medical";
+            violence: "violence";
+            distressing: "distressing";
+            alcohol_gambling: "alcohol_gambling";
+            political: "political";
+            none: "none";
+        }>>;
+        answered_by: z.ZodOptional<z.ZodEnum<{
+            heads: "heads";
+            private: "private";
+        }>>;
+        open_for_days: z.ZodOptional<z.ZodUnion<readonly [z.ZodLiteral<1>, z.ZodLiteral<7>, z.ZodLiteral<14>, z.ZodLiteral<30>]>>;
+        shown_as: z.ZodOptional<z.ZodString>;
+        public_results: z.ZodOptional<z.ZodBoolean>;
         context: z.ZodOptional<z.ZodString>;
         language: z.ZodOptional<z.ZodString>;
         stimulus: z.ZodOptional<z.ZodObject<{
@@ -1438,6 +1793,13 @@ export declare const AskInput: z.ZodObject<{
             political: "political";
             none: "none";
         }>>;
+        answered_by: z.ZodOptional<z.ZodEnum<{
+            heads: "heads";
+            private: "private";
+        }>>;
+        open_for_days: z.ZodOptional<z.ZodUnion<readonly [z.ZodLiteral<1>, z.ZodLiteral<7>, z.ZodLiteral<14>, z.ZodLiteral<30>]>>;
+        shown_as: z.ZodOptional<z.ZodString>;
+        public_results: z.ZodOptional<z.ZodBoolean>;
         context: z.ZodOptional<z.ZodString>;
         language: z.ZodOptional<z.ZodString>;
         stimulus: z.ZodOptional<z.ZodObject<{
@@ -1485,6 +1847,13 @@ export declare const AskInput: z.ZodObject<{
             political: "political";
             none: "none";
         }>>;
+        answered_by: z.ZodOptional<z.ZodEnum<{
+            heads: "heads";
+            private: "private";
+        }>>;
+        open_for_days: z.ZodOptional<z.ZodUnion<readonly [z.ZodLiteral<1>, z.ZodLiteral<7>, z.ZodLiteral<14>, z.ZodLiteral<30>]>>;
+        shown_as: z.ZodOptional<z.ZodString>;
+        public_results: z.ZodOptional<z.ZodBoolean>;
         context: z.ZodOptional<z.ZodString>;
         language: z.ZodOptional<z.ZodString>;
         n: z.ZodOptional<z.ZodNumber>;
@@ -1523,6 +1892,13 @@ export declare const AskInput: z.ZodObject<{
             political: "political";
             none: "none";
         }>>;
+        answered_by: z.ZodOptional<z.ZodEnum<{
+            heads: "heads";
+            private: "private";
+        }>>;
+        open_for_days: z.ZodOptional<z.ZodUnion<readonly [z.ZodLiteral<1>, z.ZodLiteral<7>, z.ZodLiteral<14>, z.ZodLiteral<30>]>>;
+        shown_as: z.ZodOptional<z.ZodString>;
+        public_results: z.ZodOptional<z.ZodBoolean>;
         context: z.ZodOptional<z.ZodString>;
         language: z.ZodOptional<z.ZodString>;
         stimulus: z.ZodOptional<z.ZodObject<{
@@ -1576,6 +1952,7 @@ export declare const AskInput: z.ZodObject<{
             pairwise: "pairwise";
             scale_1_5: "scale_1_5";
             ranking: "ranking";
+            yes_no: "yes_no";
             yes_mostly_no: "yes_mostly_no";
             click_test: "click_test";
             reaction: "reaction";
@@ -1645,9 +2022,10 @@ export declare const WaitInput: z.ZodObject<{
 export declare const ListQuestionsInput: z.ZodObject<{
     status: z.ZodOptional<z.ZodEnum<{
         cancelled: "cancelled";
-        draft: "draft";
-        scheduled: "scheduled";
+        closed: "closed";
         live: "live";
+        scheduled: "scheduled";
+        draft: "draft";
         complete: "complete";
         underfilled: "underfilled";
         refused: "refused";
@@ -1664,6 +2042,7 @@ export declare const ListQuestionsInput: z.ZodObject<{
         include: "include";
     }>>;
     bookmarked: z.ZodOptional<z.ZodBoolean>;
+    set_id: z.ZodOptional<z.ZodString>;
 }, z.core.$strip>;
 export declare const EmptyInput: z.ZodObject<{}, z.core.$strip>;
 export declare const PriceOutput: z.ZodObject<{
@@ -1691,11 +2070,651 @@ export declare const EstimateOutput: z.ZodObject<{
     traits: z.ZodOptional<z.ZodNumber>;
 }, z.core.$strip>;
 export type EstimateOutput = z.infer<typeof EstimateOutput>;
+/** ask_set (private-audiences-sets.md §5.7): two to ten questions behind one link, answered in order. */
+export declare const AskSetInput: z.ZodObject<{
+    questions: z.ZodArray<z.ZodDiscriminatedUnion<[z.ZodObject<{
+        options: z.ZodArray<z.ZodObject<{
+            label: z.ZodString;
+            image_url: z.ZodOptional<z.ZodURL>;
+        }, z.core.$strip>>;
+        neither: z.ZodOptional<z.ZodBoolean>;
+        reason: z.ZodOptional<z.ZodEnum<{
+            off: "off";
+            optional: "optional";
+            required: "required";
+        }>>;
+        text: z.ZodString;
+        content_flag: z.ZodOptional<z.ZodEnum<{
+            medical: "medical";
+            violence: "violence";
+            distressing: "distressing";
+            alcohol_gambling: "alcohol_gambling";
+            political: "political";
+            none: "none";
+        }>>;
+        answered_by: z.ZodOptional<z.ZodEnum<{
+            heads: "heads";
+            private: "private";
+        }>>;
+        open_for_days: z.ZodOptional<z.ZodUnion<readonly [z.ZodLiteral<1>, z.ZodLiteral<7>, z.ZodLiteral<14>, z.ZodLiteral<30>]>>;
+        shown_as: z.ZodOptional<z.ZodString>;
+        public_results: z.ZodOptional<z.ZodBoolean>;
+        context: z.ZodOptional<z.ZodString>;
+        language: z.ZodOptional<z.ZodString>;
+        stimulus: z.ZodOptional<z.ZodObject<{
+            image_url: z.ZodOptional<z.ZodURL>;
+            text: z.ZodOptional<z.ZodString>;
+            exposure_ms: z.ZodOptional<z.ZodNumber>;
+        }, z.core.$strip>>;
+        n: z.ZodOptional<z.ZodNumber>;
+        tier: z.ZodOptional<z.ZodNumber>;
+        rush: z.ZodOptional<z.ZodBoolean>;
+        targeting: z.ZodOptional<z.ZodObject<{
+            country: z.ZodOptional<z.ZodArray<z.ZodString>>;
+            tags: z.ZodOptional<z.ZodArray<z.ZodString>>;
+            age_bands: z.ZodOptional<z.ZodArray<z.ZodEnum<{
+                "18-24": "18-24";
+                "25-34": "25-34";
+                "35-44": "35-44";
+                "45-54": "45-54";
+                "55-64": "55-64";
+                "65+": "65+";
+            }>>>;
+            genders: z.ZodOptional<z.ZodArray<z.ZodEnum<{
+                woman: "woman";
+                man: "man";
+                non_binary: "non_binary";
+            }>>>;
+            verified_age: z.ZodOptional<z.ZodBoolean>;
+        }, z.core.$strip>>;
+        audience: z.ZodOptional<z.ZodObject<{
+            id: z.ZodString;
+            min_grade: z.ZodOptional<z.ZodNumber>;
+        }, z.core.$strip>>;
+        type: z.ZodLiteral<"single_choice">;
+    }, z.core.$strip>, z.ZodObject<{
+        options: z.ZodArray<z.ZodObject<{
+            label: z.ZodString;
+            image_url: z.ZodOptional<z.ZodURL>;
+        }, z.core.$strip>>;
+        reason: z.ZodOptional<z.ZodEnum<{
+            off: "off";
+            optional: "optional";
+            required: "required";
+        }>>;
+        text: z.ZodString;
+        content_flag: z.ZodOptional<z.ZodEnum<{
+            medical: "medical";
+            violence: "violence";
+            distressing: "distressing";
+            alcohol_gambling: "alcohol_gambling";
+            political: "political";
+            none: "none";
+        }>>;
+        answered_by: z.ZodOptional<z.ZodEnum<{
+            heads: "heads";
+            private: "private";
+        }>>;
+        open_for_days: z.ZodOptional<z.ZodUnion<readonly [z.ZodLiteral<1>, z.ZodLiteral<7>, z.ZodLiteral<14>, z.ZodLiteral<30>]>>;
+        shown_as: z.ZodOptional<z.ZodString>;
+        public_results: z.ZodOptional<z.ZodBoolean>;
+        context: z.ZodOptional<z.ZodString>;
+        language: z.ZodOptional<z.ZodString>;
+        stimulus: z.ZodOptional<z.ZodObject<{
+            image_url: z.ZodOptional<z.ZodURL>;
+            text: z.ZodOptional<z.ZodString>;
+            exposure_ms: z.ZodOptional<z.ZodNumber>;
+        }, z.core.$strip>>;
+        n: z.ZodOptional<z.ZodNumber>;
+        tier: z.ZodOptional<z.ZodNumber>;
+        rush: z.ZodOptional<z.ZodBoolean>;
+        targeting: z.ZodOptional<z.ZodObject<{
+            country: z.ZodOptional<z.ZodArray<z.ZodString>>;
+            tags: z.ZodOptional<z.ZodArray<z.ZodString>>;
+            age_bands: z.ZodOptional<z.ZodArray<z.ZodEnum<{
+                "18-24": "18-24";
+                "25-34": "25-34";
+                "35-44": "35-44";
+                "45-54": "45-54";
+                "55-64": "55-64";
+                "65+": "65+";
+            }>>>;
+            genders: z.ZodOptional<z.ZodArray<z.ZodEnum<{
+                woman: "woman";
+                man: "man";
+                non_binary: "non_binary";
+            }>>>;
+            verified_age: z.ZodOptional<z.ZodBoolean>;
+        }, z.core.$strip>>;
+        audience: z.ZodOptional<z.ZodObject<{
+            id: z.ZodString;
+            min_grade: z.ZodOptional<z.ZodNumber>;
+        }, z.core.$strip>>;
+        type: z.ZodLiteral<"multi_choice">;
+    }, z.core.$strip>, z.ZodObject<{
+        options: z.ZodArray<z.ZodObject<{
+            label: z.ZodDefault<z.ZodString>;
+            image_url: z.ZodURL;
+        }, z.core.$strip>>;
+        neither: z.ZodOptional<z.ZodBoolean>;
+        reason: z.ZodOptional<z.ZodEnum<{
+            off: "off";
+            optional: "optional";
+            required: "required";
+        }>>;
+        text: z.ZodString;
+        content_flag: z.ZodOptional<z.ZodEnum<{
+            medical: "medical";
+            violence: "violence";
+            distressing: "distressing";
+            alcohol_gambling: "alcohol_gambling";
+            political: "political";
+            none: "none";
+        }>>;
+        answered_by: z.ZodOptional<z.ZodEnum<{
+            heads: "heads";
+            private: "private";
+        }>>;
+        open_for_days: z.ZodOptional<z.ZodUnion<readonly [z.ZodLiteral<1>, z.ZodLiteral<7>, z.ZodLiteral<14>, z.ZodLiteral<30>]>>;
+        shown_as: z.ZodOptional<z.ZodString>;
+        public_results: z.ZodOptional<z.ZodBoolean>;
+        context: z.ZodOptional<z.ZodString>;
+        language: z.ZodOptional<z.ZodString>;
+        stimulus: z.ZodOptional<z.ZodObject<{
+            image_url: z.ZodOptional<z.ZodURL>;
+            text: z.ZodOptional<z.ZodString>;
+            exposure_ms: z.ZodOptional<z.ZodNumber>;
+        }, z.core.$strip>>;
+        n: z.ZodOptional<z.ZodNumber>;
+        tier: z.ZodOptional<z.ZodNumber>;
+        rush: z.ZodOptional<z.ZodBoolean>;
+        targeting: z.ZodOptional<z.ZodObject<{
+            country: z.ZodOptional<z.ZodArray<z.ZodString>>;
+            tags: z.ZodOptional<z.ZodArray<z.ZodString>>;
+            age_bands: z.ZodOptional<z.ZodArray<z.ZodEnum<{
+                "18-24": "18-24";
+                "25-34": "25-34";
+                "35-44": "35-44";
+                "45-54": "45-54";
+                "55-64": "55-64";
+                "65+": "65+";
+            }>>>;
+            genders: z.ZodOptional<z.ZodArray<z.ZodEnum<{
+                woman: "woman";
+                man: "man";
+                non_binary: "non_binary";
+            }>>>;
+            verified_age: z.ZodOptional<z.ZodBoolean>;
+        }, z.core.$strip>>;
+        audience: z.ZodOptional<z.ZodObject<{
+            id: z.ZodString;
+            min_grade: z.ZodOptional<z.ZodNumber>;
+        }, z.core.$strip>>;
+        type: z.ZodLiteral<"ab_image">;
+    }, z.core.$strip>, z.ZodObject<{
+        options: z.ZodArray<z.ZodObject<{
+            label: z.ZodString;
+            image_url: z.ZodOptional<z.ZodURL>;
+        }, z.core.$strip>>;
+        neither: z.ZodOptional<z.ZodBoolean>;
+        reason: z.ZodOptional<z.ZodEnum<{
+            off: "off";
+            optional: "optional";
+            required: "required";
+        }>>;
+        text: z.ZodString;
+        content_flag: z.ZodOptional<z.ZodEnum<{
+            medical: "medical";
+            violence: "violence";
+            distressing: "distressing";
+            alcohol_gambling: "alcohol_gambling";
+            political: "political";
+            none: "none";
+        }>>;
+        answered_by: z.ZodOptional<z.ZodEnum<{
+            heads: "heads";
+            private: "private";
+        }>>;
+        open_for_days: z.ZodOptional<z.ZodUnion<readonly [z.ZodLiteral<1>, z.ZodLiteral<7>, z.ZodLiteral<14>, z.ZodLiteral<30>]>>;
+        shown_as: z.ZodOptional<z.ZodString>;
+        public_results: z.ZodOptional<z.ZodBoolean>;
+        context: z.ZodOptional<z.ZodString>;
+        language: z.ZodOptional<z.ZodString>;
+        stimulus: z.ZodOptional<z.ZodObject<{
+            image_url: z.ZodOptional<z.ZodURL>;
+            text: z.ZodOptional<z.ZodString>;
+            exposure_ms: z.ZodOptional<z.ZodNumber>;
+        }, z.core.$strip>>;
+        n: z.ZodOptional<z.ZodNumber>;
+        tier: z.ZodOptional<z.ZodNumber>;
+        rush: z.ZodOptional<z.ZodBoolean>;
+        targeting: z.ZodOptional<z.ZodObject<{
+            country: z.ZodOptional<z.ZodArray<z.ZodString>>;
+            tags: z.ZodOptional<z.ZodArray<z.ZodString>>;
+            age_bands: z.ZodOptional<z.ZodArray<z.ZodEnum<{
+                "18-24": "18-24";
+                "25-34": "25-34";
+                "35-44": "35-44";
+                "45-54": "45-54";
+                "55-64": "55-64";
+                "65+": "65+";
+            }>>>;
+            genders: z.ZodOptional<z.ZodArray<z.ZodEnum<{
+                woman: "woman";
+                man: "man";
+                non_binary: "non_binary";
+            }>>>;
+            verified_age: z.ZodOptional<z.ZodBoolean>;
+        }, z.core.$strip>>;
+        audience: z.ZodOptional<z.ZodObject<{
+            id: z.ZodString;
+            min_grade: z.ZodOptional<z.ZodNumber>;
+        }, z.core.$strip>>;
+        type: z.ZodLiteral<"pairwise">;
+    }, z.core.$strip>, z.ZodObject<{
+        reason: z.ZodOptional<z.ZodEnum<{
+            off: "off";
+            optional: "optional";
+            required: "required";
+        }>>;
+        text: z.ZodString;
+        content_flag: z.ZodOptional<z.ZodEnum<{
+            medical: "medical";
+            violence: "violence";
+            distressing: "distressing";
+            alcohol_gambling: "alcohol_gambling";
+            political: "political";
+            none: "none";
+        }>>;
+        answered_by: z.ZodOptional<z.ZodEnum<{
+            heads: "heads";
+            private: "private";
+        }>>;
+        open_for_days: z.ZodOptional<z.ZodUnion<readonly [z.ZodLiteral<1>, z.ZodLiteral<7>, z.ZodLiteral<14>, z.ZodLiteral<30>]>>;
+        shown_as: z.ZodOptional<z.ZodString>;
+        public_results: z.ZodOptional<z.ZodBoolean>;
+        context: z.ZodOptional<z.ZodString>;
+        language: z.ZodOptional<z.ZodString>;
+        stimulus: z.ZodOptional<z.ZodObject<{
+            image_url: z.ZodOptional<z.ZodURL>;
+            text: z.ZodOptional<z.ZodString>;
+            exposure_ms: z.ZodOptional<z.ZodNumber>;
+        }, z.core.$strip>>;
+        n: z.ZodOptional<z.ZodNumber>;
+        tier: z.ZodOptional<z.ZodNumber>;
+        rush: z.ZodOptional<z.ZodBoolean>;
+        targeting: z.ZodOptional<z.ZodObject<{
+            country: z.ZodOptional<z.ZodArray<z.ZodString>>;
+            tags: z.ZodOptional<z.ZodArray<z.ZodString>>;
+            age_bands: z.ZodOptional<z.ZodArray<z.ZodEnum<{
+                "18-24": "18-24";
+                "25-34": "25-34";
+                "35-44": "35-44";
+                "45-54": "45-54";
+                "55-64": "55-64";
+                "65+": "65+";
+            }>>>;
+            genders: z.ZodOptional<z.ZodArray<z.ZodEnum<{
+                woman: "woman";
+                man: "man";
+                non_binary: "non_binary";
+            }>>>;
+            verified_age: z.ZodOptional<z.ZodBoolean>;
+        }, z.core.$strip>>;
+        audience: z.ZodOptional<z.ZodObject<{
+            id: z.ZodString;
+            min_grade: z.ZodOptional<z.ZodNumber>;
+        }, z.core.$strip>>;
+        type: z.ZodLiteral<"scale_1_5">;
+    }, z.core.$strip>, z.ZodObject<{
+        options: z.ZodArray<z.ZodObject<{
+            label: z.ZodString;
+            image_url: z.ZodOptional<z.ZodURL>;
+        }, z.core.$strip>>;
+        reason: z.ZodOptional<z.ZodEnum<{
+            off: "off";
+            optional: "optional";
+            required: "required";
+        }>>;
+        text: z.ZodString;
+        content_flag: z.ZodOptional<z.ZodEnum<{
+            medical: "medical";
+            violence: "violence";
+            distressing: "distressing";
+            alcohol_gambling: "alcohol_gambling";
+            political: "political";
+            none: "none";
+        }>>;
+        answered_by: z.ZodOptional<z.ZodEnum<{
+            heads: "heads";
+            private: "private";
+        }>>;
+        open_for_days: z.ZodOptional<z.ZodUnion<readonly [z.ZodLiteral<1>, z.ZodLiteral<7>, z.ZodLiteral<14>, z.ZodLiteral<30>]>>;
+        shown_as: z.ZodOptional<z.ZodString>;
+        public_results: z.ZodOptional<z.ZodBoolean>;
+        context: z.ZodOptional<z.ZodString>;
+        language: z.ZodOptional<z.ZodString>;
+        stimulus: z.ZodOptional<z.ZodObject<{
+            image_url: z.ZodOptional<z.ZodURL>;
+            text: z.ZodOptional<z.ZodString>;
+            exposure_ms: z.ZodOptional<z.ZodNumber>;
+        }, z.core.$strip>>;
+        n: z.ZodOptional<z.ZodNumber>;
+        tier: z.ZodOptional<z.ZodNumber>;
+        rush: z.ZodOptional<z.ZodBoolean>;
+        targeting: z.ZodOptional<z.ZodObject<{
+            country: z.ZodOptional<z.ZodArray<z.ZodString>>;
+            tags: z.ZodOptional<z.ZodArray<z.ZodString>>;
+            age_bands: z.ZodOptional<z.ZodArray<z.ZodEnum<{
+                "18-24": "18-24";
+                "25-34": "25-34";
+                "35-44": "35-44";
+                "45-54": "45-54";
+                "55-64": "55-64";
+                "65+": "65+";
+            }>>>;
+            genders: z.ZodOptional<z.ZodArray<z.ZodEnum<{
+                woman: "woman";
+                man: "man";
+                non_binary: "non_binary";
+            }>>>;
+            verified_age: z.ZodOptional<z.ZodBoolean>;
+        }, z.core.$strip>>;
+        audience: z.ZodOptional<z.ZodObject<{
+            id: z.ZodString;
+            min_grade: z.ZodOptional<z.ZodNumber>;
+        }, z.core.$strip>>;
+        type: z.ZodLiteral<"ranking">;
+    }, z.core.$strip>, z.ZodObject<{
+        reason: z.ZodOptional<z.ZodEnum<{
+            off: "off";
+            optional: "optional";
+            required: "required";
+        }>>;
+        text: z.ZodString;
+        content_flag: z.ZodOptional<z.ZodEnum<{
+            medical: "medical";
+            violence: "violence";
+            distressing: "distressing";
+            alcohol_gambling: "alcohol_gambling";
+            political: "political";
+            none: "none";
+        }>>;
+        answered_by: z.ZodOptional<z.ZodEnum<{
+            heads: "heads";
+            private: "private";
+        }>>;
+        open_for_days: z.ZodOptional<z.ZodUnion<readonly [z.ZodLiteral<1>, z.ZodLiteral<7>, z.ZodLiteral<14>, z.ZodLiteral<30>]>>;
+        shown_as: z.ZodOptional<z.ZodString>;
+        public_results: z.ZodOptional<z.ZodBoolean>;
+        context: z.ZodOptional<z.ZodString>;
+        language: z.ZodOptional<z.ZodString>;
+        stimulus: z.ZodOptional<z.ZodObject<{
+            image_url: z.ZodOptional<z.ZodURL>;
+            text: z.ZodOptional<z.ZodString>;
+            exposure_ms: z.ZodOptional<z.ZodNumber>;
+        }, z.core.$strip>>;
+        n: z.ZodOptional<z.ZodNumber>;
+        tier: z.ZodOptional<z.ZodNumber>;
+        rush: z.ZodOptional<z.ZodBoolean>;
+        targeting: z.ZodOptional<z.ZodObject<{
+            country: z.ZodOptional<z.ZodArray<z.ZodString>>;
+            tags: z.ZodOptional<z.ZodArray<z.ZodString>>;
+            age_bands: z.ZodOptional<z.ZodArray<z.ZodEnum<{
+                "18-24": "18-24";
+                "25-34": "25-34";
+                "35-44": "35-44";
+                "45-54": "45-54";
+                "55-64": "55-64";
+                "65+": "65+";
+            }>>>;
+            genders: z.ZodOptional<z.ZodArray<z.ZodEnum<{
+                woman: "woman";
+                man: "man";
+                non_binary: "non_binary";
+            }>>>;
+            verified_age: z.ZodOptional<z.ZodBoolean>;
+        }, z.core.$strip>>;
+        audience: z.ZodOptional<z.ZodObject<{
+            id: z.ZodString;
+            min_grade: z.ZodOptional<z.ZodNumber>;
+        }, z.core.$strip>>;
+        type: z.ZodLiteral<"yes_no">;
+    }, z.core.$strip>, z.ZodObject<{
+        reason: z.ZodOptional<z.ZodEnum<{
+            off: "off";
+            optional: "optional";
+            required: "required";
+        }>>;
+        text: z.ZodString;
+        content_flag: z.ZodOptional<z.ZodEnum<{
+            medical: "medical";
+            violence: "violence";
+            distressing: "distressing";
+            alcohol_gambling: "alcohol_gambling";
+            political: "political";
+            none: "none";
+        }>>;
+        answered_by: z.ZodOptional<z.ZodEnum<{
+            heads: "heads";
+            private: "private";
+        }>>;
+        open_for_days: z.ZodOptional<z.ZodUnion<readonly [z.ZodLiteral<1>, z.ZodLiteral<7>, z.ZodLiteral<14>, z.ZodLiteral<30>]>>;
+        shown_as: z.ZodOptional<z.ZodString>;
+        public_results: z.ZodOptional<z.ZodBoolean>;
+        context: z.ZodOptional<z.ZodString>;
+        language: z.ZodOptional<z.ZodString>;
+        stimulus: z.ZodOptional<z.ZodObject<{
+            image_url: z.ZodOptional<z.ZodURL>;
+            text: z.ZodOptional<z.ZodString>;
+            exposure_ms: z.ZodOptional<z.ZodNumber>;
+        }, z.core.$strip>>;
+        n: z.ZodOptional<z.ZodNumber>;
+        tier: z.ZodOptional<z.ZodNumber>;
+        rush: z.ZodOptional<z.ZodBoolean>;
+        targeting: z.ZodOptional<z.ZodObject<{
+            country: z.ZodOptional<z.ZodArray<z.ZodString>>;
+            tags: z.ZodOptional<z.ZodArray<z.ZodString>>;
+            age_bands: z.ZodOptional<z.ZodArray<z.ZodEnum<{
+                "18-24": "18-24";
+                "25-34": "25-34";
+                "35-44": "35-44";
+                "45-54": "45-54";
+                "55-64": "55-64";
+                "65+": "65+";
+            }>>>;
+            genders: z.ZodOptional<z.ZodArray<z.ZodEnum<{
+                woman: "woman";
+                man: "man";
+                non_binary: "non_binary";
+            }>>>;
+            verified_age: z.ZodOptional<z.ZodBoolean>;
+        }, z.core.$strip>>;
+        audience: z.ZodOptional<z.ZodObject<{
+            id: z.ZodString;
+            min_grade: z.ZodOptional<z.ZodNumber>;
+        }, z.core.$strip>>;
+        type: z.ZodLiteral<"yes_mostly_no">;
+    }, z.core.$strip>, z.ZodObject<{
+        tier: z.ZodOptional<z.ZodNumber>;
+        text: z.ZodString;
+        content_flag: z.ZodOptional<z.ZodEnum<{
+            medical: "medical";
+            violence: "violence";
+            distressing: "distressing";
+            alcohol_gambling: "alcohol_gambling";
+            political: "political";
+            none: "none";
+        }>>;
+        answered_by: z.ZodOptional<z.ZodEnum<{
+            heads: "heads";
+            private: "private";
+        }>>;
+        open_for_days: z.ZodOptional<z.ZodUnion<readonly [z.ZodLiteral<1>, z.ZodLiteral<7>, z.ZodLiteral<14>, z.ZodLiteral<30>]>>;
+        shown_as: z.ZodOptional<z.ZodString>;
+        public_results: z.ZodOptional<z.ZodBoolean>;
+        context: z.ZodOptional<z.ZodString>;
+        language: z.ZodOptional<z.ZodString>;
+        stimulus: z.ZodOptional<z.ZodObject<{
+            image_url: z.ZodOptional<z.ZodURL>;
+            text: z.ZodOptional<z.ZodString>;
+            exposure_ms: z.ZodOptional<z.ZodNumber>;
+        }, z.core.$strip>>;
+        n: z.ZodOptional<z.ZodNumber>;
+        rush: z.ZodOptional<z.ZodBoolean>;
+        targeting: z.ZodOptional<z.ZodObject<{
+            country: z.ZodOptional<z.ZodArray<z.ZodString>>;
+            tags: z.ZodOptional<z.ZodArray<z.ZodString>>;
+            age_bands: z.ZodOptional<z.ZodArray<z.ZodEnum<{
+                "18-24": "18-24";
+                "25-34": "25-34";
+                "35-44": "35-44";
+                "45-54": "45-54";
+                "55-64": "55-64";
+                "65+": "65+";
+            }>>>;
+            genders: z.ZodOptional<z.ZodArray<z.ZodEnum<{
+                woman: "woman";
+                man: "man";
+                non_binary: "non_binary";
+            }>>>;
+            verified_age: z.ZodOptional<z.ZodBoolean>;
+        }, z.core.$strip>>;
+        audience: z.ZodOptional<z.ZodObject<{
+            id: z.ZodString;
+            min_grade: z.ZodOptional<z.ZodNumber>;
+        }, z.core.$strip>>;
+        type: z.ZodLiteral<"free_text">;
+    }, z.core.$strip>, z.ZodObject<{
+        stimulus: z.ZodObject<{
+            image_url: z.ZodURL;
+            text: z.ZodOptional<z.ZodString>;
+        }, z.core.$strip>;
+        max_taps: z.ZodOptional<z.ZodNumber>;
+        text: z.ZodString;
+        content_flag: z.ZodOptional<z.ZodEnum<{
+            medical: "medical";
+            violence: "violence";
+            distressing: "distressing";
+            alcohol_gambling: "alcohol_gambling";
+            political: "political";
+            none: "none";
+        }>>;
+        answered_by: z.ZodOptional<z.ZodEnum<{
+            heads: "heads";
+            private: "private";
+        }>>;
+        open_for_days: z.ZodOptional<z.ZodUnion<readonly [z.ZodLiteral<1>, z.ZodLiteral<7>, z.ZodLiteral<14>, z.ZodLiteral<30>]>>;
+        shown_as: z.ZodOptional<z.ZodString>;
+        public_results: z.ZodOptional<z.ZodBoolean>;
+        context: z.ZodOptional<z.ZodString>;
+        language: z.ZodOptional<z.ZodString>;
+        n: z.ZodOptional<z.ZodNumber>;
+        tier: z.ZodOptional<z.ZodNumber>;
+        rush: z.ZodOptional<z.ZodBoolean>;
+        targeting: z.ZodOptional<z.ZodObject<{
+            country: z.ZodOptional<z.ZodArray<z.ZodString>>;
+            tags: z.ZodOptional<z.ZodArray<z.ZodString>>;
+            age_bands: z.ZodOptional<z.ZodArray<z.ZodEnum<{
+                "18-24": "18-24";
+                "25-34": "25-34";
+                "35-44": "35-44";
+                "45-54": "45-54";
+                "55-64": "55-64";
+                "65+": "65+";
+            }>>>;
+            genders: z.ZodOptional<z.ZodArray<z.ZodEnum<{
+                woman: "woman";
+                man: "man";
+                non_binary: "non_binary";
+            }>>>;
+            verified_age: z.ZodOptional<z.ZodBoolean>;
+        }, z.core.$strip>>;
+        audience: z.ZodOptional<z.ZodObject<{
+            id: z.ZodString;
+            min_grade: z.ZodOptional<z.ZodNumber>;
+        }, z.core.$strip>>;
+        type: z.ZodLiteral<"click_test">;
+    }, z.core.$strip>, z.ZodObject<{
+        text: z.ZodString;
+        content_flag: z.ZodOptional<z.ZodEnum<{
+            medical: "medical";
+            violence: "violence";
+            distressing: "distressing";
+            alcohol_gambling: "alcohol_gambling";
+            political: "political";
+            none: "none";
+        }>>;
+        answered_by: z.ZodOptional<z.ZodEnum<{
+            heads: "heads";
+            private: "private";
+        }>>;
+        open_for_days: z.ZodOptional<z.ZodUnion<readonly [z.ZodLiteral<1>, z.ZodLiteral<7>, z.ZodLiteral<14>, z.ZodLiteral<30>]>>;
+        shown_as: z.ZodOptional<z.ZodString>;
+        public_results: z.ZodOptional<z.ZodBoolean>;
+        context: z.ZodOptional<z.ZodString>;
+        language: z.ZodOptional<z.ZodString>;
+        stimulus: z.ZodOptional<z.ZodObject<{
+            image_url: z.ZodOptional<z.ZodURL>;
+            text: z.ZodOptional<z.ZodString>;
+            exposure_ms: z.ZodOptional<z.ZodNumber>;
+        }, z.core.$strip>>;
+        n: z.ZodOptional<z.ZodNumber>;
+        tier: z.ZodOptional<z.ZodNumber>;
+        rush: z.ZodOptional<z.ZodBoolean>;
+        targeting: z.ZodOptional<z.ZodObject<{
+            country: z.ZodOptional<z.ZodArray<z.ZodString>>;
+            tags: z.ZodOptional<z.ZodArray<z.ZodString>>;
+            age_bands: z.ZodOptional<z.ZodArray<z.ZodEnum<{
+                "18-24": "18-24";
+                "25-34": "25-34";
+                "35-44": "35-44";
+                "45-54": "45-54";
+                "55-64": "55-64";
+                "65+": "65+";
+            }>>>;
+            genders: z.ZodOptional<z.ZodArray<z.ZodEnum<{
+                woman: "woman";
+                man: "man";
+                non_binary: "non_binary";
+            }>>>;
+            verified_age: z.ZodOptional<z.ZodBoolean>;
+        }, z.core.$strip>>;
+        audience: z.ZodOptional<z.ZodObject<{
+            id: z.ZodString;
+            min_grade: z.ZodOptional<z.ZodNumber>;
+        }, z.core.$strip>>;
+        type: z.ZodLiteral<"reaction">;
+    }, z.core.$strip>], "type">>;
+    max_answers: z.ZodOptional<z.ZodNumber>;
+    open_for_days: z.ZodOptional<z.ZodUnion<readonly [z.ZodLiteral<1>, z.ZodLiteral<7>, z.ZodLiteral<14>, z.ZodLiteral<30>]>>;
+    shown_as: z.ZodOptional<z.ZodString>;
+    public_results: z.ZodOptional<z.ZodBoolean>;
+    idempotency_key: z.ZodUUID;
+    project_id: z.ZodOptional<z.ZodString>;
+    labels: z.ZodOptional<z.ZodArray<z.ZodString>>;
+}, z.core.$strip>;
+export type AskSetInput = z.infer<typeof AskSetInput>;
+export declare const AskSetOutput: z.ZodObject<{
+    set_id: z.ZodString;
+    link: z.ZodObject<{
+        url: z.ZodString;
+        closes_at: z.ZodNullable<z.ZodString>;
+    }, z.core.$strip>;
+    question_ids: z.ZodArray<z.ZodString>;
+    credits_reserved: z.ZodNumber;
+    max_answers: z.ZodNumber;
+}, z.core.$strip>;
+export type AskSetOutput = z.infer<typeof AskSetOutput>;
 export declare const AskOutput: z.ZodObject<{
     question_id: z.ZodString;
     credits_reserved: z.ZodNumber;
     eta_minutes: z.ZodNumber;
     status: z.ZodString;
+    link: z.ZodOptional<z.ZodObject<{
+        url: z.ZodString;
+        closes_at: z.ZodNullable<z.ZodString>;
+    }, z.core.$strip>>;
     variants: z.ZodOptional<z.ZodArray<z.ZodObject<{
         language: z.ZodString;
         question_id: z.ZodString;
@@ -1734,12 +2753,29 @@ export declare const ResultsOutput: z.ZodObject<{
         note: z.ZodString;
         suggested_follow_up: z.ZodNullable<z.ZodString>;
     }, z.core.$strip>;
-    tier: z.ZodNumber;
+    tier: z.ZodNullable<z.ZodNumber>;
     language: z.ZodString;
+    provenance: z.ZodOptional<z.ZodObject<{
+        answered_by: z.ZodEnum<{
+            heads: "heads";
+            private: "private";
+        }>;
+        access: z.ZodEnum<{
+            app: "app";
+            shared_link: "shared_link";
+        }>;
+        verified: z.ZodBoolean;
+        answers: z.ZodNumber;
+        issued: z.ZodNullable<z.ZodNumber>;
+        denominator: z.ZodEnum<{
+            unknown: "unknown";
+            known: "known";
+        }>;
+    }, z.core.$strip>>;
     answers: z.ZodArray<z.ZodObject<{
         option: z.ZodNullable<z.ZodString>;
-        tier: z.ZodNumber;
-        attestation_ref: z.ZodString;
+        tier: z.ZodNullable<z.ZodNumber>;
+        attestation_ref: z.ZodNullable<z.ZodString>;
         answered_at: z.ZodString;
         text: z.ZodOptional<z.ZodString>;
         reason: z.ZodOptional<z.ZodString>;
@@ -1843,6 +2879,9 @@ export declare const ListQuestionsOutput: z.ZodObject<{
         external_ref: z.ZodOptional<z.ZodNullable<z.ZodString>>;
         archived: z.ZodOptional<z.ZodBoolean>;
         team_id: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+        set_id: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+        set_position: z.ZodOptional<z.ZodNullable<z.ZodNumber>>;
+        set_count: z.ZodOptional<z.ZodNullable<z.ZodNumber>>;
     }, z.core.$strip>>;
     next_cursor: z.ZodNullable<z.ZodString>;
 }, z.core.$strip>;
@@ -1940,8 +2979,8 @@ export declare const GetAnswersOutput: z.ZodObject<{
         reason: z.ZodOptional<z.ZodNullable<z.ZodString>>;
         translated_text: z.ZodOptional<z.ZodNullable<z.ZodString>>;
         translated_reason: z.ZodOptional<z.ZodNullable<z.ZodString>>;
-        tier: z.ZodNumber;
-        attestation_ref: z.ZodString;
+        tier: z.ZodNullable<z.ZodNumber>;
+        attestation_ref: z.ZodNullable<z.ZodString>;
         answered_at: z.ZodString;
     }, z.core.$strip>>;
     next_cursor: z.ZodNullable<z.ZodString>;
@@ -2016,6 +3055,7 @@ export declare const BuildAskLinkInput: z.ZodObject<{
         pairwise: "pairwise";
         scale_1_5: "scale_1_5";
         ranking: "ranking";
+        yes_no: "yes_no";
         yes_mostly_no: "yes_mostly_no";
         click_test: "click_test";
         reaction: "reaction";
@@ -2129,8 +3169,18 @@ export declare const SearchHelpInput: z.ZodObject<{
         de: "de";
         nl: "nl";
         pl: "pl";
+        ja: "ja";
+        ko: "ko";
+        sv: "sv";
+        da: "da";
+        nb: "nb";
+        cs: "cs";
+        ro: "ro";
+        fi: "fi";
+        tr: "tr";
         "en-gb": "en-gb";
         "en-us": "en-us";
+        "pt-br": "pt-br";
     }>>;
     limit: z.ZodOptional<z.ZodNumber>;
 }, z.core.$strip>;
@@ -2148,9 +3198,9 @@ export declare const SendFeedbackInput: z.ZodObject<{
     message: z.ZodString;
     subject: z.ZodOptional<z.ZodString>;
     kind: z.ZodOptional<z.ZodEnum<{
+        other: "other";
         billing: "billing";
         question: "question";
-        other: "other";
         bug: "bug";
         idea: "idea";
     }>>;

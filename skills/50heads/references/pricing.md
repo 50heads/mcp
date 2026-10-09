@@ -12,7 +12,7 @@ Per answer = tier base × length × format, plus images and targeting traits, ti
 
 Length (question, context and options together): up to 150 characters × 1.0, up to 300 × 1.1, up to 600 × 1.25.
 
-Format: `single_choice` × 1.0, `multi_choice` × 1.1, `ab_image` × 1.0, `pairwise` × 1.1, `scale_1_5` × 1.0, `ranking` × 1.3, `yes_mostly_no` × 1.0, `free_text` × 2.0, `click_test` × 1.5, `reaction` × 1.0.
+Format: `single_choice` × 1.0, `multi_choice` × 1.1, `ab_image` × 1.0, `pairwise` × 1.1, `scale_1_5` × 1.0, `ranking` × 1.3, `yes_no` × 1.0, `yes_mostly_no` × 1.0, `free_text` × 2.0, `click_test` × 1.5, `reaction` × 1.0.
 
 A reason with every answer (`reason`, not for free_text) adds to the format: optional + 0.3, required + 0.6. A required reason on a Tier 1 single choice is 20 × 1.6 = 32 credits an answer. Heads get the same share of the higher price.
 
@@ -21,6 +21,8 @@ Images: 7 credits an answer for each image (audio counts the same). Rush: × 1.5
 Targeting: countries are free. Age, gender and each tag group are one trait each, 3 credits an answer per trait, up to 4, at any tier (PickFu charges about $0.40 per trait). See 50heads://targeting.
 
 Heads: 10 to 5000, default 50.
+
+Your audience (`answered_by: "private"`): a link you share instead of heads, 5 credits an accepted answer, reserved for the most answers the link accepts (`n`, default 100) and refunded for the rest when it closes. No tier, rush, targeting or images surcharge; no time estimate (people answer when you share the link); every result says the answers were not verified by 50heads.
 
 Every connection has a daily spend cap (default 5,000 credits), set when you connect and editable in the dashboard. Call `balance` to see what is left.
 

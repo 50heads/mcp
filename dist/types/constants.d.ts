@@ -4,14 +4,15 @@
  */
 export declare const SERVER_NAME = "50heads";
 /** Calendar version (YYYY.MDD.N). Stamped at release by scripts/release.ts; never edit by hand. */
-export declare const SERVER_VERSION = "2026.1006.1";
+export declare const SERVER_VERSION = "2026.1009.1";
 /** Sent by the CLI on every request, so the API can tell releases apart. */
-export declare const USER_AGENT = "50heads-mcp/2026.1006.1";
+export declare const USER_AGENT = "50heads-mcp/2026.1009.1";
 export declare const MCP_RESOURCE_URL = "https://mcp.50heads.com/mcp";
 /** The scope each tool needs (spec: Authorization → Scopes). null: no sign-in needed. */
 export declare const TOOL_SCOPES: {
     readonly estimate: "questions:write";
     readonly ask: "questions:write";
+    readonly ask_set: "questions:write";
     readonly get_results: "questions:read";
     readonly wait_for_results: "questions:read";
     readonly list_questions: "questions:read";

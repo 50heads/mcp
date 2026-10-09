@@ -1,9 +1,9 @@
 ---
 name: 50heads
-description: Ask fifty verified real people a five-second question and get a distribution back; use when the work in hand needs a human preference, first impression or sanity check that a model cannot supply.
+description: Ask fifty verified people a five-second question and get a distribution back; use when the work in hand needs a human preference, first impression or sanity check that a model cannot supply.
 license: MIT
 metadata:
-  version: "2026.1006.1"
+  version: "2026.1009.1"
   homepage: https://50heads.com/agents
 allowed-tools: "50heads:*"
 ---

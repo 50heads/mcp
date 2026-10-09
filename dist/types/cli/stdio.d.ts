@@ -27,39 +27,55 @@ export declare class TaskInterceptingTransport implements Transport {
 }
 export declare function makeApi(opts: StdioOptions): (tool: string, client?: string, protocol?: string) => {
     config: () => Promise<{
-        rates: Record<"GBP" | "USD" | "EUR" | "CAD", number>;
+        rates: Record<"GBP" | "USD" | "EUR" | "CAD" | "JPY" | "KRW" | "SEK" | "DKK" | "NOK" | "PLN" | "BRL" | "CZK" | "RON" | "TRY", number>;
         ratesDate: string;
         countries: Record<string, {
-            payMultiplier: number;
             minWithdrawalPence: number;
             payoutRails: string[];
             otpChannel: "sms" | "whatsapp";
             taxFields: string[];
             tier2Available: boolean;
             currency: "GBP" | "USD" | "EUR" | "CAD";
+            displayCurrency?: "GBP" | "USD" | "EUR" | "CAD" | "JPY" | "KRW" | "SEK" | "DKK" | "NOK" | "PLN" | "BRL" | "CZK" | "RON" | "TRY" | undefined;
             wiseFields?: {
                 key: string;
                 label: string;
                 example?: string | undefined;
                 pattern?: string | undefined;
             }[] | undefined;
+            requesterRails?: ("card" | "bank_transfer" | "pix" | "swish" | "vipps" | "mobilepay" | "pse")[] | undefined;
+            locale?: string | undefined;
+            questionLanguages?: string[] | undefined;
+            legalPack?: "uk" | "gdpr-eu" | "gdpr-eea" | "us" | "ca" | "lgpd" | "appi" | "pipa" | "kvkk" | "cl" | "co" | "ar" | "pe" | "uy" | "other" | undefined;
+            legalPackVersion?: string | undefined;
+            payoutProvenAt?: string | undefined;
+            minAge?: number | undefined;
+            state?: "known" | "answering" | "launched" | undefined;
         }>;
         defaultCountry: {
-            payMultiplier: number;
             minWithdrawalPence: number;
             payoutRails: string[];
             otpChannel: "sms" | "whatsapp";
             taxFields: string[];
             tier2Available: boolean;
             currency: "GBP" | "USD" | "EUR" | "CAD";
+            displayCurrency?: "GBP" | "USD" | "EUR" | "CAD" | "JPY" | "KRW" | "SEK" | "DKK" | "NOK" | "PLN" | "BRL" | "CZK" | "RON" | "TRY" | undefined;
             wiseFields?: {
                 key: string;
                 label: string;
                 example?: string | undefined;
                 pattern?: string | undefined;
             }[] | undefined;
+            requesterRails?: ("card" | "bank_transfer" | "pix" | "swish" | "vipps" | "mobilepay" | "pse")[] | undefined;
+            locale?: string | undefined;
+            questionLanguages?: string[] | undefined;
+            legalPack?: "uk" | "gdpr-eu" | "gdpr-eea" | "us" | "ca" | "lgpd" | "appi" | "pipa" | "kvkk" | "cl" | "co" | "ar" | "pe" | "uy" | "other" | undefined;
+            legalPackVersion?: string | undefined;
+            payoutProvenAt?: string | undefined;
+            minAge?: number | undefined;
+            state?: "known" | "answering" | "launched" | undefined;
         };
-        questionLanguages: ("en" | "fr" | "es" | "pt" | "it" | "de" | "nl" | "pl")[];
+        questionLanguages: ("en" | "fr" | "es" | "pt" | "it" | "de" | "nl" | "pl" | "ja" | "ko" | "sv" | "da" | "nb" | "cs" | "ro" | "fi" | "tr")[];
         reverifyDays: number;
         tier1PayPence: number;
         tier2PayMultiplier: number;
@@ -86,8 +102,8 @@ export declare function makeApi(opts: StdioOptions): (tool: string, client?: str
                     tier: 0 | 1 | 2 | 3;
                     country: string | null;
                     phone: string | null;
-                    displayCurrency: "GBP" | "USD" | "EUR" | "CAD" | null;
-                    languages: ("en" | "fr" | "es" | "pt" | "it" | "de" | "nl" | "pl")[];
+                    displayCurrency: "GBP" | "USD" | "EUR" | "CAD" | "JPY" | "KRW" | "SEK" | "DKK" | "NOK" | "PLN" | "BRL" | "CZK" | "RON" | "TRY" | null;
+                    languages: ("en" | "fr" | "es" | "pt" | "it" | "de" | "nl" | "pl" | "ja" | "ko" | "sv" | "da" | "nb" | "cs" | "ro" | "fi" | "tr")[];
                     locale: string | null;
                     creditsPence: number;
                     earningsPence: number;
@@ -110,8 +126,8 @@ export declare function makeApi(opts: StdioOptions): (tool: string, client?: str
                 tier: 0 | 1 | 2 | 3;
                 country: string | null;
                 phone: string | null;
-                displayCurrency: "GBP" | "USD" | "EUR" | "CAD" | null;
-                languages: ("en" | "fr" | "es" | "pt" | "it" | "de" | "nl" | "pl")[];
+                displayCurrency: "GBP" | "USD" | "EUR" | "CAD" | "JPY" | "KRW" | "SEK" | "DKK" | "NOK" | "PLN" | "BRL" | "CZK" | "RON" | "TRY" | null;
+                languages: ("en" | "fr" | "es" | "pt" | "it" | "de" | "nl" | "pl" | "ja" | "ko" | "sv" | "da" | "nb" | "cs" | "ro" | "fi" | "tr")[];
                 locale: string | null;
                 creditsPence: number;
                 earningsPence: number;
@@ -135,8 +151,8 @@ export declare function makeApi(opts: StdioOptions): (tool: string, client?: str
                 tier: 0 | 1 | 2 | 3;
                 country: string | null;
                 phone: string | null;
-                displayCurrency: "GBP" | "USD" | "EUR" | "CAD" | null;
-                languages: ("en" | "fr" | "es" | "pt" | "it" | "de" | "nl" | "pl")[];
+                displayCurrency: "GBP" | "USD" | "EUR" | "CAD" | "JPY" | "KRW" | "SEK" | "DKK" | "NOK" | "PLN" | "BRL" | "CZK" | "RON" | "TRY" | null;
+                languages: ("en" | "fr" | "es" | "pt" | "it" | "de" | "nl" | "pl" | "ja" | "ko" | "sv" | "da" | "nb" | "cs" | "ro" | "fi" | "tr")[];
                 locale: string | null;
                 creditsPence: number;
                 earningsPence: number;
@@ -159,8 +175,8 @@ export declare function makeApi(opts: StdioOptions): (tool: string, client?: str
                 tier: 0 | 1 | 2 | 3;
                 country: string | null;
                 phone: string | null;
-                displayCurrency: "GBP" | "USD" | "EUR" | "CAD" | null;
-                languages: ("en" | "fr" | "es" | "pt" | "it" | "de" | "nl" | "pl")[];
+                displayCurrency: "GBP" | "USD" | "EUR" | "CAD" | "JPY" | "KRW" | "SEK" | "DKK" | "NOK" | "PLN" | "BRL" | "CZK" | "RON" | "TRY" | null;
+                languages: ("en" | "fr" | "es" | "pt" | "it" | "de" | "nl" | "pl" | "ja" | "ko" | "sv" | "da" | "nb" | "cs" | "ro" | "fi" | "tr")[];
                 locale: string | null;
                 creditsPence: number;
                 earningsPence: number;
@@ -183,8 +199,8 @@ export declare function makeApi(opts: StdioOptions): (tool: string, client?: str
                 tier: 0 | 1 | 2 | 3;
                 country: string | null;
                 phone: string | null;
-                displayCurrency: "GBP" | "USD" | "EUR" | "CAD" | null;
-                languages: ("en" | "fr" | "es" | "pt" | "it" | "de" | "nl" | "pl")[];
+                displayCurrency: "GBP" | "USD" | "EUR" | "CAD" | "JPY" | "KRW" | "SEK" | "DKK" | "NOK" | "PLN" | "BRL" | "CZK" | "RON" | "TRY" | null;
+                languages: ("en" | "fr" | "es" | "pt" | "it" | "de" | "nl" | "pl" | "ja" | "ko" | "sv" | "da" | "nb" | "cs" | "ro" | "fi" | "tr")[];
                 locale: string | null;
                 creditsPence: number;
                 earningsPence: number;
@@ -207,8 +223,8 @@ export declare function makeApi(opts: StdioOptions): (tool: string, client?: str
                 tier: 0 | 1 | 2 | 3;
                 country: string | null;
                 phone: string | null;
-                displayCurrency: "GBP" | "USD" | "EUR" | "CAD" | null;
-                languages: ("en" | "fr" | "es" | "pt" | "it" | "de" | "nl" | "pl")[];
+                displayCurrency: "GBP" | "USD" | "EUR" | "CAD" | "JPY" | "KRW" | "SEK" | "DKK" | "NOK" | "PLN" | "BRL" | "CZK" | "RON" | "TRY" | null;
+                languages: ("en" | "fr" | "es" | "pt" | "it" | "de" | "nl" | "pl" | "ja" | "ko" | "sv" | "da" | "nb" | "cs" | "ro" | "fi" | "tr")[];
                 locale: string | null;
                 creditsPence: number;
                 earningsPence: number;
@@ -232,8 +248,8 @@ export declare function makeApi(opts: StdioOptions): (tool: string, client?: str
                 tier: 0 | 1 | 2 | 3;
                 country: string | null;
                 phone: string | null;
-                displayCurrency: "GBP" | "USD" | "EUR" | "CAD" | null;
-                languages: ("en" | "fr" | "es" | "pt" | "it" | "de" | "nl" | "pl")[];
+                displayCurrency: "GBP" | "USD" | "EUR" | "CAD" | "JPY" | "KRW" | "SEK" | "DKK" | "NOK" | "PLN" | "BRL" | "CZK" | "RON" | "TRY" | null;
+                languages: ("en" | "fr" | "es" | "pt" | "it" | "de" | "nl" | "pl" | "ja" | "ko" | "sv" | "da" | "nb" | "cs" | "ro" | "fi" | "tr")[];
                 locale: string | null;
                 creditsPence: number;
                 earningsPence: number;
@@ -257,8 +273,8 @@ export declare function makeApi(opts: StdioOptions): (tool: string, client?: str
                 tier: 0 | 1 | 2 | 3;
                 country: string | null;
                 phone: string | null;
-                displayCurrency: "GBP" | "USD" | "EUR" | "CAD" | null;
-                languages: ("en" | "fr" | "es" | "pt" | "it" | "de" | "nl" | "pl")[];
+                displayCurrency: "GBP" | "USD" | "EUR" | "CAD" | "JPY" | "KRW" | "SEK" | "DKK" | "NOK" | "PLN" | "BRL" | "CZK" | "RON" | "TRY" | null;
+                languages: ("en" | "fr" | "es" | "pt" | "it" | "de" | "nl" | "pl" | "ja" | "ko" | "sv" | "da" | "nb" | "cs" | "ro" | "fi" | "tr")[];
                 locale: string | null;
                 creditsPence: number;
                 earningsPence: number;
@@ -286,8 +302,8 @@ export declare function makeApi(opts: StdioOptions): (tool: string, client?: str
                     tier: 0 | 1 | 2 | 3;
                     country: string | null;
                     phone: string | null;
-                    displayCurrency: "GBP" | "USD" | "EUR" | "CAD" | null;
-                    languages: ("en" | "fr" | "es" | "pt" | "it" | "de" | "nl" | "pl")[];
+                    displayCurrency: "GBP" | "USD" | "EUR" | "CAD" | "JPY" | "KRW" | "SEK" | "DKK" | "NOK" | "PLN" | "BRL" | "CZK" | "RON" | "TRY" | null;
+                    languages: ("en" | "fr" | "es" | "pt" | "it" | "de" | "nl" | "pl" | "ja" | "ko" | "sv" | "da" | "nb" | "cs" | "ro" | "fi" | "tr")[];
                     locale: string | null;
                     creditsPence: number;
                     earningsPence: number;
@@ -332,8 +348,8 @@ export declare function makeApi(opts: StdioOptions): (tool: string, client?: str
                     tier: 0 | 1 | 2 | 3;
                     country: string | null;
                     phone: string | null;
-                    displayCurrency: "GBP" | "USD" | "EUR" | "CAD" | null;
-                    languages: ("en" | "fr" | "es" | "pt" | "it" | "de" | "nl" | "pl")[];
+                    displayCurrency: "GBP" | "USD" | "EUR" | "CAD" | "JPY" | "KRW" | "SEK" | "DKK" | "NOK" | "PLN" | "BRL" | "CZK" | "RON" | "TRY" | null;
+                    languages: ("en" | "fr" | "es" | "pt" | "it" | "de" | "nl" | "pl" | "ja" | "ko" | "sv" | "da" | "nb" | "cs" | "ro" | "fi" | "tr")[];
                     locale: string | null;
                     creditsPence: number;
                     earningsPence: number;
@@ -513,8 +529,8 @@ export declare function makeApi(opts: StdioOptions): (tool: string, client?: str
                 tier: 0 | 1 | 2 | 3;
                 country: string | null;
                 phone: string | null;
-                displayCurrency: "GBP" | "USD" | "EUR" | "CAD" | null;
-                languages: ("en" | "fr" | "es" | "pt" | "it" | "de" | "nl" | "pl")[];
+                displayCurrency: "GBP" | "USD" | "EUR" | "CAD" | "JPY" | "KRW" | "SEK" | "DKK" | "NOK" | "PLN" | "BRL" | "CZK" | "RON" | "TRY" | null;
+                languages: ("en" | "fr" | "es" | "pt" | "it" | "de" | "nl" | "pl" | "ja" | "ko" | "sv" | "da" | "nb" | "cs" | "ro" | "fi" | "tr")[];
                 locale: string | null;
                 creditsPence: number;
                 earningsPence: number;
@@ -527,6 +543,7 @@ export declare function makeApi(opts: StdioOptions): (tool: string, client?: str
                 total: number;
                 answered: number;
             };
+            earning: "open" | "limited";
         }>;
         update: (input: import("@50heads/shared").WorkerUpdateInput) => Promise<{
             user: import("@50heads/shared").User;
@@ -578,7 +595,7 @@ export declare function makeApi(opts: StdioOptions): (tool: string, client?: str
         withdrawQuote: () => Promise<{
             availablePence: number;
             minimumPence: number;
-            currency: "GBP" | "USD" | "EUR" | "CAD";
+            currency: "GBP" | "USD" | "EUR" | "CAD" | "JPY" | "KRW" | "SEK" | "DKK" | "NOK" | "PLN" | "BRL" | "CZK" | "RON" | "TRY";
             receiveAmount: number | null;
             rails: string[];
             available: boolean;
@@ -618,7 +635,7 @@ export declare function makeApi(opts: StdioOptions): (tool: string, client?: str
         }>;
         shared: (token: string) => Promise<{
             question: {
-                type: "single_choice" | "multi_choice" | "ab_image" | "pairwise" | "scale_1_5" | "ranking" | "yes_mostly_no" | "click_test" | "reaction" | "free_text";
+                type: "single_choice" | "multi_choice" | "ab_image" | "pairwise" | "scale_1_5" | "ranking" | "yes_no" | "yes_mostly_no" | "click_test" | "reaction" | "free_text";
                 text: string;
                 language: string;
                 options: {
@@ -631,8 +648,10 @@ export declare function makeApi(opts: StdioOptions): (tool: string, client?: str
                 rush: boolean;
                 publicResults: boolean;
                 reason: "off" | "optional" | "required";
+                answeredBy: "heads" | "private";
+                openForDays: 1 | 14 | 7 | 30;
                 id: string;
-                status: "cancelled" | "draft" | "scheduled" | "live" | "complete" | "underfilled" | "refused";
+                status: "cancelled" | "closed" | "live" | "scheduled" | "draft" | "complete" | "underfilled" | "refused";
                 source: "app" | "portal" | "api" | "mcp";
                 answered: number;
                 creditsPerAnswer: number;
@@ -670,6 +689,7 @@ export declare function makeApi(opts: StdioOptions): (tool: string, client?: str
                     perAnswerPence: number;
                     headShareBps: number;
                 } | undefined;
+                shownAs?: string | undefined;
                 teamId?: string | null | undefined;
                 askedBy?: {
                     id: string;
@@ -680,6 +700,17 @@ export declare function makeApi(opts: StdioOptions): (tool: string, client?: str
                 archived?: boolean | undefined;
                 bookmarked?: boolean | undefined;
                 externalRef?: string | null | undefined;
+                link?: {
+                    url: string;
+                    qrSvgUrl: string;
+                    qrPngUrl: string;
+                    closesAt: string | null;
+                    views: number;
+                    started: number;
+                } | null | undefined;
+                setId?: string | null | undefined;
+                setPosition?: number | null | undefined;
+                setCount?: number | null | undefined;
             };
             result: {
                 questionId: string;
@@ -703,7 +734,7 @@ export declare function makeApi(opts: StdioOptions): (tool: string, client?: str
                     note: string;
                     suggestedFollowUp: string | null;
                 };
-                tier: number;
+                tier: number | null;
                 language: string;
                 verificationLine: string;
                 medianSeconds: number | null;
@@ -711,8 +742,8 @@ export declare function makeApi(opts: StdioOptions): (tool: string, client?: str
                 answers: {
                     option: string | null;
                     text: string | null;
-                    tier: number;
-                    attestationRef: string;
+                    tier: number | null;
+                    attestationRef: string | null;
                     answeredAt: string;
                     translatedText?: string | null | undefined;
                     reason?: string | null | undefined;
@@ -731,6 +762,14 @@ export declare function makeApi(opts: StdioOptions): (tool: string, client?: str
                     }[] | undefined;
                 }[];
                 refundCredits: number;
+                provenance?: {
+                    answeredBy: "heads" | "private";
+                    access: "app" | "shared_link";
+                    verified: boolean;
+                    answers: number;
+                    issued: number | null;
+                    denominator: "unknown" | "known";
+                } | undefined;
                 breakdown?: {
                     tagId: string;
                     label: string;
@@ -746,7 +785,7 @@ export declare function makeApi(opts: StdioOptions): (tool: string, client?: str
                     }[];
                 }[] | undefined;
                 breakdowns?: {
-                    dimension: "country" | "tier" | "gender" | "age_band" | "tag";
+                    dimension: "country" | "tier" | "language" | "gender" | "age_band" | "tag";
                     segments: {
                         label: string;
                         n: number;
@@ -850,6 +889,75 @@ export declare function makeApi(opts: StdioOptions): (tool: string, client?: str
             };
             expiresAt: string;
         }>;
+        link: (code: string) => Promise<{
+            kind: "set" | "question";
+            state: "closed" | "live" | "scheduled" | "full" | "paused";
+            shownAs: string | null;
+            language: string;
+            question: {
+                type: string;
+                text: string;
+                context: string | null;
+                language: string;
+                options: {
+                    label: string;
+                    imageUrl: string | null;
+                }[];
+                neither: boolean;
+                stimulus: {
+                    imageUrl: string | null;
+                    audioUrl: string | null;
+                    text: string | null;
+                } | null;
+                maxTaps: number | null;
+                pair: [number, number] | null;
+            } | null;
+            opensAt: string | null;
+            showResult: boolean;
+            resultCode: string | null;
+            set: {
+                count: number;
+                questions: {
+                    position: number;
+                    state: "closed" | "live" | "scheduled" | "full" | "paused";
+                    question: {
+                        type: string;
+                        text: string;
+                        context: string | null;
+                        language: string;
+                        options: {
+                            label: string;
+                            imageUrl: string | null;
+                        }[];
+                        neither: boolean;
+                        stimulus: {
+                            imageUrl: string | null;
+                            audioUrl: string | null;
+                            text: string | null;
+                        } | null;
+                        maxTaps: number | null;
+                        pair: [number, number] | null;
+                    } | null;
+                }[];
+            } | null;
+        }>;
+        answerLink: (code: string, input: import("@50heads/shared").PublicLinkAnswerInput) => Promise<{
+            accepted: boolean;
+            state: "closed" | "live" | "scheduled" | "full" | "paused";
+            showResult: boolean;
+            resultCode: string | null;
+            visit: string | null;
+            remaining: number[];
+            answered: {
+                position: number;
+                resultCode: string | null;
+            }[];
+        }>;
+        linkStarted: (code: string, input: {
+            nonce: string;
+        }) => Promise<{
+            ok: true;
+        }>;
         templates: () => Promise<{
             templates: import("@50heads/shared").Template[];
         }>;
@@ -913,6 +1021,7 @@ export declare function makeApi(opts: StdioOptions): (tool: string, client?: str
             quietDays?: number[] | undefined;
             emailExpiringCredits?: boolean | undefined;
             emailAudiences?: boolean | undefined;
+            emailLifecycle?: boolean | undefined;
         }>;
         setNotifications: (prefs: import("@50heads/shared").NotificationPrefs) => Promise<{
             questionsWaiting: boolean;
@@ -929,6 +1038,7 @@ export declare function makeApi(opts: StdioOptions): (tool: string, client?: str
             quietDays?: number[] | undefined;
             emailExpiringCredits?: boolean | undefined;
             emailAudiences?: boolean | undefined;
+            emailLifecycle?: boolean | undefined;
         }>;
         prompts: () => Promise<{
             due: ("verify_phone" | "verify_id" | "rating_first_payout" | "rating_tier2" | "rating_milestone_100" | "rating_milestone_500" | "rating_first_result" | "notifications" | "add_tags" | "invite_friend" | "set_payout_method" | "feed_first" | "feed_tier2_pays")[];
@@ -991,9 +1101,7 @@ export declare function makeApi(opts: StdioOptions): (tool: string, client?: str
     };
     attest: {
         nonce: () => Promise<import("@50heads/shared").AttestNonce>;
-        verify: (input: import("@50heads/shared").AttestRequest) => Promise<{
-            ok: true;
-        }>;
+        verify: (input: import("@50heads/shared").AttestRequest) => Promise<import("@50heads/shared").AttestResult>;
         rotateKey: (input: import("zod").input<typeof import("@50heads/shared").DeviceKeyRotateInput>) => Promise<{
             ok: true;
         }>;
@@ -1031,6 +1139,136 @@ export declare function makeApi(opts: StdioOptions): (tool: string, client?: str
             height: number | null;
         }>;
     };
+    reviews: {
+        start: (draft: import("@50heads/shared").QuestionDraftInput) => Promise<{
+            inputHash: string;
+            status: "pending" | "failed" | "skipped" | "ready";
+            review?: {
+                status: "ok" | "unavailable" | "skipped";
+                rubricVersion: string;
+                model?: string | undefined;
+                inputHash?: string | undefined;
+                overall?: "pass" | "suggest" | undefined;
+                scores?: {
+                    clarity: number;
+                    singleIdea: number;
+                    neutral: number;
+                    options: number;
+                    answerable: number;
+                    length: number;
+                } | undefined;
+                suggestions?: {
+                    id: string;
+                    code: string;
+                    severity: "info" | "suggest" | "strong";
+                    field: string;
+                    reason: string;
+                    op?: {
+                        type: "replace_text";
+                        text: string;
+                    } | {
+                        type: "replace_context";
+                        context: string;
+                    } | {
+                        type: "replace_stimulus_text";
+                        text: string;
+                    } | {
+                        type: "replace_option";
+                        index: number;
+                        label: string;
+                    } | {
+                        type: "add_option";
+                        label: string;
+                        index?: number | undefined;
+                    } | {
+                        type: "remove_option";
+                        index: number;
+                    } | {
+                        type: "reorder_options";
+                        order: number[];
+                    } | {
+                        type: "set_neither";
+                        neither: boolean;
+                    } | {
+                        type: "set_type";
+                        questionType: "single_choice" | "multi_choice" | "ab_image" | "pairwise" | "scale_1_5" | "ranking" | "yes_no" | "yes_mostly_no" | "click_test" | "reaction" | "free_text";
+                    } | {
+                        type: "tidy";
+                        text?: string | undefined;
+                        context?: string | undefined;
+                        stimulusText?: string | undefined;
+                        options?: string[] | undefined;
+                    } | undefined;
+                }[] | undefined;
+                skippedReason?: "flag_off" | "incomplete" | "no_text" | "content_refused" | "ai_off" | "asks_killed" | undefined;
+            } | undefined;
+            retryMs?: number | undefined;
+        }>;
+        get: (inputHash: string) => Promise<{
+            inputHash: string;
+            status: "pending" | "failed" | "skipped" | "ready";
+            review?: {
+                status: "ok" | "unavailable" | "skipped";
+                rubricVersion: string;
+                model?: string | undefined;
+                inputHash?: string | undefined;
+                overall?: "pass" | "suggest" | undefined;
+                scores?: {
+                    clarity: number;
+                    singleIdea: number;
+                    neutral: number;
+                    options: number;
+                    answerable: number;
+                    length: number;
+                } | undefined;
+                suggestions?: {
+                    id: string;
+                    code: string;
+                    severity: "info" | "suggest" | "strong";
+                    field: string;
+                    reason: string;
+                    op?: {
+                        type: "replace_text";
+                        text: string;
+                    } | {
+                        type: "replace_context";
+                        context: string;
+                    } | {
+                        type: "replace_stimulus_text";
+                        text: string;
+                    } | {
+                        type: "replace_option";
+                        index: number;
+                        label: string;
+                    } | {
+                        type: "add_option";
+                        label: string;
+                        index?: number | undefined;
+                    } | {
+                        type: "remove_option";
+                        index: number;
+                    } | {
+                        type: "reorder_options";
+                        order: number[];
+                    } | {
+                        type: "set_neither";
+                        neither: boolean;
+                    } | {
+                        type: "set_type";
+                        questionType: "single_choice" | "multi_choice" | "ab_image" | "pairwise" | "scale_1_5" | "ranking" | "yes_no" | "yes_mostly_no" | "click_test" | "reaction" | "free_text";
+                    } | {
+                        type: "tidy";
+                        text?: string | undefined;
+                        context?: string | undefined;
+                        stimulusText?: string | undefined;
+                        options?: string[] | undefined;
+                    } | undefined;
+                }[] | undefined;
+                skippedReason?: "flag_off" | "incomplete" | "no_text" | "content_refused" | "ai_off" | "asks_killed" | undefined;
+            } | undefined;
+            retryMs?: number | undefined;
+        }>;
+    };
     drafts: {
         list: () => Promise<{
             drafts: import("@50heads/shared").Draft[];
@@ -1040,7 +1278,7 @@ export declare function makeApi(opts: StdioOptions): (tool: string, client?: str
         }, id?: string) => Promise<{
             id: string;
             draft: {
-                type: "single_choice" | "multi_choice" | "ab_image" | "pairwise" | "scale_1_5" | "ranking" | "yes_mostly_no" | "click_test" | "reaction" | "free_text";
+                type: "single_choice" | "multi_choice" | "ab_image" | "pairwise" | "scale_1_5" | "ranking" | "yes_no" | "yes_mostly_no" | "click_test" | "reaction" | "free_text";
                 text?: string | undefined;
                 context?: string | undefined;
                 language?: string | undefined;
@@ -1078,12 +1316,341 @@ export declare function makeApi(opts: StdioOptions): (tool: string, client?: str
                     perAnswerPence: number;
                     headShareBps: number;
                 } | undefined;
+                answeredBy?: "heads" | "private" | undefined;
+                openForDays?: 1 | 14 | 7 | 30 | undefined;
+                shownAs?: string | undefined;
             };
             updatedAt: string;
         }>;
         remove: (id: string) => Promise<{
             ok: true;
         }>;
+    };
+    sets: {
+        create: (input: import("@50heads/shared").SetCreateInputInput, idempotencyKey: string) => Promise<{
+            set: {
+                id: string;
+                status: "open" | "closed";
+                shownAs: string | null;
+                maxAnswers: number;
+                openForDays: 1 | 14 | 7 | 30;
+                publicResults: boolean;
+                expiresAt: string;
+                questionIds: string[];
+                answered: number;
+                creditsReserved: number;
+                creditsSpent: number;
+                link: {
+                    url: string;
+                    qrSvgUrl: string;
+                    qrPngUrl: string;
+                    closesAt: string | null;
+                    views: number;
+                    started: number;
+                } | null;
+                teamId: string | null;
+                createdAt: string;
+                closedAt: string | null;
+            };
+            questions: {
+                type: "single_choice" | "multi_choice" | "ab_image" | "pairwise" | "scale_1_5" | "ranking" | "yes_no" | "yes_mostly_no" | "click_test" | "reaction" | "free_text";
+                text: string;
+                language: string;
+                options: {
+                    label: string;
+                    imageUrl?: string | undefined;
+                }[];
+                neither: boolean;
+                n: number;
+                tier: 1 | 2 | 3;
+                rush: boolean;
+                publicResults: boolean;
+                reason: "off" | "optional" | "required";
+                answeredBy: "heads" | "private";
+                openForDays: 1 | 14 | 7 | 30;
+                id: string;
+                status: "cancelled" | "closed" | "live" | "scheduled" | "draft" | "complete" | "underfilled" | "refused";
+                source: "app" | "portal" | "api" | "mcp";
+                answered: number;
+                creditsPerAnswer: number;
+                creditsReserved: number;
+                creditsSpent: number;
+                etaMinutes: number;
+                leaderLine: string | null;
+                refusedCategory: string | null;
+                publicCode: string | null;
+                createdAt: string;
+                liveAt: string | null;
+                closedAt: string | null;
+                context?: string | undefined;
+                stimulus?: {
+                    imageUrl?: string | undefined;
+                    audioUrl?: string | undefined;
+                    text?: string | undefined;
+                    exposureMs?: number | undefined;
+                } | undefined;
+                targeting?: {
+                    countries: string[];
+                    tags: string[];
+                    ageBands?: ("18-24" | "25-34" | "35-44" | "45-54" | "55-64" | "65+")[] | undefined;
+                    genders?: ("woman" | "man" | "non_binary")[] | undefined;
+                    verifiedAge?: boolean | undefined;
+                } | undefined;
+                clickTest?: {
+                    maxTaps: number;
+                } | undefined;
+                scheduledFor?: string | undefined;
+                contentFlag?: "medical" | "violence" | "distressing" | "alcohol_gambling" | "political" | "none" | undefined;
+                interestAudienceId?: string | undefined;
+                minGrade?: 1 | 2 | 3 | undefined;
+                interestPrice?: {
+                    perAnswerPence: number;
+                    headShareBps: number;
+                } | undefined;
+                shownAs?: string | undefined;
+                teamId?: string | null | undefined;
+                askedBy?: {
+                    id: string;
+                    name: string | null;
+                } | null | undefined;
+                projectId?: string | null | undefined;
+                labels?: string[] | undefined;
+                archived?: boolean | undefined;
+                bookmarked?: boolean | undefined;
+                externalRef?: string | null | undefined;
+                link?: {
+                    url: string;
+                    qrSvgUrl: string;
+                    qrPngUrl: string;
+                    closesAt: string | null;
+                    views: number;
+                    started: number;
+                } | null | undefined;
+                setId?: string | null | undefined;
+                setPosition?: number | null | undefined;
+                setCount?: number | null | undefined;
+            }[];
+        }>;
+        list: (filter?: {
+            status?: import("@50heads/shared").SetStatus;
+            limit?: number;
+            cursor?: string;
+        }) => Promise<{
+            sets: import("@50heads/shared").SetV2[];
+            nextCursor: string | null;
+        }>;
+        get: (id: string) => Promise<{
+            set: {
+                id: string;
+                status: "open" | "closed";
+                shownAs: string | null;
+                maxAnswers: number;
+                openForDays: 1 | 14 | 7 | 30;
+                publicResults: boolean;
+                expiresAt: string;
+                questionIds: string[];
+                answered: number;
+                creditsReserved: number;
+                creditsSpent: number;
+                link: {
+                    url: string;
+                    qrSvgUrl: string;
+                    qrPngUrl: string;
+                    closesAt: string | null;
+                    views: number;
+                    started: number;
+                } | null;
+                teamId: string | null;
+                createdAt: string;
+                closedAt: string | null;
+            };
+            questions: {
+                type: "single_choice" | "multi_choice" | "ab_image" | "pairwise" | "scale_1_5" | "ranking" | "yes_no" | "yes_mostly_no" | "click_test" | "reaction" | "free_text";
+                text: string;
+                language: string;
+                options: {
+                    label: string;
+                    imageUrl?: string | undefined;
+                }[];
+                neither: boolean;
+                n: number;
+                tier: 1 | 2 | 3;
+                rush: boolean;
+                publicResults: boolean;
+                reason: "off" | "optional" | "required";
+                answeredBy: "heads" | "private";
+                openForDays: 1 | 14 | 7 | 30;
+                id: string;
+                status: "cancelled" | "closed" | "live" | "scheduled" | "draft" | "complete" | "underfilled" | "refused";
+                source: "app" | "portal" | "api" | "mcp";
+                answered: number;
+                creditsPerAnswer: number;
+                creditsReserved: number;
+                creditsSpent: number;
+                etaMinutes: number;
+                leaderLine: string | null;
+                refusedCategory: string | null;
+                publicCode: string | null;
+                createdAt: string;
+                liveAt: string | null;
+                closedAt: string | null;
+                context?: string | undefined;
+                stimulus?: {
+                    imageUrl?: string | undefined;
+                    audioUrl?: string | undefined;
+                    text?: string | undefined;
+                    exposureMs?: number | undefined;
+                } | undefined;
+                targeting?: {
+                    countries: string[];
+                    tags: string[];
+                    ageBands?: ("18-24" | "25-34" | "35-44" | "45-54" | "55-64" | "65+")[] | undefined;
+                    genders?: ("woman" | "man" | "non_binary")[] | undefined;
+                    verifiedAge?: boolean | undefined;
+                } | undefined;
+                clickTest?: {
+                    maxTaps: number;
+                } | undefined;
+                scheduledFor?: string | undefined;
+                contentFlag?: "medical" | "violence" | "distressing" | "alcohol_gambling" | "political" | "none" | undefined;
+                interestAudienceId?: string | undefined;
+                minGrade?: 1 | 2 | 3 | undefined;
+                interestPrice?: {
+                    perAnswerPence: number;
+                    headShareBps: number;
+                } | undefined;
+                shownAs?: string | undefined;
+                teamId?: string | null | undefined;
+                askedBy?: {
+                    id: string;
+                    name: string | null;
+                } | null | undefined;
+                projectId?: string | null | undefined;
+                labels?: string[] | undefined;
+                archived?: boolean | undefined;
+                bookmarked?: boolean | undefined;
+                externalRef?: string | null | undefined;
+                link?: {
+                    url: string;
+                    qrSvgUrl: string;
+                    qrPngUrl: string;
+                    closesAt: string | null;
+                    views: number;
+                    started: number;
+                } | null | undefined;
+                setId?: string | null | undefined;
+                setPosition?: number | null | undefined;
+                setCount?: number | null | undefined;
+            }[];
+        }>;
+        close: (id: string) => Promise<{
+            set: {
+                id: string;
+                status: "open" | "closed";
+                shownAs: string | null;
+                maxAnswers: number;
+                openForDays: 1 | 14 | 7 | 30;
+                publicResults: boolean;
+                expiresAt: string;
+                questionIds: string[];
+                answered: number;
+                creditsReserved: number;
+                creditsSpent: number;
+                link: {
+                    url: string;
+                    qrSvgUrl: string;
+                    qrPngUrl: string;
+                    closesAt: string | null;
+                    views: number;
+                    started: number;
+                } | null;
+                teamId: string | null;
+                createdAt: string;
+                closedAt: string | null;
+            };
+            questions: {
+                type: "single_choice" | "multi_choice" | "ab_image" | "pairwise" | "scale_1_5" | "ranking" | "yes_no" | "yes_mostly_no" | "click_test" | "reaction" | "free_text";
+                text: string;
+                language: string;
+                options: {
+                    label: string;
+                    imageUrl?: string | undefined;
+                }[];
+                neither: boolean;
+                n: number;
+                tier: 1 | 2 | 3;
+                rush: boolean;
+                publicResults: boolean;
+                reason: "off" | "optional" | "required";
+                answeredBy: "heads" | "private";
+                openForDays: 1 | 14 | 7 | 30;
+                id: string;
+                status: "cancelled" | "closed" | "live" | "scheduled" | "draft" | "complete" | "underfilled" | "refused";
+                source: "app" | "portal" | "api" | "mcp";
+                answered: number;
+                creditsPerAnswer: number;
+                creditsReserved: number;
+                creditsSpent: number;
+                etaMinutes: number;
+                leaderLine: string | null;
+                refusedCategory: string | null;
+                publicCode: string | null;
+                createdAt: string;
+                liveAt: string | null;
+                closedAt: string | null;
+                context?: string | undefined;
+                stimulus?: {
+                    imageUrl?: string | undefined;
+                    audioUrl?: string | undefined;
+                    text?: string | undefined;
+                    exposureMs?: number | undefined;
+                } | undefined;
+                targeting?: {
+                    countries: string[];
+                    tags: string[];
+                    ageBands?: ("18-24" | "25-34" | "35-44" | "45-54" | "55-64" | "65+")[] | undefined;
+                    genders?: ("woman" | "man" | "non_binary")[] | undefined;
+                    verifiedAge?: boolean | undefined;
+                } | undefined;
+                clickTest?: {
+                    maxTaps: number;
+                } | undefined;
+                scheduledFor?: string | undefined;
+                contentFlag?: "medical" | "violence" | "distressing" | "alcohol_gambling" | "political" | "none" | undefined;
+                interestAudienceId?: string | undefined;
+                minGrade?: 1 | 2 | 3 | undefined;
+                interestPrice?: {
+                    perAnswerPence: number;
+                    headShareBps: number;
+                } | undefined;
+                shownAs?: string | undefined;
+                teamId?: string | null | undefined;
+                askedBy?: {
+                    id: string;
+                    name: string | null;
+                } | null | undefined;
+                projectId?: string | null | undefined;
+                labels?: string[] | undefined;
+                archived?: boolean | undefined;
+                bookmarked?: boolean | undefined;
+                externalRef?: string | null | undefined;
+                link?: {
+                    url: string;
+                    qrSvgUrl: string;
+                    qrPngUrl: string;
+                    closesAt: string | null;
+                    views: number;
+                    started: number;
+                } | null | undefined;
+                setId?: string | null | undefined;
+                setPosition?: number | null | undefined;
+                setCount?: number | null | undefined;
+            }[];
+        } & {
+            refundCredits: number;
+        }>;
+        linkQrUrl: (id: string, format: "svg" | "png") => string;
+        exportCsvUrl: (id: string) => string;
     };
     asks: {
         create: (draft: import("@50heads/shared").QuestionDraftInput, idempotencyKey: string, fromDraftId?: string) => Promise<{
@@ -1123,8 +1690,8 @@ export declare function makeApi(opts: StdioOptions): (tool: string, client?: str
             answers: {
                 option: string | null;
                 text: string | null;
-                tier: number;
-                attestationRef: string;
+                tier: number | null;
+                attestationRef: string | null;
                 answeredAt: string;
                 translatedText?: string | null | undefined;
                 reason?: string | null | undefined;
@@ -1168,10 +1735,13 @@ export declare function makeApi(opts: StdioOptions): (tool: string, client?: str
         }>;
         exportCsvUrl: (id: string, filter?: import("@50heads/shared").ResultFilterInput) => string;
         heatmapUrl: (id: string) => string;
+        linkQrUrl: (id: string, format: "svg" | "png") => string;
         rate: (id: string, usefulness: number) => Promise<{
             ok: true;
         }>;
-        createWith: (draft: import("@50heads/shared").QuestionDraftInput, idempotencyKey: string, extras: import("@50heads/shared").AskExtrasInput) => Promise<{
+        createWith: (draft: import("@50heads/shared").QuestionDraftInput, idempotencyKey: string, extras: import("@50heads/shared").AskExtrasInput & {
+            fromDraftId?: string;
+        }) => Promise<{
             question: import("@50heads/shared").QuestionV2;
         }>;
         update: (id: string, input: import("@50heads/shared").QuestionUpdateInput) => Promise<{
@@ -1240,9 +1810,10 @@ export declare function makeApi(opts: StdioOptions): (tool: string, client?: str
                 credits: number;
                 expiresAt: string;
             }[];
-            currency: "GBP" | "USD" | "EUR" | "CAD";
+            currency: "GBP" | "USD" | "EUR" | "CAD" | "JPY" | "KRW" | "SEK" | "DKK" | "NOK" | "PLN" | "BRL" | "CZK" | "RON" | "TRY";
             capRemaining: number | null;
             freeQuestionToday: boolean;
+            privateDeclaredAt?: string | null | undefined;
         }>;
         packs: (currency: string) => Promise<{
             packs: {
@@ -1364,7 +1935,7 @@ export declare function makeApi(opts: StdioOptions): (tool: string, client?: str
             recent: {
                 id: string;
                 at: string;
-                kind: "clawback" | "not_paid" | "say" | "ask" | "purchase" | "refund" | "bonus" | "referral" | "payout" | "payout_returned" | "fee" | "expiry" | "adjustment" | "tier2_fee";
+                kind: "clawback" | "not_paid" | "say" | "ask" | "purchase" | "refund" | "bonus" | "referral" | "payout" | "payout_returned" | "fee" | "expiry" | "adjustment" | "tier2_fee" | "founder_credits";
                 title: string;
                 state: "not_paid" | "available" | "pending" | "in_flight" | "paid" | "reversed";
                 amount: number;
@@ -1394,8 +1965,10 @@ export declare function makeApi(opts: StdioOptions): (tool: string, client?: str
                 amountPence: number;
                 saysNeeded: number;
                 saysDone: number;
-                state: "in_progress" | "paid" | "closed";
+                state: "closed" | "in_progress" | "paid";
             } | null | undefined;
+            founderCredits?: number | null | undefined;
+            founderCreditsPending?: number | null | undefined;
             accepted?: {
                 rate: number | null;
                 accepted: number;
@@ -1449,7 +2022,7 @@ export declare function makeApi(opts: StdioOptions): (tool: string, client?: str
                 currency: string;
             };
             arrives: string;
-            blocker: "tax_details_required" | "no_method" | "below_minimum" | "reverify_required" | "frozen" | "method_cooling_off" | "method_unavailable" | null;
+            blocker: "tax_details_required" | "no_method" | "below_minimum" | "reverify_required" | "frozen" | "method_cooling_off" | "method_unavailable" | "integrity_limited" | null;
             quoteId: string;
             usableFrom?: string | null | undefined;
         }>;
@@ -1462,7 +2035,7 @@ export declare function makeApi(opts: StdioOptions): (tool: string, client?: str
         payoutMethods: () => Promise<{
             methods: {
                 id: string;
-                rail: "paypal" | "bank_uk" | "wise" | "venmo";
+                rail: "wise" | "paypal" | "bank_uk" | "venmo";
                 masked: string;
                 holderName: string | null;
                 currency: string;
@@ -1475,14 +2048,54 @@ export declare function makeApi(opts: StdioOptions): (tool: string, client?: str
             }[];
             available: string[];
             offered?: {
-                rail: "paypal" | "bank_uk" | "wise" | "venmo";
+                rail: "wise" | "paypal" | "bank_uk" | "venmo";
                 label: string;
                 line: string;
                 currency: string;
                 lockedReason: string | null;
             }[] | undefined;
-            addDefault?: "paypal" | "bank_uk" | "wise" | "venmo" | undefined;
+            addDefault?: "wise" | "paypal" | "bank_uk" | "venmo" | undefined;
             withdrawDefault?: string | null | undefined;
+        }>;
+        wiseRequirements: (currency: string) => Promise<{
+            currency: string;
+            source: "wise" | "fallback";
+            requirement: {
+                type: string;
+                title: string;
+                fields: {
+                    key: string;
+                    label: string;
+                    required: boolean;
+                    example?: string | undefined;
+                    pattern?: string | undefined;
+                    minLength?: number | undefined;
+                    maxLength?: number | undefined;
+                    options?: {
+                        value: string;
+                        label: string;
+                    }[] | undefined;
+                    refresh?: boolean | undefined;
+                }[];
+            } | null;
+            others: {
+                type: string;
+                title: string;
+                fields: {
+                    key: string;
+                    label: string;
+                    required: boolean;
+                    example?: string | undefined;
+                    pattern?: string | undefined;
+                    minLength?: number | undefined;
+                    maxLength?: number | undefined;
+                    options?: {
+                        value: string;
+                        label: string;
+                    }[] | undefined;
+                    refresh?: boolean | undefined;
+                }[];
+            }[];
         }>;
         addPayoutMethod: (input: import("@50heads/shared").AddPayoutMethodInput, reauthToken: string) => Promise<{
             method: import("@50heads/shared").PayoutMethod;

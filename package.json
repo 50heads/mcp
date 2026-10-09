@@ -1,8 +1,8 @@
 {
   "name": "@50heads/mcp",
-  "version": "2026.1006.1",
+  "version": "2026.1009.1",
   "mcpName": "com.50heads/mcp",
-  "description": "50heads MCP: ask fifty verified real people from Claude, ChatGPT, Cursor or your own agent.",
+  "description": "50heads MCP: ask fifty verified people from Claude, ChatGPT, Cursor or your own agent.",
   "keywords": [
     "mcp",
     "model-context-protocol",
@@ -57,9 +57,9 @@
     "@types/node": "^22.18.0",
     "esbuild": "^0.28.2",
     "typescript": "^5.9.3",
-    "@50heads/shared": "0.0.0",
     "@50heads/login": "0.0.0",
     "@50heads/brand": "0.0.0",
+    "@50heads/shared": "0.0.0",
     "@50heads/tsconfig": "0.0.0"
   },
   "scripts": {

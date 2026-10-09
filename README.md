@@ -1,7 +1,7 @@
 # 50heads MCP
 
 <!-- lead:start (generated from src/pricing.ts by scripts/generate.ts; do not edit by hand) -->
-Ask fifty verified real people a five-second question from Claude, ChatGPT, Cursor or your own agent, and get the split back. 50 answers at Tier 1: about 10 minutes and 1000 credits, priced in your account's currency.
+Ask fifty verified people a five-second question from Claude, ChatGPT, Cursor or your own agent, and get the split back. 50 answers at Tier 1: about 10 minutes and 1000 credits, priced in your account's currency.
 <!-- lead:end -->
 
 There are two ways in, with the same tools:
