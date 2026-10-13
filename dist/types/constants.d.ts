@@ -4,9 +4,9 @@
  */
 export declare const SERVER_NAME = "50heads";
 /** Calendar version (YYYY.MDD.N). Stamped at release by scripts/release.ts; never edit by hand. */
-export declare const SERVER_VERSION = "2026.1013.1";
+export declare const SERVER_VERSION = "2026.1013.2";
 /** Sent by the CLI on every request, so the API can tell releases apart. */
-export declare const USER_AGENT = "50heads-mcp/2026.1013.1";
+export declare const USER_AGENT = "50heads-mcp/2026.1013.2";
 export declare const MCP_RESOURCE_URL = "https://mcp.50heads.com/mcp";
 /**
  * The tools and, inside each, the actions it takes, with the scope each action needs (spec:

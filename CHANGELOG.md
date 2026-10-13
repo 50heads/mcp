@@ -8,6 +8,15 @@ Pending changes are captured as changesets and written here when the package is 
 
 ## [Unreleased]
 
+## [2026.1013.2] - 2026-10-13
+
+**This release updates the public listing and repository description for 50heads MCP.** It also removes any time promise from the repo description.
+
+### Changed
+
+- **The Glama listing now names 50heads-team as the only maintainer.**
+- **The repository description now carries no time promise.**
+
 ## [2026.1013.1] - 2026-10-13
 
 **@50heads/mcp 2026.1013.1 changes the MCP server to nine action-based tools, with per-action scopes and updated help, status and whoami access.** It also adds filing, organisation, audit, webhook and approval flows, plus JSONL export and clearer privacy wording.
@@ -91,3 +100,5 @@ Pending changes are captured as changesets and written here when the package is 
 [2026.1009.1]: https://github.com/50heads/mcp/releases/tag/v2026.1009.1
 
 [2026.1013.1]: https://github.com/50heads/mcp/releases/tag/v2026.1013.1
+
+[2026.1013.2]: https://github.com/50heads/mcp/releases/tag/v2026.1013.2

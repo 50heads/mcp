@@ -3,7 +3,7 @@
   "name": "com.50heads/mcp",
   "title": "50heads",
   "description": "Ask fifty verified people a five-second question and see what they think.",
-  "version": "2026.1013.1",
+  "version": "2026.1013.2",
   "websiteUrl": "https://50heads.com/agents",
   "repository": {
     "url": "https://github.com/50heads/mcp",
@@ -44,7 +44,7 @@
       "registryType": "npm",
       "registryBaseUrl": "https://registry.npmjs.org",
       "identifier": "@50heads/mcp",
-      "version": "2026.1013.1",
+      "version": "2026.1013.2",
       "runtimeHint": "npx",
       "transport": {
         "type": "stdio"
@@ -91,7 +91,7 @@
           "audit:read"
         ]
       },
-      "skillVersion": "2026.1013.1"
+      "skillVersion": "2026.1013.2"
     }
   }
 }
