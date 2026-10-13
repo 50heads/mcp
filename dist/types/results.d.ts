@@ -15,9 +15,16 @@ export declare function toFilter(a: {
 }): ResultFilterInput;
 /** A head's free-text answer as one quotable line: no control characters, no double quotes. */
 export declare function quoteAnswer(text: string): string;
+/** The verdict in the API's words, from the snake_case result. */
+export declare function verdictText(v: NonNullable<ResultsOutput["verdict"]>): string;
+/**
+ * Who beats whom in one line: each compared pair once, the one more people put above the other
+ * first, strongest rows first ("Mushroom over Olives 71%, ...").
+ */
+export declare function headToHeadText(h: NonNullable<ResultsOutput["head_to_head"]>): string;
 /**
  * One paragraph for hosts that only show text: "Menu B wins by 36 points (68% to 32%).
- * Confidence high. 50 of 50 answered, complete, £10.00."
+ * Confidence high. 50 of 50 answered, complete, £10.00." With a go rule the verdict leads.
  */
 export declare function resultsText(r: ResultsOutput): string;
 export declare function toListItem(q: QuestionV2): ListQuestionsOutput["questions"][number];

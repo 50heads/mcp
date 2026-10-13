@@ -5,11 +5,11 @@ Every question has `type`, `text` (8 to 600 characters), `language` (such as `en
 The format multiplier is part of the price: per answer = tier base × length × format, plus 5 credits an image.
 
 Five-second test: add `exposure_ms` (usually 5000) to an image stimulus on single_choice, multi_choice, yes_no, yes_mostly_no, scale_1_5, reaction or free_text. The app shows the image for that long, hides it, then asks, so the answer is a first impression or what people remember. × 1.3.
-Every type except `free_text` can ask for a short written reason with each answer: `reason: "optional"` (format + 0.3) or `"required"` (format + 0.6), 10 to 140 characters. Reasons come back on each answer, translated into your language when heads wrote in another, and `get_results` summarises them (themes with counts and quotes, a sentiment split and a takeaway). Use it instead of a follow-up when you want the which and the why from the same heads.
+Every type except `free_text` can ask for a short written reason with each answer: `reason: "optional"` (format + 0.3) or `"required"` (format + 0.6), 10 to 140 characters. Reasons come back on each answer, translated into your language when heads wrote in another, and `results` (action get) summarizes them (themes with counts and quotes, a sentiment split and a takeaway). Use it instead of a follow-up when you want the which and the why from the same heads.
 
 ## Single choice (`single_choice`)
 
-- Use: Pick one of several: names, headlines, taglines, colours.
+- Use: Pick one of several: names, headlines, taglines, colors.
 - Options: 2 to 8 options, 40 characters each; images optional. Two to four reads best.
 - Answer: One option per head; the distribution counts each option.
 - Tier: any. Format × 1.0.
@@ -91,7 +91,7 @@ Every type except `free_text` can ask for a short written reason with each answe
 
 - Use: Compare options two at a time when there are too many to show at once.
 - Options: 2 to 8 options; each head sees one pair, balanced so every pair is seen about equally.
-- Answer: One pick per pair. With 3 or more options each row has count (wins), share (win share), appearances, a Bradley–Terry strength and a rank.
+- Answer: One pick per pair. With 3 or more options each row has count (wins), share (win share), a 95% range on it (low, high), appearances, a Bradley–Terry strength and a rank. When the top two ranges overlap, the lead may be chance. head_to_head says who beats whom: share[i][j] is the share of people who put option i above option j.
 - Tier: any. Format × 1.1.
 
 ```json
@@ -135,13 +135,13 @@ Every type except `free_text` can ask for a short written reason with each answe
 
 - Use: Put options in order of preference.
 - Options: 2 to 8 options; keep to five or fewer for a five-second answer.
-- Answer: A full order per head; the distribution carries each option's average rank.
+- Answer: A full order per head; the distribution carries each option's average rank, and head_to_head says who beats whom: share[i][j] is the share of people who put option i above option j.
 - Tier: any. Format × 1.3.
 
 ```json
 {
   "type": "ranking",
-  "text": "Rank these pizza toppings, favourite first.",
+  "text": "Rank these pizza toppings, favorite first.",
   "language": "en",
   "options": [
     {
@@ -163,9 +163,9 @@ Every type except `free_text` can ask for a short written reason with each answe
 
 ## Yes or no (`yes_no`)
 
-- Use: A binary check. Heads answer Yes or No. This is the yes/no type. For a middle answer, use yes_mostly_no.
+- Use: A binary check. Heads answer Yes or No. This is the yes/no type. For a middle answer, use yes_mostly_no. For an approval-style question, add go_rule to get a go or a no go when Yes clears your line.
 - Options: Fixed: Yes, No. Do not send options.
-- Answer: Yes or No.
+- Answer: Yes or No. With go_rule ({ "go_above": 0.6, "min_answers": 40 }), results carry a verdict: go when the whole 95% range on the Yes share is above the line, no_go when it is all at or below it, otherwise unclear (too few answers, or the range crosses the line). The line is fixed once the question is live and costs nothing extra.
 - Tier: any. Format × 1.0.
 
 ```json
@@ -174,15 +174,19 @@ Every type except `free_text` can ask for a short written reason with each answe
   "text": "Does this button label tell you what will happen?",
   "context": "Button: Save and continue",
   "language": "en",
-  "n": 50
+  "n": 50,
+  "go_rule": {
+    "go_above": 0.6,
+    "min_answers": 40
+  }
 }
 ```
 
 ## Yes, mostly or no (`yes_mostly_no`)
 
-- Use: Yes, Mostly or No. Set this type when you want the middle answer. A plain yes/no question is yes_no.
+- Use: Yes, Mostly or No. Set this type when you want the middle answer. A plain yes/no question is yes_no. Takes go_rule like yes_no.
 - Options: Fixed: Yes, Mostly, No. Do not send options.
-- Answer: One of the three.
+- Answer: One of the three. With go_rule, Mostly counts as half a Yes in the verdict.
 - Tier: any. Format × 1.0.
 
 ```json

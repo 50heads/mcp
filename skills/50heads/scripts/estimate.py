@@ -107,7 +107,7 @@ def main():
     cost = "%d credits" % quote["creditsTotal"]
     if quote.get("price"):
         cost += " (%s)" % money(quote["price"])
-    print("%d answers, about %d minutes, %s." % (n, quote["etaMinutes"], cost))
+    print("%d answers, %s." % (n, cost))
     print(quote.get("breakdownLine", ""))
     for issue in quote.get("validation", []):
         print("Fix: " + issue["message"])

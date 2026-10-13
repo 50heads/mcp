@@ -287,6 +287,60 @@ export declare function makeApi(opts: StdioOptions): (tool: string, client?: str
         reauthEmail: () => Promise<{
             ok: true;
         }>;
+        sso: {
+            discover: (input: import("@50heads/shared").SsoDiscoverInput) => Promise<{
+                sso: false;
+            } | {
+                sso: true;
+                url: string;
+                required: boolean;
+            }>;
+            startUrl: (organizationId: string, returnPath?: string) => string;
+            complete: <T extends import("@50heads/shared").SsoSession | import("@50heads/shared").AppSession = {
+                token: string;
+                expiresAt: string;
+                user: {
+                    id: string;
+                    email: string;
+                    name: string | null;
+                    tier: 0 | 1 | 2 | 3;
+                    country: string | null;
+                    phone: string | null;
+                    displayCurrency: "GBP" | "USD" | "EUR" | "CAD" | "JPY" | "KRW" | "SEK" | "DKK" | "NOK" | "PLN" | "BRL" | "CZK" | "RON" | "TRY" | null;
+                    languages: ("en" | "fr" | "es" | "pt" | "it" | "de" | "nl" | "pl" | "ja" | "ko" | "sv" | "da" | "nb" | "cs" | "ro" | "fi" | "tr")[];
+                    locale: string | null;
+                    creditsPence: number;
+                    earningsPence: number;
+                    pendingPence: number;
+                    providers: ("apple" | "google" | "email")[];
+                    createdAt: string;
+                };
+                isNew: boolean;
+                next: string;
+            }>(input: import("@50heads/shared").SsoCompleteInput) => Promise<T>;
+            link: <T extends import("@50heads/shared").SsoSession | import("@50heads/shared").AppSession = {
+                token: string;
+                expiresAt: string;
+                user: {
+                    id: string;
+                    email: string;
+                    name: string | null;
+                    tier: 0 | 1 | 2 | 3;
+                    country: string | null;
+                    phone: string | null;
+                    displayCurrency: "GBP" | "USD" | "EUR" | "CAD" | "JPY" | "KRW" | "SEK" | "DKK" | "NOK" | "PLN" | "BRL" | "CZK" | "RON" | "TRY" | null;
+                    languages: ("en" | "fr" | "es" | "pt" | "it" | "de" | "nl" | "pl" | "ja" | "ko" | "sv" | "da" | "nb" | "cs" | "ro" | "fi" | "tr")[];
+                    locale: string | null;
+                    creditsPence: number;
+                    earningsPence: number;
+                    pendingPence: number;
+                    providers: ("apple" | "google" | "email")[];
+                    createdAt: string;
+                };
+                isNew: boolean;
+                next: string;
+            }>(input: import("@50heads/shared").SsoLinkInput) => Promise<T>;
+        };
         passkey: {
             options: () => Promise<{
                 challengeId: string;
@@ -489,7 +543,58 @@ export declare function makeApi(opts: StdioOptions): (tool: string, client?: str
     me: () => Promise<{
         user: import("@50heads/shared").User;
     }>;
-    deleteAccount: (reauth: import("@50heads/shared").Reauth) => Promise<{
+    whoami: () => Promise<{
+        principal: {
+            type: "person" | "service_account";
+            id: string;
+            email: string | null;
+        };
+        auth: "device" | "oauth" | "session" | "api_key";
+        scopes: string[] | null;
+        connection: {
+            id: string;
+            kind: "key" | "app" | "oauth";
+            clientId: string | null;
+            clientName: string;
+            host: string | null;
+            scopes: ("questions:read" | "questions:write" | "templates:read" | "account:read" | "webhooks:read" | "webhooks:write" | "apps:read" | "apps:write" | "organization:read" | "organization:write" | "members:read" | "members:write" | "audit:read")[];
+            capDailyPence: number;
+            spentTodayPence: number;
+            spentMonthPence: number;
+            protocolVersion: string | null;
+            validatesIss: boolean | null;
+            createdAt: string;
+            lastUsedAt: string | null;
+            capMonthlyPence?: number | null | undefined;
+            capQuestionPence?: number | null | undefined;
+            teamId?: string | null | undefined;
+        } | null;
+        account: {
+            kind: "personal" | "team";
+            teamId: string | null;
+            teamName: string | null;
+            role: "owner" | "admin" | "member" | "viewer" | "billing" | null;
+        };
+        organization: {
+            id: string;
+            name: string;
+            admin: boolean;
+        } | null;
+    }>;
+    limits: () => Promise<{
+        policies: {
+            id: string;
+            appliesTo: string;
+            per: "account" | "connection";
+            limit: number;
+            windowSeconds: number;
+            used: number | null;
+            remaining: number | null;
+            resetSeconds: number;
+        }[];
+        note: string;
+    }>;
+    deleteAccount: (reauth: import("@50heads/shared").Reauth | null, reauthToken?: string) => Promise<{
         ok: true;
         erasesAt: string;
     }>;
@@ -610,10 +715,6 @@ export declare function makeApi(opts: StdioOptions): (tool: string, client?: str
         list: () => Promise<{
             keys: import("@50heads/shared").ApiKey[];
         }>;
-        create: (name: string) => Promise<{
-            key: import("@50heads/shared").ApiKey;
-            secret: string;
-        }>;
         revoke: (id: string) => Promise<{
             ok: true;
         }>;
@@ -629,13 +730,57 @@ export declare function makeApi(opts: StdioOptions): (tool: string, client?: str
             };
             updatedAt: string;
         }>;
+        status: () => Promise<{
+            status: "paused" | "operational" | "degraded" | "outage";
+            components: {
+                id: "answering" | "api" | "database" | "asking" | "mcp_asking" | "top_ups";
+                status: "paused" | "operational" | "degraded" | "outage";
+                note: string | null;
+            }[];
+            message: string | null;
+            until: string | null;
+            checkedAt: string;
+            page: string;
+        }>;
+        subprocessors: () => Promise<{
+            upcoming: {
+                id: string;
+                kind: "add" | "remove" | "change";
+                name: string;
+                purpose: string;
+                dataCategories: string;
+                location: string;
+                transferMechanism: string;
+                link: string | null;
+                status: "announced" | "effective" | "withdrawn";
+                announcedAt: string;
+                effectiveAt: string;
+                withdrawnAt: string | null;
+            }[];
+            history: {
+                id: string;
+                kind: "add" | "remove" | "change";
+                name: string;
+                purpose: string;
+                dataCategories: string;
+                location: string;
+                transferMechanism: string;
+                link: string | null;
+                status: "announced" | "effective" | "withdrawn";
+                announcedAt: string;
+                effectiveAt: string;
+                withdrawnAt: string | null;
+            }[];
+            noticeDays: number;
+            updatedAt: string;
+        }>;
         results: (code: string) => Promise<{
             question: import("@50heads/shared").QuestionV2;
             result: import("@50heads/shared").ResultV2;
         }>;
         shared: (token: string) => Promise<{
             question: {
-                type: "single_choice" | "multi_choice" | "ab_image" | "pairwise" | "scale_1_5" | "ranking" | "yes_no" | "yes_mostly_no" | "click_test" | "reaction" | "free_text";
+                type: "single_choice" | "multi_choice" | "ab_image" | "pairwise" | "scale_1_5" | "ranking" | "yes_no" | "yes_mostly_no" | "free_text" | "click_test" | "reaction";
                 text: string;
                 language: string;
                 options: {
@@ -651,8 +796,8 @@ export declare function makeApi(opts: StdioOptions): (tool: string, client?: str
                 answeredBy: "heads" | "private";
                 openForDays: 1 | 14 | 7 | 30;
                 id: string;
-                status: "cancelled" | "closed" | "live" | "scheduled" | "draft" | "complete" | "underfilled" | "refused";
-                source: "app" | "portal" | "api" | "mcp";
+                status: "canceled" | "closed" | "live" | "scheduled" | "draft" | "complete" | "underfilled" | "refused" | "pending_approval";
+                source: "app" | "api" | "portal" | "mcp";
                 answered: number;
                 creditsPerAnswer: number;
                 creditsReserved: number;
@@ -682,6 +827,10 @@ export declare function makeApi(opts: StdioOptions): (tool: string, client?: str
                     maxTaps: number;
                 } | undefined;
                 scheduledFor?: string | undefined;
+                goRule?: {
+                    goAbove: number;
+                    minAnswers: number;
+                } | undefined;
                 contentFlag?: "medical" | "violence" | "distressing" | "alcohol_gambling" | "political" | "none" | undefined;
                 interestAudienceId?: string | undefined;
                 minGrade?: 1 | 2 | 3 | undefined;
@@ -714,7 +863,7 @@ export declare function makeApi(opts: StdioOptions): (tool: string, client?: str
             };
             result: {
                 questionId: string;
-                status: "cancelled" | "complete" | "underfilled" | "in_progress";
+                status: "canceled" | "complete" | "underfilled" | "in_progress";
                 nRequested: number;
                 nAccepted: number;
                 distribution: {
@@ -725,6 +874,8 @@ export declare function makeApi(opts: StdioOptions): (tool: string, client?: str
                     appearances?: number | undefined;
                     strength?: number | undefined;
                     rank?: number | undefined;
+                    low?: number | undefined;
+                    high?: number | undefined;
                 }[];
                 mean: number | null;
                 summary: {
@@ -760,6 +911,12 @@ export declare function makeApi(opts: StdioOptions): (tool: string, client?: str
                         x: number;
                         y: number;
                     }[] | undefined;
+                    choice?: {
+                        index?: number | undefined;
+                        indexes?: number[] | undefined;
+                        order?: number[] | undefined;
+                        pair?: [number, number] | undefined;
+                    } | undefined;
                 }[];
                 refundCredits: number;
                 provenance?: {
@@ -782,6 +939,8 @@ export declare function makeApi(opts: StdioOptions): (tool: string, client?: str
                         appearances?: number | undefined;
                         strength?: number | undefined;
                         rank?: number | undefined;
+                        low?: number | undefined;
+                        high?: number | undefined;
                     }[];
                 }[] | undefined;
                 breakdowns?: {
@@ -797,6 +956,8 @@ export declare function makeApi(opts: StdioOptions): (tool: string, client?: str
                             appearances?: number | undefined;
                             strength?: number | undefined;
                             rank?: number | undefined;
+                            low?: number | undefined;
+                            high?: number | undefined;
                         }[];
                     }[];
                 }[] | undefined;
@@ -886,6 +1047,22 @@ export declare function makeApi(opts: StdioOptions): (tool: string, client?: str
                         n: number;
                     }[] | undefined;
                 } | undefined;
+                verdict?: {
+                    verdict: "go" | "no_go" | "unclear";
+                    reason: "too_few" | "too_close" | null;
+                    yesShare: number;
+                    low: number;
+                    high: number;
+                    goAbove: number;
+                    minAnswers: number;
+                    n: number;
+                } | undefined;
+                headToHead?: {
+                    options: string[];
+                    share: (number | null)[][];
+                    n: number[][];
+                } | undefined;
+                cohortHash?: string | undefined;
             };
             expiresAt: string;
         }>;
@@ -1159,7 +1336,7 @@ export declare function makeApi(opts: StdioOptions): (tool: string, client?: str
                 } | undefined;
                 suggestions?: {
                     id: string;
-                    code: string;
+                    code: "length" | "neither" | "tidy" | "spelling" | "clarity" | "single_idea" | "leading" | "overlap" | "jargon" | "not_a_preference" | "show_the_thing" | "parallel" | "policy";
                     severity: "info" | "suggest" | "strong";
                     field: string;
                     reason: string;
@@ -1191,7 +1368,7 @@ export declare function makeApi(opts: StdioOptions): (tool: string, client?: str
                         neither: boolean;
                     } | {
                         type: "set_type";
-                        questionType: "single_choice" | "multi_choice" | "ab_image" | "pairwise" | "scale_1_5" | "ranking" | "yes_no" | "yes_mostly_no" | "click_test" | "reaction" | "free_text";
+                        questionType: "single_choice" | "multi_choice" | "ab_image" | "pairwise" | "scale_1_5" | "ranking" | "yes_no" | "yes_mostly_no" | "free_text" | "click_test" | "reaction";
                     } | {
                         type: "tidy";
                         text?: string | undefined;
@@ -1223,7 +1400,7 @@ export declare function makeApi(opts: StdioOptions): (tool: string, client?: str
                 } | undefined;
                 suggestions?: {
                     id: string;
-                    code: string;
+                    code: "length" | "neither" | "tidy" | "spelling" | "clarity" | "single_idea" | "leading" | "overlap" | "jargon" | "not_a_preference" | "show_the_thing" | "parallel" | "policy";
                     severity: "info" | "suggest" | "strong";
                     field: string;
                     reason: string;
@@ -1255,7 +1432,7 @@ export declare function makeApi(opts: StdioOptions): (tool: string, client?: str
                         neither: boolean;
                     } | {
                         type: "set_type";
-                        questionType: "single_choice" | "multi_choice" | "ab_image" | "pairwise" | "scale_1_5" | "ranking" | "yes_no" | "yes_mostly_no" | "click_test" | "reaction" | "free_text";
+                        questionType: "single_choice" | "multi_choice" | "ab_image" | "pairwise" | "scale_1_5" | "ranking" | "yes_no" | "yes_mostly_no" | "free_text" | "click_test" | "reaction";
                     } | {
                         type: "tidy";
                         text?: string | undefined;
@@ -1278,7 +1455,7 @@ export declare function makeApi(opts: StdioOptions): (tool: string, client?: str
         }, id?: string) => Promise<{
             id: string;
             draft: {
-                type: "single_choice" | "multi_choice" | "ab_image" | "pairwise" | "scale_1_5" | "ranking" | "yes_no" | "yes_mostly_no" | "click_test" | "reaction" | "free_text";
+                type: "single_choice" | "multi_choice" | "ab_image" | "pairwise" | "scale_1_5" | "ranking" | "yes_no" | "yes_mostly_no" | "free_text" | "click_test" | "reaction";
                 text?: string | undefined;
                 context?: string | undefined;
                 language?: string | undefined;
@@ -1309,6 +1486,10 @@ export declare function makeApi(opts: StdioOptions): (tool: string, client?: str
                 scheduledFor?: string | undefined;
                 publicResults?: boolean | undefined;
                 reason?: "off" | "optional" | "required" | undefined;
+                goRule?: {
+                    goAbove: number;
+                    minAnswers: number;
+                } | undefined;
                 contentFlag?: "medical" | "violence" | "distressing" | "alcohol_gambling" | "political" | "none" | undefined;
                 interestAudienceId?: string | undefined;
                 minGrade?: 1 | 2 | 3 | undefined;
@@ -1353,7 +1534,7 @@ export declare function makeApi(opts: StdioOptions): (tool: string, client?: str
                 closedAt: string | null;
             };
             questions: {
-                type: "single_choice" | "multi_choice" | "ab_image" | "pairwise" | "scale_1_5" | "ranking" | "yes_no" | "yes_mostly_no" | "click_test" | "reaction" | "free_text";
+                type: "single_choice" | "multi_choice" | "ab_image" | "pairwise" | "scale_1_5" | "ranking" | "yes_no" | "yes_mostly_no" | "free_text" | "click_test" | "reaction";
                 text: string;
                 language: string;
                 options: {
@@ -1369,8 +1550,8 @@ export declare function makeApi(opts: StdioOptions): (tool: string, client?: str
                 answeredBy: "heads" | "private";
                 openForDays: 1 | 14 | 7 | 30;
                 id: string;
-                status: "cancelled" | "closed" | "live" | "scheduled" | "draft" | "complete" | "underfilled" | "refused";
-                source: "app" | "portal" | "api" | "mcp";
+                status: "canceled" | "closed" | "live" | "scheduled" | "draft" | "complete" | "underfilled" | "refused" | "pending_approval";
+                source: "app" | "api" | "portal" | "mcp";
                 answered: number;
                 creditsPerAnswer: number;
                 creditsReserved: number;
@@ -1400,6 +1581,10 @@ export declare function makeApi(opts: StdioOptions): (tool: string, client?: str
                     maxTaps: number;
                 } | undefined;
                 scheduledFor?: string | undefined;
+                goRule?: {
+                    goAbove: number;
+                    minAnswers: number;
+                } | undefined;
                 contentFlag?: "medical" | "violence" | "distressing" | "alcohol_gambling" | "political" | "none" | undefined;
                 interestAudienceId?: string | undefined;
                 minGrade?: 1 | 2 | 3 | undefined;
@@ -1465,7 +1650,7 @@ export declare function makeApi(opts: StdioOptions): (tool: string, client?: str
                 closedAt: string | null;
             };
             questions: {
-                type: "single_choice" | "multi_choice" | "ab_image" | "pairwise" | "scale_1_5" | "ranking" | "yes_no" | "yes_mostly_no" | "click_test" | "reaction" | "free_text";
+                type: "single_choice" | "multi_choice" | "ab_image" | "pairwise" | "scale_1_5" | "ranking" | "yes_no" | "yes_mostly_no" | "free_text" | "click_test" | "reaction";
                 text: string;
                 language: string;
                 options: {
@@ -1481,8 +1666,8 @@ export declare function makeApi(opts: StdioOptions): (tool: string, client?: str
                 answeredBy: "heads" | "private";
                 openForDays: 1 | 14 | 7 | 30;
                 id: string;
-                status: "cancelled" | "closed" | "live" | "scheduled" | "draft" | "complete" | "underfilled" | "refused";
-                source: "app" | "portal" | "api" | "mcp";
+                status: "canceled" | "closed" | "live" | "scheduled" | "draft" | "complete" | "underfilled" | "refused" | "pending_approval";
+                source: "app" | "api" | "portal" | "mcp";
                 answered: number;
                 creditsPerAnswer: number;
                 creditsReserved: number;
@@ -1512,6 +1697,10 @@ export declare function makeApi(opts: StdioOptions): (tool: string, client?: str
                     maxTaps: number;
                 } | undefined;
                 scheduledFor?: string | undefined;
+                goRule?: {
+                    goAbove: number;
+                    minAnswers: number;
+                } | undefined;
                 contentFlag?: "medical" | "violence" | "distressing" | "alcohol_gambling" | "political" | "none" | undefined;
                 interestAudienceId?: string | undefined;
                 minGrade?: 1 | 2 | 3 | undefined;
@@ -1569,7 +1758,7 @@ export declare function makeApi(opts: StdioOptions): (tool: string, client?: str
                 closedAt: string | null;
             };
             questions: {
-                type: "single_choice" | "multi_choice" | "ab_image" | "pairwise" | "scale_1_5" | "ranking" | "yes_no" | "yes_mostly_no" | "click_test" | "reaction" | "free_text";
+                type: "single_choice" | "multi_choice" | "ab_image" | "pairwise" | "scale_1_5" | "ranking" | "yes_no" | "yes_mostly_no" | "free_text" | "click_test" | "reaction";
                 text: string;
                 language: string;
                 options: {
@@ -1585,8 +1774,8 @@ export declare function makeApi(opts: StdioOptions): (tool: string, client?: str
                 answeredBy: "heads" | "private";
                 openForDays: 1 | 14 | 7 | 30;
                 id: string;
-                status: "cancelled" | "closed" | "live" | "scheduled" | "draft" | "complete" | "underfilled" | "refused";
-                source: "app" | "portal" | "api" | "mcp";
+                status: "canceled" | "closed" | "live" | "scheduled" | "draft" | "complete" | "underfilled" | "refused" | "pending_approval";
+                source: "app" | "api" | "portal" | "mcp";
                 answered: number;
                 creditsPerAnswer: number;
                 creditsReserved: number;
@@ -1616,6 +1805,10 @@ export declare function makeApi(opts: StdioOptions): (tool: string, client?: str
                     maxTaps: number;
                 } | undefined;
                 scheduledFor?: string | undefined;
+                goRule?: {
+                    goAbove: number;
+                    minAnswers: number;
+                } | undefined;
                 contentFlag?: "medical" | "violence" | "distressing" | "alcohol_gambling" | "political" | "none" | undefined;
                 interestAudienceId?: string | undefined;
                 minGrade?: 1 | 2 | 3 | undefined;
@@ -1651,6 +1844,7 @@ export declare function makeApi(opts: StdioOptions): (tool: string, client?: str
         }>;
         linkQrUrl: (id: string, format: "svg" | "png") => string;
         exportCsvUrl: (id: string) => string;
+        exportJsonlUrl: (id: string) => string;
     };
     asks: {
         create: (draft: import("@50heads/shared").QuestionDraftInput, idempotencyKey: string, fromDraftId?: string) => Promise<{
@@ -1708,6 +1902,12 @@ export declare function makeApi(opts: StdioOptions): (tool: string, client?: str
                     x: number;
                     y: number;
                 }[] | undefined;
+                choice?: {
+                    index?: number | undefined;
+                    indexes?: number[] | undefined;
+                    order?: number[] | undefined;
+                    pair?: [number, number] | undefined;
+                } | undefined;
             }[];
             translationLanguage: string | null;
             nextCursor: string | null;
@@ -1715,7 +1915,7 @@ export declare function makeApi(opts: StdioOptions): (tool: string, client?: str
         insights: (id: string) => Promise<{
             insights: import("@50heads/shared").ResultInsights | null;
         }>;
-        summarise: (id: string) => Promise<{
+        summarize: (id: string) => Promise<{
             insights: import("@50heads/shared").ResultInsights | null;
         }>;
         wait: (id: string, seconds?: number, minAnswers?: number) => Promise<{
@@ -1734,6 +1934,8 @@ export declare function makeApi(opts: StdioOptions): (tool: string, client?: str
             url: string | null;
         }>;
         exportCsvUrl: (id: string, filter?: import("@50heads/shared").ResultFilterInput) => string;
+        exportJsonlUrl: (id: string, filter?: import("@50heads/shared").ResultFilterInput) => string;
+        exportJsonl: (id: string, filter?: import("@50heads/shared").ResultFilterInput) => Promise<string>;
         heatmapUrl: (id: string) => string;
         linkQrUrl: (id: string, format: "svg" | "png") => string;
         rate: (id: string, usefulness: number) => Promise<{
@@ -1877,12 +2079,12 @@ export declare function makeApi(opts: StdioOptions): (tool: string, client?: str
             transfers: import("@50heads/shared").BankTransfer[];
         }>;
         invoiceTerms: () => Promise<{
-            status: "none" | "pending" | "approved" | "declined";
+            status: "none" | "approved" | "pending" | "declined";
             termsDays: number | null;
             decidedAt: string | null;
         }>;
         requestInvoiceTerms: (input: import("zod").infer<typeof import("@50heads/shared").InvoiceTermsInput>) => Promise<{
-            status: "none" | "pending" | "approved" | "declined";
+            status: "none" | "approved" | "pending" | "declined";
             termsDays: number | null;
             decidedAt: string | null;
         }>;
@@ -2255,7 +2457,7 @@ export declare function makeApi(opts: StdioOptions): (tool: string, client?: str
             key: import("@50heads/shared").ApiKeyV2;
             secret: string;
         }>;
-        updateKey: (id: string, input: import("zod").infer<typeof import("@50heads/shared").UpdateApiKeyInput>) => Promise<{
+        updateKey: (id: string, input: import("zod").infer<typeof import("@50heads/shared").UpdateApiKeyInput>, reauthToken?: string) => Promise<{
             key: import("@50heads/shared").ApiKeyV2;
         }>;
         rotateKey: (id: string, reauthToken: string) => Promise<{
@@ -2318,7 +2520,7 @@ export declare function makeApi(opts: StdioOptions): (tool: string, client?: str
         updateWebhook: (id: string, input: import("zod").infer<typeof import("@50heads/shared").UpdateWebhookInput>) => Promise<{
             endpoint: import("zod").infer<typeof import("@50heads/shared").WebhookEndpoint>;
         }>;
-        rotateWebhookSecret: (id: string) => Promise<{
+        rotateWebhookSecret: (id: string, input?: import("zod").input<typeof import("@50heads/shared").RotateWebhookSecretInput>) => Promise<{
             endpoint: import("zod").infer<typeof import("@50heads/shared").WebhookEndpoint>;
         }>;
         deliveryAttempts: (deliveryId: string) => Promise<{
@@ -2344,6 +2546,105 @@ export declare function makeApi(opts: StdioOptions): (tool: string, client?: str
         }>;
         currentConnection: () => Promise<{
             connection: import("@50heads/shared").Connection;
+        }>;
+    };
+    webhooks: {
+        list: () => Promise<{
+            endpoints: import("zod").infer<typeof import("@50heads/shared").WebhookEndpoint>[];
+        }>;
+        create: (input: import("zod").input<typeof import("@50heads/shared").CreateWebhookInput>) => Promise<{
+            endpoint: import("zod").infer<typeof import("@50heads/shared").WebhookEndpoint>;
+        }>;
+        update: (id: string, input: import("zod").input<typeof import("@50heads/shared").UpdateWebhookInput>) => Promise<{
+            endpoint: import("zod").infer<typeof import("@50heads/shared").WebhookEndpoint>;
+        }>;
+        remove: (id: string) => Promise<{
+            ok: true;
+        }>;
+        rotateSecret: (id: string, input?: import("zod").input<typeof import("@50heads/shared").RotateWebhookSecretInput>) => Promise<{
+            endpoint: import("zod").infer<typeof import("@50heads/shared").WebhookEndpoint>;
+        }>;
+        test: (id: string) => Promise<{
+            outcome: "succeeded" | "retrying" | "failed" | "skipped";
+            delivery: import("zod").infer<typeof import("@50heads/shared").WebhookDelivery>;
+        }>;
+        deliveries: (filter?: {
+            endpointId?: string;
+            state?: import("@50heads/shared/client").WebhookDeliveryState;
+        }) => Promise<{
+            deliveries: import("zod").infer<typeof import("@50heads/shared").WebhookDelivery>[];
+        }>;
+        attempts: (deliveryId: string) => Promise<{
+            attempts: import("zod").infer<typeof import("@50heads/shared").WebhookAttempt>[];
+        }>;
+        replay: (deliveryId: string) => Promise<{
+            ok: true;
+            deliveryId: string;
+        }>;
+        recentEvents: (query: {
+            type: import("@50heads/shared").RecentEventsQuery["type"];
+            limit?: number;
+        }) => Promise<{
+            events: {
+                id: string;
+                type: string;
+                createdAt: string;
+                data: Record<string, unknown>;
+                apiVersion?: "2026-10-10" | undefined;
+            }[];
+        }>;
+        schemas: () => Promise<{
+            apiVersions: import("@50heads/shared").WebhookApiVersion[];
+            latest: import("@50heads/shared").WebhookApiVersion;
+            events: Record<import("@50heads/shared").EventType, Record<string, unknown>>;
+        }>;
+    };
+    apps: {
+        list: () => Promise<{
+            apps: {
+                id: string;
+                provider: "teams" | "slack";
+                workspaceId: string;
+                workspaceName: string;
+                defaultChannelName: string | null;
+                capDailyPence: number;
+                spentTodayPence: number;
+                installedAt: string;
+                installedBy: {
+                    name: string | null;
+                    email: string | null;
+                };
+                status: "active" | "revoked";
+            }[];
+            zapier: {
+                connectionId: string;
+                connectedAt: string;
+                lastUsedAt: string | null;
+                capDailyPence: number;
+                spentTodayPence: number;
+                hooks: number;
+                connectedBy: {
+                    name: string | null;
+                    email: string | null;
+                };
+            }[];
+            teamsAvailable: boolean;
+        }>;
+        slackInstallUrl: () => Promise<{
+            url: string;
+        }>;
+        teamsLinkPreview: (state: string) => Promise<{
+            workspaceName: string;
+            expiresAt: string;
+        }>;
+        teamsLink: (input: import("@50heads/shared").TeamsLinkInput) => Promise<{
+            app: import("@50heads/shared").WorkspaceApp;
+        }>;
+        update: (id: string, input: import("@50heads/shared").UpdateWorkspaceAppInput) => Promise<{
+            app: import("@50heads/shared").WorkspaceApp;
+        }>;
+        remove: (id: string) => Promise<{
+            ok: true;
         }>;
     };
     mcp: {
@@ -2405,6 +2706,18 @@ export declare function makeApi(opts: StdioOptions): (tool: string, client?: str
         remove: (memberId: string) => Promise<{
             team: import("@50heads/shared").Team | null;
         }>;
+        transferOwner: (input: import("zod").infer<typeof import("@50heads/shared").TransferTeamOwnerInput>, reauthToken: string) => Promise<{
+            team: import("@50heads/shared").Team;
+        }>;
+        connections: () => Promise<{
+            connections: import("@50heads/shared").TeamConnection[];
+        }>;
+        updateConnection: (id: string, input: import("zod").infer<typeof import("@50heads/shared").UpdateTeamConnectionInput>) => Promise<{
+            connection: import("@50heads/shared").TeamConnection;
+        }>;
+        revokeConnection: (id: string) => Promise<{
+            ok: true;
+        }>;
         accounts: () => Promise<{
             accounts: import("@50heads/shared").WorkspaceAccount[];
         }>;
@@ -2432,6 +2745,805 @@ export declare function makeApi(opts: StdioOptions): (tool: string, client?: str
             nextCursor: string | null;
         }>;
     };
+    organizations: {
+        current: () => Promise<{
+            organization: import("@50heads/shared").Organization;
+        }>;
+        rename: (input: import("@50heads/shared").RenameOrganizationInput, reauthToken: string) => Promise<{
+            organization: import("@50heads/shared").Organization;
+        }>;
+        domains: () => Promise<{
+            domains: import("@50heads/shared").OrganizationDomain[];
+        }>;
+        addDomain: (input: import("@50heads/shared").AddDomainInput, reauthToken: string) => Promise<{
+            domain: import("@50heads/shared").OrganizationDomain;
+        }>;
+        verifyDomain: (id: string, reauthToken: string) => Promise<{
+            outcome: "verified" | "already_verified" | "record_missing" | "value_mismatch" | "lookup_failed" | "held_elsewhere";
+            domain: {
+                id: string;
+                domain: string;
+                state: "verified" | "pending" | "failed" | "warning" | "revoked";
+                challenge: {
+                    recordName: string;
+                    recordType: "TXT";
+                    value: string;
+                };
+                createdAt: string;
+                verifiedAt: string | null;
+                checkedAt: string | null;
+                lastError: string | null;
+                warningSince: string | null;
+                graceEndsAt: string | null;
+            };
+        }>;
+        removeDomain: (id: string, reauthToken: string) => Promise<{
+            ok: true;
+        }>;
+        policies: () => Promise<{
+            policies: import("@50heads/shared").OrganizationPolicies;
+        }>;
+        updatePolicies: (input: import("@50heads/shared").UpdatePoliciesInput, reauthToken: string) => Promise<{
+            policies: import("@50heads/shared").OrganizationPolicies;
+        }>;
+        audit: (cursor?: string) => Promise<{
+            events: {
+                id: string;
+                at: string;
+                actor: {
+                    id: string | null;
+                    name: string | null;
+                };
+                action: "member.provisioned" | "member.deprovisioned" | "policy.changed" | "approval.requested" | "approval.decided" | "approval.expired" | "approval.refused" | "member.removed" | "member.role_changed" | "member.joined" | "approval.viewed" | "approval.reauthenticated" | "approval.canceled" | "approval.policy_changed" | "organization.created" | "organization.renamed" | "domain.added" | "domain.removed" | "domain.verified" | "domain.check_failed" | "domain.warning" | "domain.restored" | "domain.failed" | "sso.configured" | "sso.updated" | "sso.test_started" | "sso.tested" | "sso.enabled" | "sso.disabled" | "sso.enforced" | "sso.unenforced" | "sso.enforcement_suspended" | "sso.linked" | "sso.unlinked" | "break_glass.added" | "break_glass.removed" | "break_glass.used" | "scim.token_created" | "scim.token_rotated" | "scim.token_revoked" | "scim.settings_changed" | "scim.mapping_created" | "scim.mapping_changed" | "scim.mapping_removed" | "group.created" | "group.renamed" | "group.members_changed" | "group.deleted" | "member.linked" | "member.updated" | "member.reactivated" | "member.deleted" | "member.sessions_revoked" | "member.credentials_revoked" | "member.webhooks_stopped" | "deprovision.failing" | "workspace.owner_changed" | "sso.sessions_ended" | "service_account.created" | "service_account.updated" | "service_account.disabled" | "service_account.enabled" | "service_account.deleted" | "service_account.secret_rotated" | "service_account.secret_revoked" | "service_account.keys_changed";
+                subject: string;
+                data: Record<string, unknown>;
+            }[];
+            nextCursor: string | null;
+        }>;
+        auditEvents: (query?: import("@50heads/shared").AuditEventsQuery) => Promise<{
+            events: {
+                id: string;
+                at: string;
+                organizationId: string;
+                workspaceId: string | null;
+                source: "organization" | "workspace";
+                actor: {
+                    type: "scim" | "system" | "oauth" | "person" | "service_account" | "api_key";
+                    id: string | null;
+                    name: string | null;
+                };
+                action: "question.canceled" | "credits.purchased" | "member.provisioned" | "member.deprovisioned" | "policy.changed" | "approval.requested" | "approval.decided" | "approval.expired" | "approval.refused" | "question.asked" | "key.created" | "key.revoked" | "key.updated" | "member.invited" | "member.removed" | "member.role_changed" | "member.joined" | "member.cap_changed" | "connection.created" | "connection.revoked" | "connection.cap_changed" | "approval.viewed" | "approval.reauthenticated" | "approval.canceled" | "approval.policy_changed" | "organization.created" | "organization.renamed" | "domain.added" | "domain.removed" | "domain.verified" | "domain.check_failed" | "domain.warning" | "domain.restored" | "domain.failed" | "sso.configured" | "sso.updated" | "sso.test_started" | "sso.tested" | "sso.enabled" | "sso.disabled" | "sso.enforced" | "sso.unenforced" | "sso.enforcement_suspended" | "sso.linked" | "sso.unlinked" | "break_glass.added" | "break_glass.removed" | "break_glass.used" | "scim.token_created" | "scim.token_rotated" | "scim.token_revoked" | "scim.settings_changed" | "scim.mapping_created" | "scim.mapping_changed" | "scim.mapping_removed" | "group.created" | "group.renamed" | "group.members_changed" | "group.deleted" | "member.linked" | "member.updated" | "member.reactivated" | "member.deleted" | "member.sessions_revoked" | "member.credentials_revoked" | "member.webhooks_stopped" | "deprovision.failing" | "workspace.owner_changed" | "sso.sessions_ended" | "service_account.created" | "service_account.updated" | "service_account.disabled" | "service_account.enabled" | "service_account.deleted" | "service_account.secret_rotated" | "service_account.secret_revoked" | "service_account.keys_changed" | "audit.retention_changed" | "audit.retention_applied" | "audit.hold_created" | "audit.hold_released" | "audit.exported";
+                subject: string;
+                data: Record<string, unknown>;
+                ip: string | null;
+            }[];
+            nextCursor: string | null;
+        }>;
+        auditExportUrl: (format: "jsonl" | "csv", query?: Omit<import("@50heads/shared").AuditEventsQuery, "limit">) => string;
+        auditExport: (format: "jsonl" | "csv", query?: Omit<import("@50heads/shared").AuditEventsQuery, "limit">) => Promise<string>;
+        auditRetention: () => Promise<{
+            retention: import("@50heads/shared").AuditRetention;
+        }>;
+        setAuditRetention: (input: import("@50heads/shared").UpdateAuditRetentionInput, reauthToken: string) => Promise<{
+            retention: import("@50heads/shared").AuditRetention;
+        }>;
+        legalHolds: () => Promise<{
+            holds: import("@50heads/shared").LegalHold[];
+        }>;
+        createLegalHold: (input: import("@50heads/shared").CreateLegalHoldInput, reauthToken: string) => Promise<{
+            hold: import("@50heads/shared").LegalHold;
+        }>;
+        releaseLegalHold: (id: string, reauthToken: string) => Promise<{
+            hold: import("@50heads/shared").LegalHold;
+        }>;
+        joinable: () => Promise<{
+            organizations: import("@50heads/shared").JoinableOrganization[];
+        }>;
+        join: (input: import("@50heads/shared").JoinOrganizationInput) => Promise<{
+            organizationId: string;
+            workspaceId: string;
+            role: "viewer";
+        }>;
+        securityPolicies: () => Promise<{
+            policies: import("@50heads/shared").SecurityPolicies;
+        }>;
+        updateSecurityPolicies: (input: import("@50heads/shared").UpdateSecurityPoliciesInput, reauthToken: string) => Promise<{
+            policies: import("@50heads/shared").SecurityPolicies;
+        }>;
+        requirements: () => Promise<{
+            requirements: import("@50heads/shared").SecurityRequirements;
+        }>;
+        people: (query?: import("@50heads/shared").OrganizationPeopleQuery) => Promise<{
+            people: {
+                userId: string;
+                name: string | null;
+                email: string;
+                teams: {
+                    workspaceId: string;
+                    workspaceName: string;
+                    role: "owner" | "admin" | "member" | "viewer" | "billing";
+                    scimManaged: boolean;
+                }[];
+                scim: {
+                    active: boolean;
+                } | null;
+                ssoLinked: boolean;
+                lastSignInAt: string | null;
+                activeSessions: number;
+            }[];
+            nextCursor: string | null;
+        }>;
+        memberSessions: (userId: string) => Promise<{
+            userId: string;
+            sessions: {
+                id: string;
+                kind: "app" | "web";
+                label: string;
+                country: string | null;
+                authMethod: "apple" | "google" | "email" | "sso" | "passkey" | "break_glass" | null;
+                createdAt: string;
+                lastSeenAt: string | null;
+            }[];
+        }>;
+        revokeMemberSessions: (userId: string, reauthToken: string) => Promise<{
+            ok: true;
+            revoked: number;
+        }>;
+        transferWorkspaceOwner: (workspaceId: string, input: import("@50heads/shared").TransferWorkspaceOwnerInput, reauthToken: string) => Promise<{
+            workspaceId: string;
+            ownerId: string;
+            previousOwnerId: string;
+        }>;
+        scim: {
+            settings: () => Promise<{
+                settings: import("@50heads/shared").ScimSettings;
+            }>;
+            updateSettings: (input: import("@50heads/shared").UpdateScimSettingsInput, reauthToken: string) => Promise<{
+                defaultRole: "admin" | "member" | "viewer" | "billing";
+            }>;
+            tokens: () => Promise<{
+                tokens: import("@50heads/shared").ScimToken[];
+            }>;
+            createToken: (input: import("@50heads/shared").CreateScimTokenInput, reauthToken: string) => Promise<{
+                token: {
+                    id: string;
+                    label: string;
+                    prefix: string;
+                    createdAt: string;
+                    createdBy: string | null;
+                    expiresAt: string | null;
+                    lastUsedAt: string | null;
+                };
+                secret: string;
+                baseUrl: string;
+            }>;
+            rotateToken: (id: string, input: import("@50heads/shared").RotateScimTokenInput, reauthToken: string) => Promise<{
+                token: {
+                    id: string;
+                    label: string;
+                    prefix: string;
+                    createdAt: string;
+                    createdBy: string | null;
+                    expiresAt: string | null;
+                    lastUsedAt: string | null;
+                };
+                secret: string;
+                baseUrl: string;
+            }>;
+            revokeToken: (id: string, reauthToken: string) => Promise<{
+                ok: true;
+            }>;
+            groups: () => Promise<{
+                groups: import("@50heads/shared").ScimGroupSummary[];
+            }>;
+            mappings: () => Promise<{
+                mappings: import("@50heads/shared").ScimGroupMapping[];
+            }>;
+            createMapping: (input: import("@50heads/shared").CreateScimGroupMappingInput, reauthToken: string) => Promise<{
+                mapping: import("@50heads/shared").ScimGroupMapping;
+            }>;
+            updateMapping: (id: string, input: import("@50heads/shared").UpdateScimGroupMappingInput, reauthToken: string) => Promise<{
+                mapping: import("@50heads/shared").ScimGroupMapping;
+            }>;
+            removeMapping: (id: string, reauthToken: string) => Promise<{
+                ok: true;
+            }>;
+            log: (limit?: number) => Promise<{
+                entries: {
+                    id: string;
+                    at: string;
+                    method: string;
+                    path: string;
+                    status: number;
+                    outcome: string;
+                    scimType: string | null;
+                    resourceId: string | null;
+                    tokenId: string | null;
+                }[];
+            }>;
+        };
+        sso: {
+            get: () => Promise<{
+                connection: {
+                    id: string;
+                    protocol: "oidc" | "saml";
+                    issuer: string;
+                    clientId: string;
+                    clientSecretSet: boolean;
+                    clientSecretHint: string | null;
+                    tokenAuthMethod: "client_secret_basic" | "client_secret_post";
+                    defaultWorkspaceId: string | null;
+                    defaultRole: "admin" | "member" | "viewer";
+                    state: "enabled" | "draft" | "tested";
+                    enforce: boolean;
+                    enforceEnabledAt: string | null;
+                    configChangedAt: string;
+                    lastTest: {
+                        at: string;
+                        by: {
+                            id: string;
+                            name: string | null;
+                        };
+                        result: string;
+                        matchedTester: boolean;
+                        current: boolean;
+                    } | null;
+                    lastSignInAt: string | null;
+                    createdAt: string;
+                    updatedAt: string | null;
+                    saml: {
+                        idpEntityId: string;
+                        ssoUrl: string;
+                        metadataUrl: string | null;
+                        certificates: {
+                            fingerprint: string;
+                            notBefore: string;
+                            notAfter: string;
+                            subject: string | null;
+                            keyType: "rsa" | "ec-p256";
+                        }[];
+                        allowIdpInitiated: boolean;
+                    } | null;
+                } | null;
+                redirectUri: string;
+                scopes: string[];
+                saml: {
+                    entityId: string;
+                    acsUrl: string;
+                    metadataUrl: string;
+                    nameIdFormat: string;
+                };
+            }>;
+            save: (input: import("@50heads/shared").SsoConnectionInput, reauthToken: string) => Promise<{
+                connection: {
+                    id: string;
+                    protocol: "oidc" | "saml";
+                    issuer: string;
+                    clientId: string;
+                    clientSecretSet: boolean;
+                    clientSecretHint: string | null;
+                    tokenAuthMethod: "client_secret_basic" | "client_secret_post";
+                    defaultWorkspaceId: string | null;
+                    defaultRole: "admin" | "member" | "viewer";
+                    state: "enabled" | "draft" | "tested";
+                    enforce: boolean;
+                    enforceEnabledAt: string | null;
+                    configChangedAt: string;
+                    lastTest: {
+                        at: string;
+                        by: {
+                            id: string;
+                            name: string | null;
+                        };
+                        result: string;
+                        matchedTester: boolean;
+                        current: boolean;
+                    } | null;
+                    lastSignInAt: string | null;
+                    createdAt: string;
+                    updatedAt: string | null;
+                    saml: {
+                        idpEntityId: string;
+                        ssoUrl: string;
+                        metadataUrl: string | null;
+                        certificates: {
+                            fingerprint: string;
+                            notBefore: string;
+                            notAfter: string;
+                            subject: string | null;
+                            keyType: "rsa" | "ec-p256";
+                        }[];
+                        allowIdpInitiated: boolean;
+                    } | null;
+                } | null;
+                redirectUri: string;
+                scopes: string[];
+                saml: {
+                    entityId: string;
+                    acsUrl: string;
+                    metadataUrl: string;
+                    nameIdFormat: string;
+                };
+            }>;
+            update: (input: import("@50heads/shared").SsoConnectionPatch, reauthToken: string) => Promise<{
+                connection: {
+                    id: string;
+                    protocol: "oidc" | "saml";
+                    issuer: string;
+                    clientId: string;
+                    clientSecretSet: boolean;
+                    clientSecretHint: string | null;
+                    tokenAuthMethod: "client_secret_basic" | "client_secret_post";
+                    defaultWorkspaceId: string | null;
+                    defaultRole: "admin" | "member" | "viewer";
+                    state: "enabled" | "draft" | "tested";
+                    enforce: boolean;
+                    enforceEnabledAt: string | null;
+                    configChangedAt: string;
+                    lastTest: {
+                        at: string;
+                        by: {
+                            id: string;
+                            name: string | null;
+                        };
+                        result: string;
+                        matchedTester: boolean;
+                        current: boolean;
+                    } | null;
+                    lastSignInAt: string | null;
+                    createdAt: string;
+                    updatedAt: string | null;
+                    saml: {
+                        idpEntityId: string;
+                        ssoUrl: string;
+                        metadataUrl: string | null;
+                        certificates: {
+                            fingerprint: string;
+                            notBefore: string;
+                            notAfter: string;
+                            subject: string | null;
+                            keyType: "rsa" | "ec-p256";
+                        }[];
+                        allowIdpInitiated: boolean;
+                    } | null;
+                } | null;
+                redirectUri: string;
+                scopes: string[];
+                saml: {
+                    entityId: string;
+                    acsUrl: string;
+                    metadataUrl: string;
+                    nameIdFormat: string;
+                };
+            }>;
+            test: (reauthToken: string) => Promise<{
+                url: string;
+                expiresAt: string;
+            }>;
+            events: (cursor?: string) => Promise<{
+                events: {
+                    id: string;
+                    at: string;
+                    kind: "link" | "test" | "sign_in";
+                    outcome: "error" | "ok";
+                    code: string | null;
+                    message: string | null;
+                    email: string | null;
+                }[];
+                nextCursor: string | null;
+            }>;
+            enforce: (input: import("@50heads/shared").SsoEnforceInput, reauthToken: string) => Promise<{
+                connection: {
+                    id: string;
+                    protocol: "oidc" | "saml";
+                    issuer: string;
+                    clientId: string;
+                    clientSecretSet: boolean;
+                    clientSecretHint: string | null;
+                    tokenAuthMethod: "client_secret_basic" | "client_secret_post";
+                    defaultWorkspaceId: string | null;
+                    defaultRole: "admin" | "member" | "viewer";
+                    state: "enabled" | "draft" | "tested";
+                    enforce: boolean;
+                    enforceEnabledAt: string | null;
+                    configChangedAt: string;
+                    lastTest: {
+                        at: string;
+                        by: {
+                            id: string;
+                            name: string | null;
+                        };
+                        result: string;
+                        matchedTester: boolean;
+                        current: boolean;
+                    } | null;
+                    lastSignInAt: string | null;
+                    createdAt: string;
+                    updatedAt: string | null;
+                    saml: {
+                        idpEntityId: string;
+                        ssoUrl: string;
+                        metadataUrl: string | null;
+                        certificates: {
+                            fingerprint: string;
+                            notBefore: string;
+                            notAfter: string;
+                            subject: string | null;
+                            keyType: "rsa" | "ec-p256";
+                        }[];
+                        allowIdpInitiated: boolean;
+                    } | null;
+                } | null;
+                redirectUri: string;
+                scopes: string[];
+                saml: {
+                    entityId: string;
+                    acsUrl: string;
+                    metadataUrl: string;
+                    nameIdFormat: string;
+                };
+            }>;
+            breakGlass: {
+                list: () => Promise<{
+                    members: {
+                        userId: string;
+                        email: string;
+                        name: string | null;
+                        addedAt: string;
+                        hasPasskey: boolean;
+                    }[];
+                    max: number;
+                }>;
+                add: (input: import("@50heads/shared").BreakGlassAddInput, reauthToken: string) => Promise<{
+                    members: {
+                        userId: string;
+                        email: string;
+                        name: string | null;
+                        addedAt: string;
+                        hasPasskey: boolean;
+                    }[];
+                    max: number;
+                }>;
+                remove: (userId: string, reauthToken: string) => Promise<{
+                    members: {
+                        userId: string;
+                        email: string;
+                        name: string | null;
+                        addedAt: string;
+                        hasPasskey: boolean;
+                    }[];
+                    max: number;
+                }>;
+            };
+        };
+        serviceAccounts: {
+            list: () => Promise<{
+                serviceAccounts: {
+                    id: string;
+                    name: string;
+                    organizationId: string;
+                    workspaceId: string;
+                    workspaceName: string;
+                    status: "active" | "disabled";
+                    scopes: ("questions:read" | "questions:write" | "templates:read" | "account:read" | "webhooks:read" | "webhooks:write" | "apps:read" | "apps:write" | "organization:read" | "organization:write" | "members:read" | "members:write" | "audit:read")[];
+                    capDailyPence: number;
+                    capPerQuestionPence: number | null;
+                    spentTodayPence: number;
+                    clientId: string;
+                    authMethod: "client_secret" | "private_key_jwt";
+                    secrets: {
+                        id: string;
+                        hint: string;
+                        createdAt: string;
+                        expiresAt: string | null;
+                        lastUsedAt: string | null;
+                    }[];
+                    jwks: {
+                        keys: {
+                            [x: string]: unknown;
+                            kty: "EC" | "RSA";
+                            kid?: string | undefined;
+                            alg?: "ES256" | "RS256" | undefined;
+                            use?: "sig" | undefined;
+                            crv?: string | undefined;
+                            x?: string | undefined;
+                            y?: string | undefined;
+                            n?: string | undefined;
+                            e?: string | undefined;
+                        }[];
+                    } | null;
+                    createdAt: string;
+                    createdBy: {
+                        id: string;
+                        name: string | null;
+                    } | null;
+                    lastUsedAt: string | null;
+                    disabledAt: string | null;
+                }[];
+            }>;
+            get: (id: string) => Promise<{
+                serviceAccount: import("@50heads/shared").ServiceAccount;
+            }>;
+            create: (input: import("@50heads/shared").CreateServiceAccountInput, reauthToken: string) => Promise<{
+                serviceAccount: {
+                    id: string;
+                    name: string;
+                    organizationId: string;
+                    workspaceId: string;
+                    workspaceName: string;
+                    status: "active" | "disabled";
+                    scopes: ("questions:read" | "questions:write" | "templates:read" | "account:read" | "webhooks:read" | "webhooks:write" | "apps:read" | "apps:write" | "organization:read" | "organization:write" | "members:read" | "members:write" | "audit:read")[];
+                    capDailyPence: number;
+                    capPerQuestionPence: number | null;
+                    spentTodayPence: number;
+                    clientId: string;
+                    authMethod: "client_secret" | "private_key_jwt";
+                    secrets: {
+                        id: string;
+                        hint: string;
+                        createdAt: string;
+                        expiresAt: string | null;
+                        lastUsedAt: string | null;
+                    }[];
+                    jwks: {
+                        keys: {
+                            [x: string]: unknown;
+                            kty: "EC" | "RSA";
+                            kid?: string | undefined;
+                            alg?: "ES256" | "RS256" | undefined;
+                            use?: "sig" | undefined;
+                            crv?: string | undefined;
+                            x?: string | undefined;
+                            y?: string | undefined;
+                            n?: string | undefined;
+                            e?: string | undefined;
+                        }[];
+                    } | null;
+                    createdAt: string;
+                    createdBy: {
+                        id: string;
+                        name: string | null;
+                    } | null;
+                    lastUsedAt: string | null;
+                    disabledAt: string | null;
+                };
+                clientSecret: string | null;
+                tokenEndpoint: string;
+            }>;
+            update: (id: string, input: import("@50heads/shared").UpdateServiceAccountInput, reauthToken: string) => Promise<{
+                serviceAccount: import("@50heads/shared").ServiceAccount;
+            }>;
+            disable: (id: string, reauthToken: string) => Promise<{
+                serviceAccount: import("@50heads/shared").ServiceAccount;
+            }>;
+            enable: (id: string, reauthToken: string) => Promise<{
+                serviceAccount: import("@50heads/shared").ServiceAccount;
+            }>;
+            remove: (id: string, reauthToken: string) => Promise<{
+                ok: true;
+            }>;
+            rotateSecret: (id: string, input: import("@50heads/shared").RotateServiceAccountSecretInput, reauthToken: string) => Promise<{
+                serviceAccount: {
+                    id: string;
+                    name: string;
+                    organizationId: string;
+                    workspaceId: string;
+                    workspaceName: string;
+                    status: "active" | "disabled";
+                    scopes: ("questions:read" | "questions:write" | "templates:read" | "account:read" | "webhooks:read" | "webhooks:write" | "apps:read" | "apps:write" | "organization:read" | "organization:write" | "members:read" | "members:write" | "audit:read")[];
+                    capDailyPence: number;
+                    capPerQuestionPence: number | null;
+                    spentTodayPence: number;
+                    clientId: string;
+                    authMethod: "client_secret" | "private_key_jwt";
+                    secrets: {
+                        id: string;
+                        hint: string;
+                        createdAt: string;
+                        expiresAt: string | null;
+                        lastUsedAt: string | null;
+                    }[];
+                    jwks: {
+                        keys: {
+                            [x: string]: unknown;
+                            kty: "EC" | "RSA";
+                            kid?: string | undefined;
+                            alg?: "ES256" | "RS256" | undefined;
+                            use?: "sig" | undefined;
+                            crv?: string | undefined;
+                            x?: string | undefined;
+                            y?: string | undefined;
+                            n?: string | undefined;
+                            e?: string | undefined;
+                        }[];
+                    } | null;
+                    createdAt: string;
+                    createdBy: {
+                        id: string;
+                        name: string | null;
+                    } | null;
+                    lastUsedAt: string | null;
+                    disabledAt: string | null;
+                };
+                clientSecret: string | null;
+                tokenEndpoint: string;
+            }>;
+            revokeSecret: (id: string, secretId: string, reauthToken: string) => Promise<{
+                serviceAccount: import("@50heads/shared").ServiceAccount;
+            }>;
+            setJwks: (id: string, input: import("@50heads/shared").SetServiceAccountJwksInput, reauthToken: string) => Promise<{
+                serviceAccount: import("@50heads/shared").ServiceAccount;
+            }>;
+        };
+    };
+    approvals: {
+        list: (query?: import("@50heads/shared").ApprovalListQuery) => Promise<{
+            approvals: {
+                id: string;
+                state: "canceled" | "approved" | "denied" | "pending" | "expired";
+                organizationId: string;
+                organizationName: string;
+                workspaceId: string;
+                workspaceName: string;
+                questionId: string;
+                question: {
+                    text: string;
+                    type: string;
+                    options: {
+                        label: string;
+                        imageUrl: string | null;
+                    }[];
+                    context: string | null;
+                };
+                amountPence: number;
+                heads: number;
+                tier: number;
+                etaMinutes: number | null;
+                reasons: ("tier" | "images" | "per_ask" | "per_day" | "per_month" | "always")[];
+                requester: {
+                    kind: "key" | "app" | "person" | "service_account";
+                    name: string;
+                    keyTail: string | null;
+                };
+                projectId: string | null;
+                projectName: string | null;
+                quorum: 1 | 2;
+                approvedCount: number;
+                approverRoles: ("owner" | "admin" | "billing")[];
+                approverCount: number;
+                votes: {
+                    userId: string | null;
+                    name: string | null;
+                    role: string;
+                    decision: "approve" | "deny";
+                    reason: string | null;
+                    channel: "app" | "web";
+                    at: string;
+                }[];
+                expiresAt: string;
+                createdAt: string;
+                decidedAt: string | null;
+                canDecide: boolean;
+                blocked: "expired" | "own_ask" | "not_approver" | "already_voted" | "decided" | null;
+                heldPence: number;
+                confirmRequired: boolean;
+                approveUrl: string;
+            }[];
+            pendingForYou: number;
+            nextCursor: string | null;
+            stats?: {
+                decided: number;
+                approved: number;
+                denied: number;
+                expired: number;
+                approvedPence: number;
+                releasedPence: number;
+                medianMinutes: number | null;
+                slowestMinutes: number | null;
+                monthlyLimitPence: number | null;
+            } | null | undefined;
+            enabled?: boolean | undefined;
+        }>;
+        review: (id: string) => Promise<{
+            approval: import("@50heads/shared").Approval;
+        }>;
+        status: (id: string) => Promise<{
+            approvalId: string;
+            questionId: string;
+            status: "canceled" | "approved" | "denied" | "pending" | "expired";
+            amountPence: number;
+            approveUrl: string;
+            expiresAt: string;
+            quorum: 1 | 2;
+            approvedCount: number;
+            code: "refused_by_policy" | "approval_expired" | null;
+            decision: {
+                outcome: "canceled" | "approved" | "denied" | "expired";
+                reason: string | null;
+                decidedByRole: string | null;
+                decidedAt: string;
+            } | null;
+        }>;
+        confirm: (id: string, input: import("@50heads/shared").ApprovalConfirmInput) => Promise<{
+            confirmationId: string;
+            expiresAt: string;
+            windowEndsAt: string;
+        }>;
+        decide: (id: string, input: import("@50heads/shared").ApprovalDecisionInput, options?: {
+            reauthToken?: string;
+        }) => Promise<import("@50heads/shared").ApprovalDecisionResult>;
+        notifications: {
+            get: () => Promise<{
+                settings: import("@50heads/shared").ApprovalNotifySettings;
+            }>;
+            update: (input: import("@50heads/shared").ApprovalNotifySettingsInput) => Promise<{
+                settings: import("@50heads/shared").ApprovalNotifySettings;
+            }>;
+        };
+        policies: {
+            list: () => Promise<{
+                policies: {
+                    id: string;
+                    organizationId: string;
+                    scope: "key" | "organization" | "workspace" | "project";
+                    scopeId: string | null;
+                    scopeName: string | null;
+                    enabled: boolean;
+                    always: boolean;
+                    perAskPence: number | null;
+                    perDayPence: number | null;
+                    perMonthPence: number | null;
+                    requireForTiers: number[];
+                    requireForImages: boolean;
+                    approvers: {
+                        roles: ("owner" | "admin" | "billing")[];
+                        people: {
+                            userId: string;
+                            name: string | null;
+                            email: string | null;
+                        }[];
+                    };
+                    quorum: 1 | 2;
+                    expiresInMinutes: number;
+                    onExpiry: "deny";
+                    allowSelfApprovalUnderPence: number | null;
+                    notify: ("email" | "app")[];
+                    createdAt: string;
+                    updatedAt: string | null;
+                }[];
+                targets: {
+                    workspaces: {
+                        id: string;
+                        name: string;
+                    }[];
+                    projects: {
+                        id: string;
+                        name: string;
+                        workspaceId: string | null;
+                    }[];
+                    keys: {
+                        id: string;
+                        name: string;
+                        workspaceId: string | null;
+                    }[];
+                    people: {
+                        userId: string;
+                        name: string | null;
+                        email: string | null;
+                    }[];
+                };
+            }>;
+            create: (input: import("@50heads/shared").ApprovalPolicyInput, reauthToken: string) => Promise<{
+                policy: import("@50heads/shared").ApprovalPolicy;
+            }>;
+            update: (id: string, input: import("@50heads/shared").ApprovalPolicyPatch, reauthToken: string) => Promise<{
+                policy: import("@50heads/shared").ApprovalPolicy;
+            }>;
+            remove: (id: string, reauthToken: string) => Promise<{
+                ok: true;
+            }>;
+        };
+    };
     oauth: {
         request: (id: string) => Promise<{
             id: string;
@@ -2440,10 +3552,10 @@ export declare function makeApi(opts: StdioOptions): (tool: string, client?: str
             clientUri: string | null;
             logoUri: string | null;
             redirectHost: string;
-            scopes: ("questions:read" | "questions:write" | "templates:read" | "account:read")[];
+            scopes: ("questions:read" | "questions:write" | "templates:read" | "account:read" | "webhooks:read" | "webhooks:write" | "apps:read" | "apps:write" | "organization:read" | "organization:write" | "members:read" | "members:write" | "audit:read")[];
             scopeLines: string[];
             defaultCapDailyPence: number;
-            grantedScopes?: ("questions:read" | "questions:write" | "templates:read" | "account:read")[] | undefined;
+            grantedScopes?: ("questions:read" | "questions:write" | "templates:read" | "account:read" | "webhooks:read" | "webhooks:write" | "apps:read" | "apps:write" | "organization:read" | "organization:write" | "members:read" | "members:write" | "audit:read")[] | undefined;
             teams?: {
                 id: string;
                 name: string;

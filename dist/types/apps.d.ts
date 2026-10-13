@@ -1,14 +1,19 @@
 /**
- * MCP Apps (io.modelcontextprotocol/apps) views: the quote card for `estimate` and the results
- * view for `get_results` and the results resource. Each is one self-contained HTML document:
+ * MCP Apps (io.modelcontextprotocol/apps) views: the quote card for `estimate` (action quote) and the
+ * results view for `results` (actions get and wait) and the results resource. Each is one self-contained HTML document:
  * brand tokens inline, no external requests (fonts fall back to the brand's stacks), under
- * 30 KB. They talk to the host over the MCP Apps postMessage protocol and also read
+ * 30 KB. A tool carries one view for all its actions, so each view draws only the result it was
+ * made for (a quote, a results object) and hides itself for any other action's reply. They talk to the host over the MCP Apps postMessage protocol and also read
  * `window.openai.toolOutput` on hosts that expose it.
  */
 export declare const APP_MIME_TYPE = "text/html;profile=mcp-app";
 export declare const RESULTS_VIEW_URI = "ui://50heads/results.html";
 export declare const QUOTE_VIEW_URI = "ui://50heads/quote.html";
-/** The results view: winner line, bars, confidence, a follow-up button. */
+/**
+ * The results view: winner line (or the verdict pill for a go rule), bars with pairwise ranges,
+ * confidence, who beats whom, a follow-up button. Verdict pills are Ink and Line, never Tomato
+ * or Lime: Tomato asks, Lime pays.
+ */
 export declare function resultsViewHtml(): string;
 /**
  * The quote card: cost and time in one sentence, credits and pool, fixes, an ask button. The

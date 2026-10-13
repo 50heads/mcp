@@ -1,6 +1,6 @@
 # Pricing
 
-Prices are in credits. `estimate`, `balance` and 50heads://pricing show them in your account currency at the day's rate. You pay per accepted answer; unanswered heads are refunded.
+Prices are in credits. `estimate` (quote and balance) and 50heads://pricing show them in your account currency at the day's rate. You pay per accepted answer; unanswered heads are refunded.
 
 Per answer = tier base × length × format, plus images and targeting traits, times 1.5 for rush. Total = per answer × heads.
 
@@ -26,4 +26,4 @@ Your audience (`answered_by: "private"`): a link you share instead of heads, 5 c
 
 Every connection has a daily spend cap (default 5,000 credits), set when you connect and editable in the dashboard. Call `balance` to see what is left.
 
-Always call `estimate` first: it returns the exact price, the time and any fixes the question needs, and never spends.
+Always call `estimate` (action quote) first: it returns the exact price, the time and any fixes the question needs, and never spends.

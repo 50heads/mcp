@@ -2,8 +2,8 @@
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
   "name": "com.50heads/mcp",
   "title": "50heads",
-  "description": "Ask fifty verified people a five-second question and get the split back.",
-  "version": "2026.1009.1",
+  "description": "Ask fifty verified people a five-second question and see what they think.",
+  "version": "2026.1013.1",
   "websiteUrl": "https://50heads.com/agents",
   "repository": {
     "url": "https://github.com/50heads/mcp",
@@ -44,7 +44,7 @@
       "registryType": "npm",
       "registryBaseUrl": "https://registry.npmjs.org",
       "identifier": "@50heads/mcp",
-      "version": "2026.1009.1",
+      "version": "2026.1013.1",
       "runtimeHint": "npx",
       "transport": {
         "type": "stdio"
@@ -67,6 +67,11 @@
         "productivity",
         "human-feedback"
       ],
+      "documentationUrl": "https://50heads.com/en-us/docs/mcp",
+      "privacyPolicyUrl": "https://50heads.com/en-gb/legal/privacy",
+      "noTrainStatementUrl": "https://50heads.com/en-gb/help/privacy/ai-and-your-data",
+      "termsOfServiceUrl": "https://50heads.com/en-gb/legal/terms",
+      "supportUrl": "https://50heads.com/en-gb/contact?purpose=support",
       "authorization": {
         "resourceMetadata": "https://mcp.50heads.com/.well-known/oauth-protected-resource",
         "authorizationServer": "https://auth.50heads.com",
@@ -74,10 +79,19 @@
           "questions:read",
           "questions:write",
           "templates:read",
-          "account:read"
+          "account:read",
+          "webhooks:read",
+          "webhooks:write",
+          "apps:read",
+          "apps:write",
+          "organization:read",
+          "organization:write",
+          "members:read",
+          "members:write",
+          "audit:read"
         ]
       },
-      "skillVersion": "2026.1009.1"
+      "skillVersion": "2026.1013.1"
     }
   }
 }

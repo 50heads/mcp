@@ -28,10 +28,8 @@ export declare function formatPrice(p: {
  * total stays the Tier 1 price from packages/shared (50 × per-answer credits).
  */
 export declare function readmeLead(): string;
-/** "about 10 minutes", "about 2 hours". */
-export declare function aboutMinutes(minutes: number): string;
-/** Cost and time in one sentence, per BRAND.md: "50 answers, about 10 minutes, $12.70." */
-export declare function costLine(n: number, etaMinutes: number, p: {
+/** The price in one sentence: "50 answers, $12.70." No time estimate. */
+export declare function costLine(n: number, p: {
     amount: number;
     currency: string;
 }): string;
@@ -89,7 +87,7 @@ export declare function pricingTable(currency: Currency, rates?: Rates): {
 };
 /**
  * The pricing reference as markdown (the skill's references/pricing.md). A static file read by
- * every account, so it is in credits; `estimate`, `balance` and 50heads://pricing give money
+ * every account, so it is in credits; `estimate` (quote and balance) and 50heads://pricing give money
  * in the account's own currency.
  */
 export declare function pricingMarkdown(): string;

@@ -9,7 +9,7 @@ function configSnippets(options = {}) {
     {
       client: "claude-desktop",
       title: "Claude (claude.ai and Claude Desktop)",
-      where: "Settings, Connectors, Add custom connector. Paste the URL and sign in when asked. On Team and Enterprise plans an owner adds it for the organisation first.",
+      where: "Settings, Connectors, Add custom connector. Paste the URL and sign in when asked. On Team and Enterprise plans an owner adds it for the organization first.",
       auth: "oauth",
       format: "text",
       body: url,

@@ -31,8 +31,8 @@ export type TaskObject = {
     pollInterval: number;
 };
 export declare function isTerminal(status: TaskStatus): boolean;
-/** "12 of 50 answered · about 6 minutes left" */
-export declare function statusMessage(q: Pick<QuestionV2, "status" | "answered" | "n" | "etaMinutes" | "refusedCategory">): string;
+/** "12 of 50 answered" */
+export declare function statusMessage(q: Pick<QuestionV2, "status" | "answered" | "n" | "refusedCategory">): string;
 export declare function toTask(q: QuestionV2, now?: string): TaskObject;
 export type TaskDeps = {
     /** A client for the calling principal, tagged with the task method. */

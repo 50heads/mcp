@@ -4,7 +4,19 @@
  */
 export declare const REGISTRY_NAME = "com.50heads/mcp";
 export declare const NPM_PACKAGE = "@50heads/mcp";
-export declare const DESCRIPTION = "Ask fifty verified people a five-second question and get the split back.";
+export declare const DESCRIPTION = "Ask fifty verified people a five-second question and see what they think.";
+/**
+ * Public links every directory listing and the registry entry carry (docs/listings). The no-train
+ * statement is the Help article; the privacy policy has the same words under "AI and your data".
+ */
+export declare const LISTING_URLS: {
+    readonly website: "https://50heads.com/agents";
+    readonly documentation: "https://50heads.com/en-us/docs/mcp";
+    readonly privacyPolicy: "https://50heads.com/en-gb/legal/privacy";
+    readonly noTrain: "https://50heads.com/en-gb/help/privacy/ai-and-your-data";
+    readonly terms: "https://50heads.com/en-gb/legal/terms";
+    readonly support: "https://50heads.com/en-gb/contact?purpose=support";
+};
 export type ManifestOptions = {
     /** The hosted endpoint, https://mcp.50heads.com/mcp. */
     endpoint?: string;
@@ -35,7 +47,7 @@ export declare function serverCard(opts?: ManifestOptions): {
         schemes: string[];
         resourceMetadata: string;
         authorizationServers: string[];
-        scopes: ("questions:read" | "questions:write" | "templates:read" | "account:read")[];
+        scopes: ("questions:read" | "questions:write" | "templates:read" | "account:read" | "webhooks:read" | "webhooks:write" | "apps:read" | "apps:write" | "organization:read" | "organization:write" | "members:read" | "members:write" | "audit:read")[];
     };
     capabilities: {
         tools: {
@@ -75,8 +87,11 @@ export declare function serverCard(opts?: ManifestOptions): {
         };
     };
     tools: {
-        name: string;
-        scope: "questions:read" | "questions:write" | "account:read" | null;
+        name: "organization" | "ask" | "questions" | "results" | "projects" | "audit" | "estimate" | "webhooks" | "help";
+        actions: {
+            action: string;
+            scope: "questions:read" | "questions:write" | "account:read" | "webhooks:read" | "webhooks:write" | "apps:read" | "organization:read" | "members:read" | "audit:read" | null;
+        }[];
     }[];
     resources: string[];
     prompts: string[];
@@ -89,7 +104,7 @@ export declare function registryServerJson(): {
     title: string;
     description: string;
     version: string;
-    websiteUrl: string;
+    websiteUrl: "https://50heads.com/agents";
     repository: {
         url: string;
         source: string;
@@ -129,10 +144,15 @@ export declare function registryServerJson(): {
     _meta: {
         "io.modelcontextprotocol.registry/publisher-provided": {
             categories: string[];
+            documentationUrl: "https://50heads.com/en-us/docs/mcp";
+            privacyPolicyUrl: "https://50heads.com/en-gb/legal/privacy";
+            noTrainStatementUrl: "https://50heads.com/en-gb/help/privacy/ai-and-your-data";
+            termsOfServiceUrl: "https://50heads.com/en-gb/legal/terms";
+            supportUrl: "https://50heads.com/en-gb/contact?purpose=support";
             authorization: {
                 resourceMetadata: string;
                 authorizationServer: string;
-                scopes: ("questions:read" | "questions:write" | "templates:read" | "account:read")[];
+                scopes: ("questions:read" | "questions:write" | "templates:read" | "account:read" | "webhooks:read" | "webhooks:write" | "apps:read" | "apps:write" | "organization:read" | "organization:write" | "members:read" | "members:write" | "audit:read")[];
             };
             skillVersion: string;
         };

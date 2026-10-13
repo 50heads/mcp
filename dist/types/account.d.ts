@@ -17,6 +17,6 @@ export declare function accountMoney(api: (tag: string) => Client, canReadAccoun
     currency: (explicit?: Currency | null) => Promise<Currency>;
     /** Both, in parallel. */
     money: (explicit?: Currency | null) => Promise<Money>;
-    /** Records a currency already read (the balance tool), so no second request is made. */
+    /** Records a currency already read (estimate, action balance), so no second request is made. */
     remember(c: Currency): void;
 };

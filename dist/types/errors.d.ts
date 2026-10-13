@@ -14,7 +14,7 @@ export declare const ERROR_CODES: {
     readonly transient: -32000;
     readonly internal: -32603;
 };
-export type McpErrorCode = "validation" | "not_found" | "insufficient_credits" | "spend_cap_exceeded" | "idempotency_conflict" | "content_refused" | "underfilled" | "unauthorised" | "insufficient_scope" | "rate_limited" | "unavailable" | "internal";
+export type McpErrorCode = "validation" | "not_found" | "insufficient_credits" | "spend_cap_exceeded" | "idempotency_conflict" | "content_refused" | "underfilled" | "unauthorized" | "insufficient_scope" | "rate_limited" | "unavailable" | "internal";
 export type McpErrorData = {
     code: McpErrorCode;
     retryable: boolean;

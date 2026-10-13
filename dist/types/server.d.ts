@@ -1,6 +1,6 @@
 import { McpServer, type ServerContext } from "@modelcontextprotocol/server";
 import { type Client } from "@50heads/shared/client";
-export { MCP_RESOURCE_URL, PROMPT_SCOPES, PUBLIC_RESOURCE_PREFIXES, SERVER_NAME, SERVER_VERSION, TOOL_NAMES, TOOL_SCOPES, resourceScope, type ToolName, } from "./constants.js";
+export { MCP_RESOURCE_URL, PROMPT_SCOPES, PUBLIC_RESOURCE_PREFIXES, SERVER_NAME, SERVER_VERSION, TOOL_ACTIONS, TOOL_NAMES, MAX_TOOLS, WRITE_ACTIONS, ACTION_IDS, actionScope, resourceScope, type ActionId, type ToolName, } from "./constants.js";
 export type CallLog = {
     kind: "tool" | "resource" | "prompt";
     name: string;
@@ -22,13 +22,15 @@ export type ServerOptions = {
     authenticated: boolean;
     portalUrl: string;
     webUrl: string;
+    /** The API's public address, for links to it (webhook schemas). Default https://api.50heads.com. */
+    apiUrl?: string;
     /** Protected resource metadata URL, advertised in the com.50heads/auth extension. */
     resourceMetadataUrl?: string;
     traceId?: string;
-    /** Longest a single call may block (wait_for_results), in ms. Default 600 s. */
+    /** Longest a single call may block (results, action wait), in ms. Default 600 s. */
     maxWaitMs?: number;
     onCall?: (log: CallLog) => void;
-    /** Fetches public files from webUrl (the help index for search_help). Default: global fetch. */
+    /** Fetches public files from webUrl (the help index for help, action search). Default: global fetch. */
     fetchWeb?: typeof fetch;
     /** Sent with feedback so support can tell hosts and versions apart, such as "mcp/2026.924.1". */
     source?: string;

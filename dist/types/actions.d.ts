@@ -33,7 +33,7 @@ export declare function answersPage(api: Client, questionId: string, filter: Ans
 }): Promise<GetAnswersOutput>;
 /**
  * The portal composer's query parameters (apps/web/app/lib/portal/composer.ts draftFromForm and
- * the ask loader). Documented in the help centre and on /docs/mcp; keep the three in step.
+ * the ask loader). Documented in the help center and on /docs/mcp; keep the three in step.
  */
 export declare function buildAskLink(portalUrl: string, input: BuildAskLinkInput): {
     url: string;

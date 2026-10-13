@@ -9,7 +9,7 @@
  * ```
  */
 import type { McpServer } from "@modelcontextprotocol/server";
-export { MCP_RESOURCE_URL, PROMPT_SCOPES, SERVER_NAME, SERVER_VERSION, TOOL_NAMES, TOOL_SCOPES, type ToolName, } from "./constants.js";
+export { MCP_RESOURCE_URL, PROMPT_SCOPES, SERVER_NAME, SERVER_VERSION, TOOL_ACTIONS, TOOL_NAMES, type ActionId, type ToolName, } from "./constants.js";
 export { CLIENTS, configSnippets, type ClientId, type Snippet, type SnippetOptions } from "./snippets.js";
 export { SKILL_BODY, SKILL_FILES, SKILL_VERSION } from "./generated/skill.js";
 export { registryServerJson, serverCard } from "./manifest.js";
